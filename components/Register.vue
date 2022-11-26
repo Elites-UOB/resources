@@ -9,14 +9,15 @@
         <Teleport to="body">
             <Transition>
                 <div v-if="opened" @click="opened = false" flex="~" items-center justify-center class="fixed inset-0 bg-p bg-opacity-80" backdrop-blur="sm" z="20">
-                    <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="4" bg="p" w="md" h="md" border="2 s-stroke rounded-15px">
+                    <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="4" bg="p" w="md" h="lg" border="2 s-stroke rounded-15px">
                         <h1 m="b-4 t-8" text-white>
                             <span v-if="isLogin">تسجيل الدخول</span>
                             <span v-if="!isLogin">تسجيل</span>
                         </h1>
 
                         <div flex="~ col gap-4" w="xs">
-                            <UiInput v-model="email" icon="ph:user-duotone" placeholder="البريد الالكتروني" />
+                            <UiInput v-if="!isLogin" v-model="name" icon="ph:user-duotone" placeholder="الأسم الثنائي" />
+                            <UiInput v-model="email" icon="ic:twotone-email" placeholder="البريد الالكتروني" />
                             <UiInput v-model="password" icon="fluent:password-16-filled" placeholder="كلمة المرور" />
                         </div>
 
@@ -27,7 +28,7 @@
                             <span v-if="!isLogin">تسجيل</span>
                         </UiButton>
 
-                        <div @click="isLogin = !isLogin" text="hover:white" cursor="pointer">
+                        <div @click="isLogin = !isLogin" text="hover:white" cursor="pointer" mt="4">
                             <span v-if="isLogin">ليس لديك حساب؟</span>
                             <span v-if="!isLogin">تسجيل الدخول</span>
                         </div>
@@ -45,6 +46,7 @@ const opened = ref(false)
 
 const isLogin = ref(true)
 
+const name = ref('')
 const email = ref('')
 const password = ref('')
 
