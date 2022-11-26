@@ -12,5 +12,8 @@
     },
     "b": {
         "DEFAULT": "#3F74FF"
+    },
+    "dark": {
+        "DEFAULT": "#2E3239"
     }
 }
