@@ -9,9 +9,7 @@
         <!-- Left -->
         <div flex gap-8>
             <div flex gap-3>
-                <UiButton square>
-                    <icon name="ic:round-add" w="8" h="8" />
-                </UiButton>
+                <NewResource />
 
                 <UiButton square>
                     <icon name="ph:heart-duotone" w="8" h="8" />
@@ -22,7 +20,7 @@
                 </UiButton>
             </div>
 
-            <UiButton>
+            <UiButton px="6">
                 <icon name="ph:user-duotone" w="8" h="8" />
                 <span>زين العابدين</span>
             </UiButton>

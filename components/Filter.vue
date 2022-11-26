@@ -1,7 +1,7 @@
 <template>
     <div w="1/4" flex="~ col gap-3">
         <div flex items-center justify-center w="full">
-            <UiInput w="full" icon="ic:sharp-search" />
+            <UiInput v-model="searchString" w="full" placeholder="بحث" icon="ic:sharp-search" />
         </div>
         <!-- <UiInput  /> -->
         <Categories>
@@ -67,4 +67,6 @@ const people = [
     { name: 'Hellen Schmidt' },
 ]
 const selectedPerson = ref(people[0])
+
+const searchString = ref('')
 </script>
