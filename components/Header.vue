@@ -20,6 +20,8 @@
                 </UiButton>
             </div>
 
+            <Register />
+
             <UiButton px="6">
                 <icon name="ph:user-duotone" w="8" h="8" />
                 <span>زين العابدين</span>
