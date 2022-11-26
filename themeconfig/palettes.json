@@ -1,8 +1,16 @@
 {
-    "primary": {
-        "DEFAULT": "#000000"
+    "p": {
+        "DEFAULT": "#0C0C0D"
     },
-    "secondary": {
-        "DEFAULT": "#333333"
+    "s": {
+        "DEFAULT": "#111113",
+        "hover": "#1E1E22",
+        "stroke": "#1F2123"
+    },
+    "pw": {
+        "DEFAULT": "#9CA3AF"
+    },
+    "b": {
+        "DEFAULT": "#3F74FF"
     }
 }

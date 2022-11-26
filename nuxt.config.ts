@@ -2,6 +2,7 @@
 import { config } from "./themeconfig/config";
 export default defineNuxtConfig({
   modules: [
+    "nuxt-icon",
     "@nuxtjs/supabase",
     "nuxt-headlessui",
     "@unocss/nuxt",
