@@ -49,11 +49,11 @@ export const useResources = defineStore("resourcesStore", {
       const user = useSupabaseUser();
       try {
         if (user.value) {
-          let { data, error } = await supabase.from("resources").select("*, favourites(*)").eq('favourites.user_id', user.value?.id);
+          let { data, error } = await supabase.from("resources").select("*, favourites(*), categories(id,name), sub_categories(id,name)").eq('favourites.user_id', user.value?.id);
           if (error) throw error;
           this.resources = data;
         } else {
-          let { data, error } = await supabase.from("resources").select("*");
+          let { data, error } = await supabase.from("resources, categories(id,name), sub_categories(id,name)").select("*");
           if (error) throw error;
           this.resources = data;
         }

@@ -39,11 +39,11 @@
                     <div flex="~ col">
                         <h3 text="dark" my-1>الإضافة</h3>
                         <span>زين العابدين</span>
-                        <span>30 - 11 - 2022</span>
+                        <span>{{new Date(resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' }) }}</span>
                     </div>
                     <div flex="~ col">
                         <h3 text="dark" my-1>الفئة</h3>
-                        <span>كتب - كتب برمجية</span>
+                        <span>{{resource.categories?.name}} - {{resource.sub_categories?.name}}</span>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@ const props = defineProps({
 })
 
 const isFavourited = computed(() => props.resource?.favourites?.length > 0)
-
+console.log(props.resource)
 </script>
 
 
