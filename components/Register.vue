@@ -22,8 +22,8 @@
 
                         <div flex="~ col gap-4" w="xs">
                             <UiInput v-if="!isLogin" v-model="authStore.name" icon="ph:user-duotone" placeholder="الأسم الثنائي" />
-                            <UiInput v-model="authStore.email" icon="ic:twotone-email" placeholder="البريد الالكتروني" />
-                            <UiInput v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" />
+                            <UiInput v-model="authStore.email" icon="ic:twotone-email" placeholder="البريد الالكتروني" type="email" />
+                            <UiInput v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="password" />
                         </div>
 
                         <UiButton @click="isLogin ? authStore.login() : authStore.register()" w="150px" mt="6">

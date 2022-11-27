@@ -1,6 +1,6 @@
 <template>
     <div w="full" flex="~ col gap-3">
-        <Resource v-for="resource in resourceStore.getResources" :resource="resource" :key="resource.id" />
+        <Resource v-for="resource in resourceStore.getFilteredResources" :resource="resource" :key="resource.id" />
     </div>
 </template>
 

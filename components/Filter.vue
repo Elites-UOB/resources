@@ -1,7 +1,7 @@
 <template>
     <div w="1/4" flex="~ col gap-3">
         <div flex items-center justify-center w="full">
-            <UiInput v-model="searchString" w="full" placeholder="بحث" icon="ic:sharp-search" />
+            <UiInput v-model="resourcesStore.filters.search" w="full" placeholder="بحث" icon="ic:sharp-search" type="search" />
         </div>
         <!-- <UiInput  /> -->
         <Categories>
@@ -58,6 +58,8 @@
 
 
 <script setup>
+const resourcesStore = useResources()
+
 const people = [
     { name: 'Wade Cooper' },
     { name: 'Arlene Mccoy' },
@@ -67,6 +69,4 @@ const people = [
     { name: 'Hellen Schmidt' },
 ]
 const selectedPerson = ref(people[0])
-
-const searchString = ref('')
 </script>

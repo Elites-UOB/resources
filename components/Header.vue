@@ -11,8 +11,8 @@
             <div flex gap-3>
                 <NewResource />
 
-                <UiButton square>
-                    <icon name="ph:heart-duotone" w="8" h="8" />
+                <UiButton @click="resourcesStore.toggleFilterFavourite" square>
+                    <icon :text="resourcesStore.isFavourites ? 'red-500' : 'pw'" name="ph:heart-duotone" w="8" h="8" />
                 </UiButton>
 
                 <UiButton square>
@@ -63,5 +63,6 @@
 
 <script setup>
 const authStore = useAuth();
+const resourcesStore = useResources();
 const user = useSupabaseUser();
 </script>

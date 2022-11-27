@@ -8,12 +8,12 @@
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-4>
                 <icon name="carbon:software-resource-cluster" w="40px" h="40px" />
-                <span font-medium>{{ resource.title }}</span>
+                <span font-medium truncate="~" w="xl">{{ resource.title }}</span>
             </div>
 
             <!-- Actions -->
             <div flex justify-between items-center gap-4>
-                <icon name="ph:heart-duotone" w="32px" h="32px" text="red-500" />
+                <icon @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500' : 'pw'" w="32px" h="32px" />
                 <icon name="ph:check-circle-duotone" w="32px" h="32px" text="green-400" />
                 <icon name="ph:share-network-duotone" w="32px" h="32px" />
             </div>
@@ -52,6 +52,7 @@
 </template>
 
 <script setup>
+const resourcesStore = useResources()
 const opened = ref(false)
 
 const props = defineProps({
@@ -59,6 +60,8 @@ const props = defineProps({
         type: Object,
     }
 })
+
+const isFavourited = computed(() => props.resource?.favourites?.length > 0)
 
 </script>
 
