@@ -1,4 +1,5 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
+import { AuthError } from "@supabase/supabase-js";
 interface Data {
   name: string;
   email: string;
@@ -7,52 +8,68 @@ interface Data {
 }
 export const useAuth = defineStore("authStore", {
   state: () => ({
-    name: null as Data | null,
-    email: null as Data | null,
-    password: null as Data | null,
-    createError: null as Data | null,
+    name: null as string | null,
+    email: null as string | null,
+    password: null as string | null,
+    createError: null as string | AuthError | null,
   }),
   getters: {
     getCreateError: (state) => state.createError,
   },
 
   actions: {
+    validation(register: Boolean = false) {
+      if (this.name?.length < 3 && register) {
+        this.createError = "الاسم يجب ان يكون اكثر من 3 احرف.";
+      }
+      else if (!this.email?.includes("@")) {
+        this.createError = "البريد الالكتروني غير صحيح.";
+      }
+      else if (this.password?.length < 6) {
+        this.createError = "كلمة المرور يجب ان تكون اكثر من 6 احرف.";
+      } else {
+        this.createError = null;
+      }
+
+      if (this.createError) return false
+      else return true
+    },
+
     //Register
     async register() {
-      const supabase = useSupabaseClient();
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email: String(this.email),
-          password: String(this.password),
-          options: {
-            data: {
-              first_name: this.name,
-            },
-          },
-        });
-        this.login();
-        alert("Account created successfully");
+      if (!this.validation(true)) return false;
 
-        if (error) throw error;
-      } catch (error) {
-        console.log("error", error);
+      const client = useSupabaseAuthClient()
+      const { data, error } = await client.auth.signUp({
+        email: String(this.email),
+        password: String(this.password),
+        options: {
+          data: {
+            first_name: this.name,
+          },
+        },
+      });
+      if (error) {
+        this.createError = "هذا البريد الالكتروني مستخدم من قبل.";
+        return false;
       }
+
+      this.login();
     },
 
     //login
     async login() {
-      const supabase = useSupabaseClient();
-      try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email: String(this.email),
-          password: String(this.password),
-        });
-        console.log("data", data);
-        alert("Login successfully");
+      if (!this.validation()) return false;
 
-        if (error) throw error;
-      } catch (error) {
-        console.log("error", error);
+      const client = useSupabaseAuthClient()
+      const { data, error } = await client.auth.signInWithPassword({
+        email: String(this.email),
+        password: String(this.password),
+      });
+
+      if (error) {
+        this.createError = "البريد الالكتروني او كلمة المرور غير صحيحة.";
+        return false;
       }
     },
 
@@ -66,9 +83,9 @@ export const useAuth = defineStore("authStore", {
 
     // LogOut
     async logout() {
-      const supabase = useSupabaseClient();
+      const client = useSupabaseAuthClient()
       try {
-        const { error } = await supabase.auth.signOut();
+        const { error } = await client.auth.signOut();
         alert("You have been logged out");
       } catch (error) {
         console.log(error);

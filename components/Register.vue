@@ -1,12 +1,8 @@
 <template>
     <div>
-        <UiButton v-if="!user" @click="opened = !opened" px="4">
+        <UiButton @click="opened = !opened" px="4">
             <icon name="icon-park-twotone:unlock" w="8" h="8" />
             تسجيل
-        </UiButton>
-        <UiButton v-else @click="authStore.logout()" px="4">
-            <icon name="mi:log-out" w="8" h="8" />
-            تسجيل خروج
         </UiButton>
 
 
@@ -19,8 +15,13 @@
                             <span v-if="!isLogin">تسجيل</span>
                         </h1>
 
+                        <h4 v-if="authStore.getCreateError" text-red-500 my-0 flex gap-2>
+                            <icon name="ic:twotone-error" w="6" h="6" />
+                            {{ authStore.getCreateError }}
+                        </h4>
+
                         <div flex="~ col gap-4" w="xs">
-                            <UiInput v-if="!isLogin" v-model="name" icon="ph:user-duotone" placeholder="الأسم الثنائي" />
+                            <UiInput v-if="!isLogin" v-model="authStore.name" icon="ph:user-duotone" placeholder="الأسم الثنائي" />
                             <UiInput v-model="authStore.email" icon="ic:twotone-email" placeholder="البريد الالكتروني" />
                             <UiInput v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" />
                         </div>
@@ -30,7 +31,7 @@
                             <span v-if="!isLogin">تسجيل</span>
                         </UiButton>
 
-                        <div @click="isLogin = !isLogin" text="hover:white" cursor="pointer" mt="4">
+                        <div @click="() => { isLogin = !isLogin, authStore.createError = null }" text="hover:white" cursor="pointer" mt="4">
                             <span v-if="isLogin">ليس لديك حساب؟</span>
                             <span v-if="!isLogin">تسجيل الدخول</span>
                         </div>
