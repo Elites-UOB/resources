@@ -9,7 +9,7 @@
         <!-- Left -->
         <div flex="~" justify-center gap-2 sm:gap-8>
             <div flex gap-3>
-                <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible sm:hidden>
+                <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden>
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" :text="resourcesStore.filters.state ? 'b' : 'pw'" />
                 </UiButton>
 

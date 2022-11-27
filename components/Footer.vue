@@ -1,18 +1,18 @@
 <template>
-    <a href="#" flex justify-between items-center mt="4" bg="hover:s-hover" p-6 decoration="none" text-pw rounded-15px transition="all duration-200">
+    <a href="#" flex justify-between items-center mt="23" bg="hover:s-hover" p-4 decoration="none" text-pw rounded-15px transition="all duration-200">
         <div flex gap-4>
-            <svg w="60px" class="self-center" viewBox="0 0 156 189" xmlns="http://www.w3.org/2000/svg">
+            <svg w="20px sm:40px" class="self-center" viewBox="0 0 156 189" xmlns="http://www.w3.org/2000/svg">
                 <path fill="pw" d="M76.8455 31.8079L0 0V31.8079L0.000216272 31.8079V63.6157V95.4235V124.874V156.436V156.682L76.8457 189L155.063 156.682V124.874L76.8457 156.682L27.445 136.234V106.783L76.8457 127.231L155.063 95.4235V63.6157L76.8457 95.4235L27.445 74.9756V43.1679L76.8455 63.6157L155.063 31.8079V0L76.8455 31.8079Z" />
             </svg>
             <div flex="~ col" justify-center>
-                <span class="text-xl md:text-2xl">نادي النخبة المطورين</span>
-                <span class="text-lg md:text-xl">CSIT Developers Club</span>
+                <span class="text-md sm:text-xl">نادي النخبة المطورين</span>
+                <span class="text-sm sm:text-lg">CSIT Developers Club</span>
             </div>
         </div>
 
         <div flex="~ col" justify-center>
-            <span>صنع بُحب ❤️</span>
-            <span>2022</span>
+            <span class="text-md sm:text-xl">صنع بُحب ❤️</span>
+            <span class="text-sm sm:text-lg">2022</span>
         </div>
     </a>
 </template>

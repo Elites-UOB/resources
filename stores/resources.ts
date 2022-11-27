@@ -89,9 +89,9 @@ export const useResources = defineStore("resourcesStore", {
 
       // If already favourited, delete favourite
       if (favourite) {
+        resource.favourites = resource.favourites.filter((favourite: any) => favourite.id !== favourite.id)
         const { data, error } = await supabase.from("favourites").delete().eq("id", favourite.id).eq("user_id", user.value?.id);
         if (error) throw error;
-        resource.favourites = resource.favourites.filter((favourite: any) => favourite.id !== favourite.id)
       } else {
         const { data, error } = await supabase.from("favourites").insert({
           resource_id: resource.id,

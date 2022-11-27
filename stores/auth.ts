@@ -71,6 +71,9 @@ export const useAuth = defineStore("authStore", {
         this.createError = "البريد الالكتروني او كلمة المرور غير صحيحة.";
         return false;
       }
+
+      const resourcesStore = useResources()
+      resourcesStore.fetch();
     },
 
     //get user
