@@ -21,34 +21,33 @@ export const useAuth = defineStore("authStore", {
     validation(register: Boolean = false) {
       if (this.name?.length < 3 && register) {
         this.createError = "الاسم يجب ان يكون اكثر من 3 احرف.";
-      }
-      else if (!this.email?.includes("@")) {
+      } else if (!this.email?.includes("@")) {
         this.createError = "البريد الالكتروني غير صحيح.";
-      }
-      else if (this.password?.length < 6) {
+      } else if (this.password?.length < 6) {
         this.createError = "كلمة المرور يجب ان تكون اكثر من 6 احرف.";
       } else {
         this.createError = null;
       }
 
-      if (this.createError) return false
-      else return true
+      if (this.createError) return false;
+      else return true;
     },
 
     //Register
     async register() {
       if (!this.validation(true)) return false;
 
-      const client = useSupabaseAuthClient()
+      const client = useSupabaseAuthClient();
       const { data, error } = await client.auth.signUp({
         email: String(this.email),
         password: String(this.password),
         options: {
           data: {
-            first_name: this.name,
+            first_name: this.name as string,
           },
         },
       });
+      console.log(data, error);
       if (error) {
         this.createError = "هذا البريد الالكتروني مستخدم من قبل.";
         return false;
@@ -61,7 +60,7 @@ export const useAuth = defineStore("authStore", {
     async login() {
       if (!this.validation()) return false;
 
-      const client = useSupabaseAuthClient()
+      const client = useSupabaseAuthClient();
       const { data, error } = await client.auth.signInWithPassword({
         email: String(this.email),
         password: String(this.password),
@@ -86,7 +85,7 @@ export const useAuth = defineStore("authStore", {
 
     // LogOut
     async logout() {
-      const client = useSupabaseAuthClient()
+      const client = useSupabaseAuthClient();
       try {
         const { error } = await client.auth.signOut();
         alert("You have been logged out");

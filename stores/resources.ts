@@ -5,9 +5,12 @@ export const useResources = defineStore("resourcesStore", {
     resources: [],
     categories: [],
     subCategories: [],
+    resourceData: {},
+    createError: null as string | null,
 
     filters: {
       state: false,
+      ownered: false,
 
       favourites: false,
       search: "",
@@ -17,7 +20,7 @@ export const useResources = defineStore("resourcesStore", {
 
     modals: {
       add: false,
-    }
+    },
   }),
   getters: {
     getResources: (state) => state.resources,
@@ -25,17 +28,29 @@ export const useResources = defineStore("resourcesStore", {
     getCategories: (state) => state.categories,
     getSubCategories: (state) => state.subCategories,
     isFavourites: (state) => state.filters.favourites,
+    getCreateError: (state) => state.createError,
     getFilteredResources: (state) => {
       let resources = state.resources;
 
       if (state.filters.favourites) {
-        resources = resources.filter((resource) => resource.favourites?.length > 0);
+        resources = resources.filter(
+          (resource) => resource.favourites?.length > 0
+        );
       }
 
       if (state.filters.search) {
-        resources = resources.filter((resource) => resource.title.toLowerCase().includes(state.filters.search.toLowerCase()));
+        resources = resources.filter((resource) =>
+          resource.title
+            .toLowerCase()
+            .includes(state.filters.search.toLowerCase())
+        );
       }
-
+      if (state.filters.ownered) {
+        const user = useSupabaseUser();
+        resources = resources.filter(
+          (resource) => resource.user_id === user.value?.id
+        );
+      }
       // if (state.filters.category) {
       //   resources = resources.filter((resource) => resource.category === state.filters.category);
       // }
@@ -45,7 +60,7 @@ export const useResources = defineStore("resourcesStore", {
       // }
 
       return resources;
-    }
+    },
   },
 
   actions: {
@@ -55,11 +70,18 @@ export const useResources = defineStore("resourcesStore", {
       const user = useSupabaseUser();
       try {
         if (user.value) {
-          let { data, error } = await supabase.from("resources").select("*, favourites(*), categories(id,name), sub_categories(id,name)").eq('favourites.user_id', user.value?.id);
+          let { data, error } = await supabase
+            .from("resources")
+            .select(
+              "*, favourites(*), categories(id,name), sub_categories(id,name)"
+            )
+            .eq("favourites.user_id", user.value?.id);
           if (error) throw error;
           this.resources = data;
         } else {
-          let { data, error } = await supabase.from("resources").select("*, categories(id,name), sub_categories(id,name)");
+          let { data, error } = await supabase
+            .from("resources")
+            .select("*, categories(id,name), sub_categories(id,name)");
           if (error) throw error;
           this.resources = data;
         }
@@ -82,35 +104,76 @@ export const useResources = defineStore("resourcesStore", {
       this.subCategories = data;
     },
 
-
     // Toggle Favourite
     async toggleFavourite(resource: any) {
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
 
       // Check if already favourited
-      const favourite = resource.favourites.find((favourite: any) => favourite.user_id === user.value?.id);
+      const favourite = resource.favourites.find(
+        (favourite: any) => favourite.user_id === user.value?.id
+      );
 
       // If already favourited, delete favourite
       if (favourite) {
-        resource.favourites = resource.favourites.filter((favourite: any) => favourite.id !== favourite.id)
-        const { data, error } = await supabase.from("favourites").delete().eq("id", favourite.id).eq("user_id", user.value?.id);
+        resource.favourites = resource.favourites.filter(
+          (favourite: any) => favourite.id !== favourite.id
+        );
+        const { data, error } = await supabase
+          .from("favourites")
+          .delete()
+          .eq("id", favourite.id)
+          .eq("user_id", user.value?.id);
         if (error) throw error;
       } else {
-        const { data, error } = await supabase.from("favourites").insert({
-          resource_id: resource.id,
-          user_id: user.value?.id,
-        }).select("*");
+        const { data, error } = await supabase
+          .from("favourites")
+          .insert({
+            resource_id: resource.id,
+            user_id: user.value?.id,
+          })
+          .select("*");
         if (error) throw error;
         resource.favourites.push(data[0]);
       }
     },
 
-
     // FILTERS
-    toggleFilterFavourite(){
-      this.filters.favourites = !this.filters.favourites
-    }
+    toggleFilterFavourite() {
+      this.filters.favourites = !this.filters.favourites;
+    },
+
+    toggleFilterOwnered() {
+      this.filters.ownered = !this.filters.ownered;
+    },
+
+    //validation
+    validation(resource: Boolean = false) {
+      if (this.resourceData.title?.length < 3 && resource) {
+        this.createError = "العنوان يجب ان يكون اكثر من 3 احرف.";
+      } else if (this.resourceData.description?.length < 50) {
+        this.createError = "الوصف قصير جداً.";
+      } else if (!this.resourceData.category_id) {
+        this.createError = "يرجى اختيار الفئة .";
+      } else {
+        this.createError = null;
+      }
+
+      if (this.createError) return false;
+      else return true;
+    },
+
+    // INSERT
+    async insertResource() {
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase.from("resources").insert({
+        title: resourceData.title,
+        description: resourceData.description,
+        url: resourceData.url,
+        category: resourceData.category_id,
+        subCategory: resourceData.subCategory_id,
+      });
+    },
   },
 });
 

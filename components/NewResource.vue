@@ -122,6 +122,13 @@
 <script setup>
 const resourcesStore = useResources()
 
+const resourcesStore = useResources()
+const user = useSupabaseUser()
+
+await resourcesStore.fetchCategories()
+
+
+
 const description = ref('')
 
 const links = ref([])
@@ -155,7 +162,9 @@ const people = [
     { name: 'Tanya Fox' },
     { name: 'Hellen Schmidt' },
 ]
-const selectedPerson = ref(people[0])
+
+
+const selectedPerson = ref(0)
 </script>
 
 <style scoped>
