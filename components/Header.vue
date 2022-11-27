@@ -19,7 +19,7 @@
                     <icon :text="resourcesStore.isFavourites ? 'red-500' : 'pw'" name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton square>
+                <UiButton @click="resourcesStore.toggleFilterOwnered" square>
                     <icon name="material-symbols:library-books-rounded" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
             </div>
