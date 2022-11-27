@@ -28,6 +28,7 @@ export const useResources = defineStore("resourcesStore", {
     getCategories: (state) => state.categories,
     getSubCategories: (state) => state.subCategories,
     isFavourites: (state) => state.filters.favourites,
+    isOwnered: (state) => state.filters.ownered,
     getCreateError: (state) => state.createError,
     getFilteredResources: (state) => {
       let resources = state.resources;

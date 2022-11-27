@@ -18,10 +18,10 @@
                 </UiButton>
 
                 <UiButton v-if="user" alt="مفضلاتي" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw hover:white'">
-                    <icon  name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
+                    <icon name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton v-if="user" alt="مصادري" @click="resourcesStore.toggleFilterOwnered" square>
+                <UiButton v-if="user" alt="مصادري" @click="resourcesStore.toggleFilterOwnered" square :text="resourcesStore.isOwnered ? 'b hover:b' : 'pw hover:white'">
                     <icon name="material-symbols:library-books-rounded" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
             </div>
