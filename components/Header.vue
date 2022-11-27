@@ -21,7 +21,7 @@
                     <icon  name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton @click="resourcesStore.toggleFilterOwnered" square>
+                <UiButton v-if="user" @click="resourcesStore.toggleFilterOwnered" square>
                     <icon name="material-symbols:library-books-rounded" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
             </div>
