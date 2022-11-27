@@ -169,24 +169,21 @@ export const useResources = defineStore("resourcesStore", {
 
     // INSERT
     async insertResource() {
-      const user = useSupabaseUser();
       const supabase = useSupabaseClient();
-      try {
-        const { data, error } = await supabase
-          .from("resources")
-          .insert({
-            user_id: user.value?.id,
-            title: this.title ?? "العنوان",
-            description: this.description,
-            category_id: this.filters.category.id,
-            sub_category_id: this.filters.subCategory.id,
-          })
-          .select("*");
-        this.fetch();
-        if (error) throw error;
-      } catch (error) {
-        console.log(error);
-      }
+      const user = useSupabaseUser();
+
+      const { data, error } = await supabase
+        .from("resources")
+        .insert({
+          user_id: user.value?.id,
+          title: this.title ?? "العنوان",
+          description: this.description,
+          category_id: this.filters.category.id,
+          sub_category_id: this.filters.subCategory.id,
+        })
+        .select("*");
+      this.fetch();
+      if (error) throw error;
     },
   },
 });
