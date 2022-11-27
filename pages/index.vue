@@ -4,10 +4,12 @@
         <Header />
         
         <!-- CONTENT -->
-        <div flex="~ col sm:row" gap-16>
+        <div flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]">
             <Filter />
             <Resources />
         </div>
+
+        <Footer />
     </div>
 </template>
 
