@@ -44,7 +44,7 @@
                         <!-- Sub Category -->
                         <div w="sm:1/2">
                             <h4 m="t-0 b-2">الفئة الثانوية</h4>
-                            <HeadlessListbox :disabled="subCategories?.length > 0 ? true : false" v-model="resourcesStore.filters.subCategory">
+                            <HeadlessListbox :disabled="subCategories?.length > 0 ? false : true" v-model="resourcesStore.filters.subCategory">
                                 <div class="relative mt-1">
                                     <!-- Button -->
                                     <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
@@ -151,15 +151,6 @@ const newFile = () => {
 const removeFile = (index) => {
     files.value.splice(index, 1)
 }
-
-const people = [
-    { name: 'Wade Cooper' },
-    { name: 'Arlene Mccoy' },
-    { name: 'Devon Webb' },
-    { name: 'Tom Cook' },
-    { name: 'Tanya Fox' },
-    { name: 'Hellen Schmidt' },
-]
 
 const categories = computed(() => [{ name: 'الكل' }, ...resourcesStore.categories])
 resourcesStore.filters.category = categories.value[0]
