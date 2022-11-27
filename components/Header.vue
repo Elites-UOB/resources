@@ -1,14 +1,18 @@
 <template>
-    <div flex items-center justify-between>
+    <div flex="~ col sm:row" gap-4 sm:items-center justify-between>
         <!-- Right -->
         <div flex items-center gap-3>
-            <icon name="fluent:channel-share-24-filled" w="12" h="12" text="b" />
-            <h1>مصادر</h1>
+            <icon name="fluent:channel-share-24-filled" w="8 sm:12" h="8 sm:12" text="b" />
+            <span text="2xl lg:4xl" font-bold>مصادر</span>
         </div>
 
         <!-- Left -->
-        <div flex gap-8>
+        <div flex="~" justify-center gap-2 sm:gap-8>
             <div flex gap-3>
+                <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible sm:hidden>
+                    <icon name="ic:twotone-filter-alt" w="8" h="8" :text="resourcesStore.filters.state ? 'b' : 'pw'" />
+                </UiButton>
+
                 <NewResource />
 
                 <UiButton @click="resourcesStore.toggleFilterFavourite" square>
@@ -27,12 +31,12 @@
 
 
 
-            <HeadlessMenu v-if="user" as="div" class="relative inline-block text-left">
+            <HeadlessMenu v-if="user" as="div" class="relative inline-block text-right" z="20">
                 <div>
-                    <HeadlessMenuButton bg="transparent" border="0" w="fit">
-                        <UiButton v-if="user" px="6">
+                    <HeadlessMenuButton bg="transparent" border="0">
+                        <UiButton v-if="user" px="6" w="full">
                             <icon name="ph:user-duotone" w="8" h="8" />
-                            <span>{{ user.user_metadata.first_name }}</span>
+                            <span hidden sm:visible>{{ user.user_metadata.first_name }}</span>
                         </UiButton>
                     </HeadlessMenuButton>
                 </div>

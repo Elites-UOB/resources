@@ -4,7 +4,7 @@
         <Header />
         
         <!-- CONTENT -->
-        <div flex gap-16>
+        <div flex="~ col sm:row" gap-16>
             <Filter />
             <Resources />
         </div>

@@ -7,6 +7,8 @@ export const useResources = defineStore("resourcesStore", {
     subCategories: [],
 
     filters: {
+      state: false,
+
       favourites: false,
       search: "",
       category: null,

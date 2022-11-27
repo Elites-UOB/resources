@@ -1,5 +1,5 @@
 <template>
-    <div w="1/4" flex="~ col gap-3">
+    <div v-show="resourcesStore.filters.state" w="sm:1/4" flex="~ col gap-3">
         <div flex items-center justify-center w="full">
             <UiInput v-model="resourcesStore.filters.search" w="full" placeholder="بحث" icon="ic:sharp-search" type="search" />
         </div>
