@@ -1,6 +1,6 @@
 <template>
     <div relative flex="~" v-if="sm">
-        <input :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" :placeholder="placeholder" bg="p" p="x-4" focus:outline-none text="pw sm" font-medium border="2 s-stroke focus:pw rounded-10px" h="25px" />
+        <input :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" :placeholder="placeholder" bg="p" p="x-2 sm:x-4" focus:outline-none text="pw sm" font-medium border="2 s-stroke focus:pw rounded-10px" h="25px" />
     </div>
     <div relative flex="~" v-else>
         <input :type="type" w="full" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" :placeholder="placeholder" bg="p" pr="12" pl="4" focus:outline-none text="pw lg" font-medium border="2 s-stroke focus:pw rounded-15px" h="50px" />

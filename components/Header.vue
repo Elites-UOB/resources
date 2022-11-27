@@ -1,7 +1,7 @@
 <template>
     <div flex="~ col sm:row" gap-4 sm:items-center justify-between>
         <!-- Right -->
-        <div flex items-center gap-3>
+        <div flex items-center gap-3 bg="hover:s-hover" py-4 px-6 rounded-15px cursor="pointer" text="hover:white" transition="all duration-200">
             <icon name="fluent:channel-share-24-filled" w="8 sm:12" h="8 sm:12" text="b" />
             <span text="2xl lg:4xl" font-bold>مصادر</span>
         </div>
@@ -9,13 +9,15 @@
         <!-- Left -->
         <div flex="~" justify-center gap-2 sm:gap-8>
             <div flex gap-3>
-                <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible sm:hidden>
+                <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden>
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" :text="resourcesStore.filters.state ? 'b' : 'pw'" />
                 </UiButton>
 
-                <NewResource />
+                <UiButton v-if="user" @click="resourcesStore.modals.add = !resourcesStore.modals.add" square>
+                    <icon name="ic:round-add" w="8" h="8" />
+                </UiButton>
 
-                <UiButton @click="resourcesStore.toggleFilterFavourite" square>
+                <UiButton v-if="user" @click="resourcesStore.toggleFilterFavourite" square>
                     <icon :text="resourcesStore.isFavourites ? 'red-500' : 'pw'" name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
@@ -34,7 +36,7 @@
             <HeadlessMenu v-if="user" as="div" class="relative inline-block text-right" z="20">
                 <div>
                     <HeadlessMenuButton bg="transparent" border="0">
-                        <UiButton v-if="user" px="sm:6" h="14 sm:auto" w="14 sm:auto">
+                        <UiButton v-if="user" px="lg:6" h="14 sm:auto" w="14 sm:auto">
                             <icon name="ph:user-duotone" w="6 sm:8" h="6 sm:8" />
                             <span hidden sm:block>{{ user.user_metadata.first_name }}</span>
                         </UiButton>

@@ -1,14 +1,14 @@
 <template>
     <div :class="[
         opened ? 'bg-s border-s-stroke' : 'border-transparent'
-    ]" flex="~ col sm:gap-3" transition="all duration-200" py="0" border="~ rounded-15px">
-        <div @click="opened = !opened" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" rounded="15px" p="3" :class="{
+    ]" flex="~ col sm:gap-3" py="0" border="~ rounded-15px">
+        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" rounded="15px" p="3" :class="{
             'border border-s-stroke rounded-15px': !opened,
         }">
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-2 sm:gap-4>
                 <icon name="carbon:software-resource-cluster" w="25px sm:40px" h="25px sm:40px" />
-                <span font-medium truncate="~" text="sm sm:base" w="200px sm:xl">{{ resource.title }}</span>
+                <span font-medium truncate="~" text="sm sm:base" w="200px sm:sm lg:xl">{{ resource.title }}</span>
             </div>
 
             <!-- Actions -->
@@ -20,8 +20,8 @@
         </div>
 
         <Transition>
-            <div flex="~ col sm:row" gap-2 sm:gap-12 mr="48px sm:64px" v-if="opened" pb="8">
-                <div flex="~ col gap-2 sm:gap-4" w="sm:1/2">
+            <div flex="~ col sm:row" gap-2 sm:gap-12 mr="12px sm:64px" v-if="opened" pb="8">
+                <div flex="~ col gap-2 sm:gap-4" w="sm:2/3">
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1>الوصف</span>
                         <p m-0 text="sm sm:base">{{ resource.description }}</p>
@@ -35,7 +35,7 @@
                         </ol>
                     </div>
                 </div>
-                <div flex="~ sm:col gap-2 sm:gap-4" justify-between sm:justify-start w="sm:1/2" ml-4>
+                <div flex="~ sm:col gap-2 sm:gap-4" justify-between sm:justify-start w="sm:1/3" ml-4>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1>الإضافة</span>
                         <span>زين العابدين</span>

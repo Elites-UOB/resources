@@ -17,6 +17,10 @@ export const useResources = defineStore("resourcesStore", {
       category: null,
       subCategory: null,
     },
+
+    modals: {
+      add: false,
+    },
   }),
   getters: {
     getResources: (state) => state.resources,
@@ -76,8 +80,8 @@ export const useResources = defineStore("resourcesStore", {
           this.resources = data;
         } else {
           let { data, error } = await supabase
-            .from("resources, categories(id,name), sub_categories(id,name)")
-            .select("*");
+            .from("resources")
+            .select("*, categories(id,name), sub_categories(id,name)");
           if (error) throw error;
           this.resources = data;
         }
@@ -112,15 +116,15 @@ export const useResources = defineStore("resourcesStore", {
 
       // If already favourited, delete favourite
       if (favourite) {
+        resource.favourites = resource.favourites.filter(
+          (favourite: any) => favourite.id !== favourite.id
+        );
         const { data, error } = await supabase
           .from("favourites")
           .delete()
           .eq("id", favourite.id)
           .eq("user_id", user.value?.id);
         if (error) throw error;
-        resource.favourites = resource.favourites.filter(
-          (favourite: any) => favourite.id !== favourite.id
-        );
       } else {
         const { data, error } = await supabase
           .from("favourites")
