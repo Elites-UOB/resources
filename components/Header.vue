@@ -10,17 +10,17 @@
         <div flex="~" justify-center gap-2 sm:gap-8>
             <div flex gap-3>
                 <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible sm:hidden>
-                    <icon name="ic:twotone-filter-alt" w="8" h="8" :text="resourcesStore.filters.state ? 'b' : 'pw'" />
+                    <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" :text="resourcesStore.filters.state ? 'b' : 'pw'" />
                 </UiButton>
 
                 <NewResource />
 
                 <UiButton @click="resourcesStore.toggleFilterFavourite" square>
-                    <icon :text="resourcesStore.isFavourites ? 'red-500' : 'pw'" name="ph:heart-duotone" w="8" h="8" />
+                    <icon :text="resourcesStore.isFavourites ? 'red-500' : 'pw'" name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
                 <UiButton square>
-                    <icon name="material-symbols:library-books-rounded" w="8" h="8" />
+                    <icon name="material-symbols:library-books-rounded" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
             </div>
 
@@ -34,9 +34,9 @@
             <HeadlessMenu v-if="user" as="div" class="relative inline-block text-right" z="20">
                 <div>
                     <HeadlessMenuButton bg="transparent" border="0">
-                        <UiButton v-if="user" px="6" w="full">
-                            <icon name="ph:user-duotone" w="8" h="8" />
-                            <span hidden sm:visible>{{ user.user_metadata.first_name }}</span>
+                        <UiButton v-if="user" px="sm:6" h="14 sm:auto" w="14 sm:auto">
+                            <icon name="ph:user-duotone" w="6 sm:8" h="6 sm:8" />
+                            <span hidden sm:block>{{ user.user_metadata.first_name }}</span>
                         </UiButton>
                     </HeadlessMenuButton>
                 </div>

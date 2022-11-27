@@ -1,49 +1,49 @@
 <template>
     <div :class="[
         opened ? 'bg-s border-s-stroke' : 'border-transparent'
-    ]" flex="~ col gap-3" w-full transition="all duration-200" py="0" border="~ rounded-15px">
+    ]" flex="~ col sm:gap-3" transition="all duration-200" py="0" border="~ rounded-15px">
         <div @click="opened = !opened" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" rounded="15px" p="3" :class="{
             'border border-s-stroke rounded-15px': !opened,
         }">
             <!-- Icon and Title -->
-            <div flex justify-between items-center gap-4>
-                <icon name="carbon:software-resource-cluster" w="40px" h="40px" />
-                <span font-medium truncate="~" w="xl">{{ resource.title }}</span>
+            <div flex justify-between items-center gap-2 sm:gap-4>
+                <icon name="carbon:software-resource-cluster" w="25px sm:40px" h="25px sm:40px" />
+                <span font-medium truncate="~" text="sm sm:base" w="200px sm:xl">{{ resource.title }}</span>
             </div>
 
             <!-- Actions -->
-            <div flex justify-between items-center gap-4>
-                <icon v-if="user" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500' : 'pw'" w="32px" h="32px" />
-                <icon v-if="resource.verified" name="ph:check-circle-duotone" w="32px" h="32px" text="green-400" />
-                <icon name="ph:share-network-duotone" w="32px" h="32px" />
+            <div flex justify-between items-center gap-2 sm:gap-4>
+                <icon v-if="user" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500' : 'pw'" w="24px sm:32px" h="24px sm:32px" />
+                <icon v-if="resource.verified" name="ph:check-circle-duotone" w="24px sm:32px" h="24px sm:32px" text="green-400" />
+                <icon name="ph:share-network-duotone" w="24px sm:32px" h="24px sm:32px" />
             </div>
         </div>
 
         <Transition>
-            <div flex gap-12 mr="64px" v-if="opened" pb="8">
-                <div flex="~ col gap-4" w="1/2">
+            <div flex="~ col sm:row" gap-2 sm:gap-12 mr="48px sm:64px" v-if="opened" pb="8">
+                <div flex="~ col gap-2 sm:gap-4" w="sm:1/2">
                     <div flex="~ col">
-                        <h3 text="dark" my-1>الوصف</h3>
-                        <p m-0>{{ resource.description }}</p>
+                        <span font-bold text="base sm:xl dark" my-1>الوصف</span>
+                        <p m-0 text="sm sm:base">{{ resource.description }}</p>
                     </div>
                     <div flex="~ col">
-                        <h3 text="dark" my-1>الروابط</h3>
-                        <ol pr-4 m="0">
+                        <span font-bold text="base sm:xl dark" my-1>الروابط</span>
+                        <ol pr-4 m="0" text="sm sm:base">
                             <li><a un-text="pw" href="https://icones.js.org/collection/ic?s=library">https://icones.js.org/collection/ic?s=library</a></li>
                             <li><a un-text="pw" href="https://icones.js.org/collection/ic?s=library">https://icones.js.org/collection/ic?s=library</a></li>
                             <li><a un-text="pw" href="https://icones.js.org/collection/ic?s=library">https://icones.js.org/collection/ic?s=library</a></li>
                         </ol>
                     </div>
                 </div>
-                <div flex="~ col gap-4" w="1/2">
+                <div flex="~ sm:col gap-2 sm:gap-4" justify-between sm:justify-start w="sm:1/2" ml-4>
                     <div flex="~ col">
-                        <h3 text="dark" my-1>الإضافة</h3>
+                        <span font-bold text="base sm:xl dark" my-1>الإضافة</span>
                         <span>زين العابدين</span>
-                        <span>{{new Date(resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' }) }}</span>
+                        <span text="sm sm:base">{{new Date(resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' }) }}</span>
                     </div>
                     <div flex="~ col">
-                        <h3 text="dark" my-1>الفئة</h3>
-                        <span>{{resource.categories?.name}} - {{resource.sub_categories?.name}}</span>
+                        <span font-bold text="base sm:xl dark" my-1>الفئة</span>
+                        <span text="sm sm:base">{{resource.categories?.name}} - {{resource.sub_categories?.name}}</span>
                     </div>
                 </div>
             </div>
