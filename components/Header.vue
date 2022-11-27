@@ -9,19 +9,19 @@
         <!-- Left -->
         <div flex="~" justify-center gap-2 sm:gap-8>
             <div flex gap-3>
-                <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden :text="resourcesStore.filters.state ? 'b' : 'pw hover:white'">
+                <UiButton alt="فلتر" @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden :text="resourcesStore.filters.state ? 'b' : 'pw hover:white'">
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton v-if="user" @click="resourcesStore.modals.add = !resourcesStore.modals.add" square>
+                <UiButton v-if="user" alt="إضافة مصدر" @click="resourcesStore.modals.add = !resourcesStore.modals.add" square>
                     <icon name="ic:round-add" w="8" h="8" />
                 </UiButton>
 
-                <UiButton v-if="user" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw hover:white'">
+                <UiButton v-if="user" alt="مفضلاتي" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw hover:white'">
                     <icon  name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton @click="resourcesStore.toggleFilterOwnered" square>
+                <UiButton v-if="user" alt="مصادري" @click="resourcesStore.toggleFilterOwnered" square>
                     <icon name="material-symbols:library-books-rounded" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
             </div>
