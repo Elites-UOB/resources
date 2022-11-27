@@ -14,7 +14,7 @@
                 <UiButton square>
                     <icon name="ph:heart-duotone" w="8" h="8" />
                 </UiButton>
-    
+
                 <UiButton square>
                     <icon name="material-symbols:library-books-rounded" w="8" h="8" />
                 </UiButton>
@@ -29,3 +29,8 @@
         </div>
     </div>
 </template>
+
+<script setup>
+const authStore = useAuth();
+
+</script>

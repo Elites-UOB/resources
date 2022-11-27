@@ -8,7 +8,7 @@
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-4>
                 <icon name="carbon:software-resource-cluster" w="40px" h="40px" />
-                <span font-medium>برنامج الفوتوشوب الذي يمكنك من تحرير وتعديل الصور بسهولة...</span>
+                <span font-medium>{{ resource.title }}</span>
             </div>
 
             <!-- Actions -->
@@ -24,7 +24,7 @@
                 <div flex="~ col gap-4" w="1/2">
                     <div flex="~ col">
                         <h3 text="dark" my-1>الوصف</h3>
-                        <p m-0>وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور وصف وكذا وأمور .</p>
+                        <p m-0>{{ resource.description }}</p>
                     </div>
                     <div flex="~ col">
                         <h3 text="dark" my-1>الروابط</h3>
@@ -54,22 +54,27 @@
 <script setup>
 const opened = ref(false)
 
+const props = defineProps({
+    resource: {
+        type: Object,
+    }
+})
+
 </script>
 
 
 <style scoped>
 .v-enter-active {
-  transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
 }
 
 .v-leave-active {
-  transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
+    transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .v-enter-from,
 .v-leave-to {
-  transform: translateY(-20px);
-  opacity: 0;
+    transform: translateY(-20px);
+    opacity: 0;
 }
-
 </style>

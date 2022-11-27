@@ -1,10 +1,14 @@
 <template>
     <div>
-        <UiButton @click="opened = !opened" px="4">
+        <UiButton v-if="!user" @click="opened = !opened" px="4">
             <icon name="icon-park-twotone:unlock" w="8" h="8" />
             تسجيل
         </UiButton>
-        
+        <UiButton v-else @click="authStore.logout()" px="4">
+            <icon name="mi:log-out" w="8" h="8" />
+            تسجيل خروج
+        </UiButton>
+
 
         <Teleport to="body">
             <Transition>
@@ -17,13 +21,11 @@
 
                         <div flex="~ col gap-4" w="xs">
                             <UiInput v-if="!isLogin" v-model="name" icon="ph:user-duotone" placeholder="الأسم الثنائي" />
-                            <UiInput v-model="email" icon="ic:twotone-email" placeholder="البريد الالكتروني" />
-                            <UiInput v-model="password" icon="fluent:password-16-filled" placeholder="كلمة المرور" />
+                            <UiInput v-model="authStore.email" icon="ic:twotone-email" placeholder="البريد الالكتروني" />
+                            <UiInput v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" />
                         </div>
 
-
-
-                        <UiButton w="150px" mt="6">
+                        <UiButton @click="isLogin ? authStore.login() : authStore.register()" w="150px" mt="6">
                             <span v-if="isLogin">تسجيل الدخول</span>
                             <span v-if="!isLogin">تسجيل</span>
                         </UiButton>
@@ -33,7 +35,6 @@
                             <span v-if="!isLogin">تسجيل الدخول</span>
                         </div>
 
-
                     </div>
                 </div>
             </Transition>
@@ -42,13 +43,14 @@
 </template>
 
 <script setup>
+const authStore = useAuth();
 const opened = ref(false)
 
 const isLogin = ref(true)
 
-const name = ref('')
-const email = ref('')
-const password = ref('')
+const user = useSupabaseUser();
+
+
 
 </script>
 
