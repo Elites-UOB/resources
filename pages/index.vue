@@ -1,15 +1,20 @@
 <template>
     <div flex="~ col gap-8" overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset" >
-        <!-- HEADER -->
-        <Header />
         
+        <div id="modals" order="2">
+            <NewResource />
+        </div>
+
+        <!-- HEADER -->
+        <Header order="1" />
+ 
         <!-- CONTENT -->
-        <div flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]">
+        <div flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]" order="3">
             <Filter />
             <Resources />
         </div>
 
-        <Footer />
+        <Footer order="4" />
     </div>
 </template>
 

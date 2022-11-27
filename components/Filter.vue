@@ -71,18 +71,6 @@
                 </div>
             </HeadlessListbox>
 
-
-
-
-
-
-
-
-
-
-
-
-
         </Categories>
     </div>
 </template>

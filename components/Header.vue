@@ -1,7 +1,7 @@
 <template>
     <div flex="~ col sm:row" gap-4 sm:items-center justify-between>
         <!-- Right -->
-        <div flex items-center gap-3>
+        <div flex items-center gap-3 bg="hover:s-hover" py-4 px-6 rounded-15px cursor="pointer" text="hover:white" transition="all duration-200">
             <icon name="fluent:channel-share-24-filled" w="8 sm:12" h="8 sm:12" text="b" />
             <span text="2xl lg:4xl" font-bold>مصادر</span>
         </div>
@@ -13,7 +13,9 @@
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" :text="resourcesStore.filters.state ? 'b' : 'pw'" />
                 </UiButton>
 
-                <NewResource v-if="user" />
+                <UiButton v-if="user" @click="resourcesStore.modals.add = !resourcesStore.modals.add" square>
+                    <icon name="ic:round-add" w="8" h="8" />
+                </UiButton>
 
                 <UiButton v-if="user" @click="resourcesStore.toggleFilterFavourite" square>
                     <icon :text="resourcesStore.isFavourites ? 'red-500' : 'pw'" name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />

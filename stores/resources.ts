@@ -13,6 +13,10 @@ export const useResources = defineStore("resourcesStore", {
       search: "",
       category: null,
       subCategory: null,
+    },
+
+    modals: {
+      add: false,
     }
   }),
   getters: {
