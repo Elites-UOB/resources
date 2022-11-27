@@ -4,7 +4,6 @@
             <div v-if="resourcesStore.modals.add" flex="~">
                 <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="sm:x-4 y-8" mx="lg:0" bg="p" w="full" border="2 s-stroke rounded-15px">
                     <h1 m="b-4 t-0" text-white>إضافة مصدر</h1>
-
                     <!-- Main Category -->
                     <div flex="~ col sm:row gap-8" w="80% sm:md">
                         <div w="sm:1/2">
@@ -78,7 +77,7 @@
 
                     <div flex="~ col" w="80% sm:md">
                         <h4 m="t-0 b-2">الوصف</h4>
-                        <textarea v-model="description" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" max-h="250px" />
+                        <textarea v-model="resourcesStore.description" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" max-h="250px" />
                     </div>
 
                     <div flex="~ col gap-2" w="80% sm:md">
@@ -110,7 +109,7 @@
                         </div>
                     </div>
 
-                    <UiButton w="150px" mt="6">
+                    <UiButton @click="resourcesStore.insertResource()" w="150px" mt="6">
                         إضافة
                     </UiButton>
                 </div>

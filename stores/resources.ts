@@ -5,7 +5,6 @@ export const useResources = defineStore("resourcesStore", {
     resources: [],
     categories: [],
     subCategories: [],
-    resourceData: {},
     createError: null as string | null,
 
     filters: {
@@ -21,6 +20,10 @@ export const useResources = defineStore("resourcesStore", {
     modals: {
       add: false,
     },
+
+    //Resource Form
+    title: null as string | null,
+    description: null as string | null,
   }),
   getters: {
     getResources: (state) => state.resources,
@@ -149,31 +152,41 @@ export const useResources = defineStore("resourcesStore", {
     },
 
     //validation
-    validation(resource: Boolean = false) {
-      if (this.resourceData.title?.length < 3 && resource) {
-        this.createError = "العنوان يجب ان يكون اكثر من 3 احرف.";
-      } else if (this.resourceData.description?.length < 50) {
-        this.createError = "الوصف قصير جداً.";
-      } else if (!this.resourceData.category_id) {
-        this.createError = "يرجى اختيار الفئة .";
-      } else {
-        this.createError = null;
-      }
+    // validation(resource: Boolean = false) {
+    //   if (this.resourceData.title?.length < 3 && resource) {
+    //     this.createError = "العنوان يجب ان يكون اكثر من 3 احرف.";
+    //   } else if (this.resourceData.description?.length < 50) {
+    //     this.createError = "الوصف قصير جداً.";
+    //   } else if (!this.resourceData.category_id) {
+    //     this.createError = "يرجى اختيار الفئة .";
+    //   } else {
+    //     this.createError = null;
+    //   }
 
-      if (this.createError) return false;
-      else return true;
-    },
+    //   if (this.createError) return false;
+    //   else return true;
+    // },
 
     // INSERT
     async insertResource() {
+      const user = useSupabaseUser();
       const supabase = useSupabaseClient();
-      const { data, error } = await supabase.from("resources").insert({
-        title: resourceData.title,
-        description: resourceData.description,
-        url: resourceData.url,
-        category: resourceData.category_id,
-        subCategory: resourceData.subCategory_id,
-      });
+      try {
+        const { data, error } = await supabase
+          .from("resources")
+          .insert({
+            user_id: user.value?.id,
+            title: this.title ?? "العنوان",
+            description: this.description,
+            category_id: this.filters.category.id,
+            sub_category_id: this.filters.subCategory.id,
+          })
+          .select("*");
+        this.fetch();
+        if (error) throw error;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });

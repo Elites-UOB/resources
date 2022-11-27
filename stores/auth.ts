@@ -1,11 +1,6 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { AuthError } from "@supabase/supabase-js";
-interface Data {
-  name: string;
-  email: string;
-  password: string;
-  createError: string;
-}
+
 export const useAuth = defineStore("authStore", {
   state: () => ({
     name: null as string | null,
@@ -71,7 +66,7 @@ export const useAuth = defineStore("authStore", {
         return false;
       }
 
-      const resourcesStore = useResources()
+      const resourcesStore = useResources();
       resourcesStore.fetch();
     },
 
