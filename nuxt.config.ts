@@ -2,7 +2,7 @@
 import { config } from "./themeconfig/config";
 export default defineNuxtConfig({
   ssr: false,
-  
+
   modules: [
     "nuxt-icon",
     "@nuxtjs/supabase",
@@ -14,4 +14,8 @@ export default defineNuxtConfig({
   ],
 
   unocss: config,
+
+  imports: {
+    dirs: ["stores/**"],
+  },
 });
