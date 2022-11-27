@@ -19,6 +19,8 @@
 </template>
 
 <script setup>
+const route = useRoute()
+
 useHead({
     title: 'Resources - مصادر',
     bodyAttrs: {

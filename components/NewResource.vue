@@ -121,8 +121,6 @@
 
 <script setup>
 const resourcesStore = useResources()
-
-const resourcesStore = useResources()
 const user = useSupabaseUser()
 
 await resourcesStore.fetchCategories()
