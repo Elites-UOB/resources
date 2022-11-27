@@ -6,7 +6,4 @@
 
 <script setup>
 const resourceStore = useResources();
-
-await resourceStore.fetch();
-
 </script>

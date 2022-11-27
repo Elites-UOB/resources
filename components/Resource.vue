@@ -13,7 +13,7 @@
 
             <!-- Actions -->
             <div flex justify-between items-center gap-4>
-                <icon @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500' : 'pw'" w="32px" h="32px" />
+                <icon v-if="user" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500' : 'pw'" w="32px" h="32px" />
                 <icon v-if="resource.verified" name="ph:check-circle-duotone" w="32px" h="32px" text="green-400" />
                 <icon name="ph:share-network-duotone" w="32px" h="32px" />
             </div>
@@ -53,6 +53,7 @@
 
 <script setup>
 const resourcesStore = useResources()
+const user = useSupabaseUser()
 const opened = ref(false)
 
 const props = defineProps({

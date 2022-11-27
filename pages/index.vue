@@ -19,4 +19,7 @@ useHead({
         dir: 'rtl',
     },
 })
+
+const resourceStore = useResources();
+await resourceStore.fetch();
 </script>

@@ -9,13 +9,15 @@ export const useResources = defineStore("resourcesStore", {
     filters: {
       favourites: false,
       search: "",
-      category: "",
-      subCategory: "",
+      category: null,
+      subCategory: null,
     }
   }),
   getters: {
     getResources: (state) => state.resources,
     getFilters: (state) => state.filters,
+    getCategories: (state) => state.categories,
+    getSubCategories: (state) => state.subCategories,
     isFavourites: (state) => state.filters.favourites,
     getFilteredResources: (state) => {
       let resources = state.resources;
@@ -46,12 +48,17 @@ export const useResources = defineStore("resourcesStore", {
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
       try {
-        const { data, error } = await supabase.from("resources").select("*, favourites(*)").eq('favourites.user_id', user.value?.id);
-        console.log("data", data);
-        if (error) throw error;
-        this.resources = data;
-        this.fetchCategories();
-        this.fetchSubCategories();
+        if (user.value) {
+          let { data, error } = await supabase.from("resources").select("*, favourites(*)").eq('favourites.user_id', user.value?.id);
+          if (error) throw error;
+          this.resources = data;
+        } else {
+          let { data, error } = await supabase.from("resources").select("*");
+          if (error) throw error;
+          this.resources = data;
+        }
+        await this.fetchCategories();
+        await this.fetchSubCategories();
       } catch (error) {
         console.log("error", error);
       }
