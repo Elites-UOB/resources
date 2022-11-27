@@ -1,5 +1,5 @@
 <template>
-    <div flex="~ col gap-8" overflow-y="auto" overflow-x="hidden">
+    <div flex="~ col gap-8" overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset" >
         <!-- HEADER -->
         <Header />
         
