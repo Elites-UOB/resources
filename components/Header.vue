@@ -34,7 +34,7 @@
             <HeadlessMenu v-if="user" as="div" class="relative inline-block text-right" z="20">
                 <div>
                     <HeadlessMenuButton bg="transparent" border="0">
-                        <UiButton v-if="user" px="sm:6" h="14 sm:auto" w="14 sm:auto">
+                        <UiButton v-if="user" px="lg:6" h="14 sm:auto" w="14 sm:auto">
                             <icon name="ph:user-duotone" w="6 sm:8" h="6 sm:8" />
                             <span hidden sm:block>{{ user.user_metadata.first_name }}</span>
                         </UiButton>
