@@ -26,14 +26,14 @@
                                         <!-- List Options -->
                                         <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100" leave-to-class="opacity-0">
                                             <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" p="2">
-                                                <HeadlessListboxOption v-for="person in people" v-slot="{ active, selected }" :key="person.name" :value="person" as="template">
+                                                <HeadlessListboxOption v-for="category in resourcesStore.getCategories" v-slot="{ active, selected }" :key="category.title" :value="category.id" as="template">
                                                     <li list="none" p="y-2 r-10 l-4" my="1" rounded="10px" cursor="pointer" :class="[
                                                         active ? 'relative cursor-default select-none' : 'relative cursor-default select-none',
                                                         selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover '
                                                     ]">
                                                         <span :class="[
                                                             selected ? 'font-normal' : 'block truncate',
-                                                        ]">{{ person.name }}</span>
+                                                        ]">{{ category.title }}</span>
                                                         <span v-if="selected" class="absolute inset-y-0 right-0 flex items-center pr-3 text-b">
                                                             <icon name="material-symbols:check-small-rounded" class="h-5 w-5" aria-hidden="true" />
                                                         </span>
@@ -132,6 +132,13 @@
 <script setup>
 const opened = ref(false)
 
+const resourcesStore = useResources()
+const user = useSupabaseUser()
+
+await resourcesStore.fetchCategories()
+
+
+
 const description = ref('')
 
 const links = ref([])
@@ -165,7 +172,9 @@ const people = [
     { name: 'Tanya Fox' },
     { name: 'Hellen Schmidt' },
 ]
-const selectedPerson = ref(people[0])
+
+
+const selectedPerson = ref(0)
 </script>
 
 <style scoped>

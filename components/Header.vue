@@ -45,13 +45,13 @@
                     <HeadlessMenuItems class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" p="1">
                         <div class="px-1 py-1">
                             <HeadlessMenuItem v-slot="{ active }">
-                                <button bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="[ 'group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm' ]">
+                                <button bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                     <icon name="material-symbols:edit" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                     تعديل
                                 </button>
                             </HeadlessMenuItem>
                             <HeadlessMenuItem @click="authStore.logout()" v-slot="{ active }">
-                                <button bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="[ 'group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm' ]">
+                                <button bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                     <icon name="material-symbols:lock-person" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                     تسجيل الخروج
                                 </button>
