@@ -10,9 +10,13 @@
             </div>
         </div>
 
-        <div flex="~ col" justify-center>
-            <span class="text-md sm:text-xl">صنع بُحب ❤️</span>
-            <span class="text-sm sm:text-lg">2022</span>
+        <div flex="~ gap-4">
+            <span hidden sm:block class="text-md sm:text-xl">صنع بُحب</span>
+            
+            <div flex="~ gap-2" justify-end items-center>
+                <a href="https://github.com/Elites-UOB" target="_blank" decoration="none" un-text="pw hover:white"><icon name="mdi:github" w="8" h="8" /></a>
+                <a href="https://t.me/CsitElites" target="_blank" decoration="none" un-text="pw hover:white"><icon name="ic:baseline-telegram" w="8" h="8" /></a>
+            </div>
         </div>
     </a>
 </template>
