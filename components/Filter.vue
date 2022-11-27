@@ -12,7 +12,7 @@
             <HeadlessListbox v-if="categories?.length > 0" v-model="resourcesStore.filters.category" z="20">
                 <div class="relative mt-1">
                     <!-- Button -->
-                    <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw sm:sm" border="0">
+                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </span>

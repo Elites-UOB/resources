@@ -13,7 +13,8 @@
 
             <!-- Actions -->
             <div flex justify-between items-center gap-2 sm:gap-4>
-                <icon v-if="user" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500' : 'pw'" w="24px sm:32px" h="24px sm:32px" />
+                <icon v-if="user && userOwned" @click.stop="() => {}" name="material-symbols:edit-rounded" text="b" w="24px sm:32px" h="24px sm:32px" />
+                <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="24px sm:32px" h="24px sm:32px" />
                 <icon v-if="resource.verified" name="ph:check-circle-duotone" w="24px sm:32px" h="24px sm:32px" text="green-400" />
                 <icon name="ph:share-network-duotone" w="24px sm:32px" h="24px sm:32px" />
             </div>
@@ -63,7 +64,7 @@ const props = defineProps({
 })
 
 const isFavourited = computed(() => props.resource?.favourites?.length > 0)
-console.log(props.resource)
+const userOwned = computed(() => props.resource?.user_id == user.value?.id)
 </script>
 
 

@@ -9,16 +9,16 @@
         <!-- Left -->
         <div flex="~" justify-center gap-2 sm:gap-8>
             <div flex gap-3>
-                <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden>
-                    <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" :text="resourcesStore.filters.state ? 'b' : 'pw'" />
+                <UiButton @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden :text="resourcesStore.filters.state ? 'b' : 'pw hover:white'">
+                    <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
                 <UiButton v-if="user" @click="resourcesStore.modals.add = !resourcesStore.modals.add" square>
                     <icon name="ic:round-add" w="8" h="8" />
                 </UiButton>
 
-                <UiButton v-if="user" @click="resourcesStore.toggleFilterFavourite" square>
-                    <icon :text="resourcesStore.isFavourites ? 'red-500' : 'pw'" name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
+                <UiButton v-if="user" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw hover:white'">
+                    <icon  name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
                 <UiButton v-if="user" square>

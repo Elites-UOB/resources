@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Transition>
+        <Transition name="add-transition">
             <div v-if="resourcesStore.modals.add" flex="~">
                 <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="sm:x-4 y-8" mx="lg:0" bg="p" w="full" border="2 s-stroke rounded-15px">
                     <h1 m="b-4 t-0" text-white>إضافة مصدر</h1>
@@ -12,7 +12,7 @@
                             <HeadlessListbox v-model="selectedPerson">
                                 <div class="relative mt-1">
                                     <!-- Button -->
-                                    <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw sm:sm" border="0">
+                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
@@ -47,7 +47,7 @@
                             <HeadlessListbox v-model="selectedPerson">
                                 <div class="relative mt-1">
                                     <!-- Button -->
-                                    <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw sm:sm" border="0">
+                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
@@ -78,7 +78,7 @@
 
                     <div flex="~ col" w="80% sm:md">
                         <h4 m="t-0 b-2">الوصف</h4>
-                        <textarea v-model="description" bg="s" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" max-h="250px" />
+                        <textarea v-model="description" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" max-h="250px" />
                     </div>
 
                     <div flex="~ col gap-2" w="80% sm:md">
@@ -159,16 +159,16 @@ const selectedPerson = ref(people[0])
 </script>
 
 <style scoped>
-.v-enter-active {
+.add-transition-enter-active {
     transition: all 0.2s ease-out;
 }
 
-.v-leave-active {
+.add-transition-leave-active {
     transition: all 0.2s;
 }
 
-.v-enter-from,
-.v-leave-to {
+.add-transition-enter-from,
+.add-transition-leave-to {
     transform: translateY(-60px);
     opacity: 0;
 }
