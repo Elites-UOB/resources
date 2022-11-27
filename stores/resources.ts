@@ -151,10 +151,10 @@ export const useResources = defineStore("resourcesStore", {
     validation(resource: Boolean = false) {
       if (this.resourceData.title?.length < 3 && resource) {
         this.createError = "العنوان يجب ان يكون اكثر من 3 احرف.";
-      } else if (this.resourceData.title?.length < 3 && resource) {
-        this.createError = "البريد الالكتروني غير صحيح.";
-      } else if (this.resourceData.title?.length < 3 && resource) {
-        this.createError = "كلمة المرور يجب ان تكون اكثر من 6 احرف.";
+      } else if (this.resourceData.description?.length < 50) {
+        this.createError = "الوصف قصير جداً.";
+      } else if (!this.resourceData.category_id) {
+        this.createError = "يرجى اختيار الفئة .";
       } else {
         this.createError = null;
       }
