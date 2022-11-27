@@ -13,13 +13,13 @@
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" :text="resourcesStore.filters.state ? 'b' : 'pw'" />
                 </UiButton>
 
-                <NewResource />
+                <NewResource v-if="user" />
 
-                <UiButton @click="resourcesStore.toggleFilterFavourite" square>
+                <UiButton v-if="user" @click="resourcesStore.toggleFilterFavourite" square>
                     <icon :text="resourcesStore.isFavourites ? 'red-500' : 'pw'" name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton square>
+                <UiButton v-if="user" square>
                     <icon name="material-symbols:library-books-rounded" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
             </div>

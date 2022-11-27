@@ -55,7 +55,7 @@ export const useResources = defineStore("resourcesStore", {
           if (error) throw error;
           this.resources = data;
         } else {
-          let { data, error } = await supabase.from("resources, categories(id,name), sub_categories(id,name)").select("*");
+          let { data, error } = await supabase.from("resources").select("*, categories(id,name), sub_categories(id,name)");
           if (error) throw error;
           this.resources = data;
         }

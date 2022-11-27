@@ -7,7 +7,7 @@
         <Teleport to="body">
             <Transition>
                 <div v-if="opened" @click="opened = false" flex="~" items-center justify-center class="fixed inset-0 bg-p bg-opacity-80" backdrop-blur="sm" z="20">
-                    <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="4" bg="p" w="xl" h="3xl" border="2 s-stroke rounded-15px">
+                    <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="4" mx="8 lg:0" bg="p" w="full lg:xl" h="2xl lg:3xl" border="2 s-stroke rounded-15px">
                         <h1 m="b-4 t-8" text-white>إضافة مصدر</h1>
 
                         <!-- Main Category -->
