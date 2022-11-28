@@ -49,4 +49,7 @@ useHead({
 
 const resourceStore = useResources();
 await resourceStore.fetch();
+
+const authStore = useAuth()
+await authStore.get_my_claim()
 </script>

@@ -7,9 +7,12 @@ export const useAuth = defineStore("authStore", {
     email: null as string | null,
     password: null as string | null,
     createError: null as string | AuthError | null,
+
+    admin: false,
   }),
   getters: {
     getCreateError: (state) => state.createError,
+    isAdmin: (state) => state.admin,
   },
 
   actions: {
@@ -88,6 +91,18 @@ export const useAuth = defineStore("authStore", {
         console.log(error);
       }
     },
+
+
+    async get_my_claim() {
+      const supabase = useSupabaseClient();
+
+      const { data, error } = await supabase
+        .rpc('get_my_claims');
+      
+      if (data)
+        this.admin = data?.userlevel == 100;
+      return { data, error };
+    }
   },
 });
 
