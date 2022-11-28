@@ -1,14 +1,14 @@
 <template>
     <div :class="[
         opened ? 'bg-s border-s-stroke' : 'border-transparent'
-    ]" flex="~ col sm:gap-3" py="0" border="~ rounded-15px">
+    ]" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px">
         <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" rounded="15px" p="3" :class="{
             'border border-s-stroke rounded-15px': !opened,
         }">
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-2 sm:gap-4>
                 <icon name="carbon:software-resource-cluster" w="25px sm:40px" h="25px sm:40px" />
-                <span font-medium truncate="~" text="sm sm:base" w="200px sm:sm lg:xl">{{ resource.title }}</span>
+                <span font-medium truncate="~" text="sm sm:base" w="180px sm:sm lg:xl">{{ resource.title }}</span>
             </div>
 
             <!-- Actions -->
