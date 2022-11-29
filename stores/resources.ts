@@ -77,15 +77,18 @@ export const useResources = defineStore("resourcesStore", {
           let { data, error } = await supabase
             .from("resources")
             .select(
-              "*, favourites(*), categories(id,name), sub_categories(id,name)"
+              "*, favourites(*), categories(id,name), sub_categories(id,name),links(id,title,url)"
             )
+            .order("created_at", { ascending: false })
             .eq("favourites.user_id", user.value?.id);
           if (error) throw error;
           this.resources = data;
         } else {
           let { data, error } = await supabase
             .from("resources")
-            .select("*, categories(id,name), sub_categories(id,name)");
+            .select(
+              "*, categories(id,name), sub_categories(id,name),links(id,title,url)"
+            );
           if (error) throw error;
           this.resources = data;
         }
@@ -152,38 +155,42 @@ export const useResources = defineStore("resourcesStore", {
     },
 
     //validation
-    // validation(resource: Boolean = false) {
-    //   if (this.resourceData.title?.length < 3 && resource) {
-    //     this.createError = "العنوان يجب ان يكون اكثر من 3 احرف.";
-    //   } else if (this.resourceData.description?.length < 50) {
-    //     this.createError = "الوصف قصير جداً.";
-    //   } else if (!this.resourceData.category_id) {
-    //     this.createError = "يرجى اختيار الفئة .";
-    //   } else {
-    //     this.createError = null;
-    //   }
+    validation(resource: Boolean = false) {
+      if (String(this.title).length < 10 && resource) {
+        this.createError = "العنوان يجب ان يكون اكثر من 10 احرف.";
+      } else if (String(this.description).length < 50) {
+        this.createError = "الوصف قصير جداً.";
+      } else if (!this.filters.category.id) {
+        this.createError = "الرجاء اختيار الفئة الرئسية.";
+      } else if (!this.filters.subCategory.id) {
+        this.createError = "الرجاء اختيار الفئة الفرعية.";
+      } else {
+        this.createError = null;
+      }
 
-    //   if (this.createError) return false;
-    //   else return true;
-    // },
+      if (this.createError) return false;
+      else return true;
+    },
 
     // INSERT
     async insertResource() {
+      if (!this.validation(true)) return false;
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
-
       const { data, error } = await supabase
         .from("resources")
         .insert({
           user_id: user.value?.id,
-          title: this.title ?? "العنوان",
+          author: user.value?.user_metadata.first_name,
+          title: this.title,
           description: this.description,
           category_id: this.filters.category.id,
           sub_category_id: this.filters.subCategory.id,
         })
         .select("*");
-      this.fetch();
       if (error) throw error;
+
+      this.fetch();
     },
   },
 });

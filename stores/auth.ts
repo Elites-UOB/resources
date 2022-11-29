@@ -73,13 +73,16 @@ export const useAuth = defineStore("authStore", {
       resourcesStore.fetch();
     },
 
-    //get user
-    // async getUser() {
-    //   const user: any = useSupabaseUser();
-    //   if (user) {
-    //     this.user = user;
-    //   }
-    // },
+    //UPDATE USER DATA
+    async updateUser(name: string) {
+      const client = useSupabaseAuthClient();
+      const { data, error } = await client.auth.updateUser({
+        data: {
+          first_name: name,
+        },
+      });
+      if (error) throw error;
+    },
 
     // LogOut
     async logout() {
@@ -92,17 +95,14 @@ export const useAuth = defineStore("authStore", {
       }
     },
 
-
     async get_my_claim() {
       const supabase = useSupabaseClient();
 
-      const { data, error } = await supabase
-        .rpc('get_my_claims');
-      
-      if (data)
-        this.admin = data?.userlevel == 100;
+      const { data, error } = await supabase.rpc("get_my_claims");
+
+      if (data) this.admin = data?.userlevel == 100;
       return { data, error };
-    }
+    },
   },
 });
 

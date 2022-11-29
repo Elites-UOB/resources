@@ -4,6 +4,12 @@
             <div v-if="resourcesStore.modals.add" flex="~">
                 <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="sm:x-4 y-8" mx="lg:0" bg="p" w="full" border="2 s-stroke rounded-15px">
                     <h1 m="b-4 t-0" text-white>إضافة مصدر</h1>
+
+                    <h4 v-if="resourcesStore.getCreateError" text-red-500 my-0 flex gap-2>
+                        <icon name="ic:twotone-error" w="6" h="6" />
+                        {{ resourcesStore.getCreateError }}
+                    </h4>
+
                     <!-- Main Category -->
                     <div flex="~ col sm:row gap-8" w="80% sm:md">
                         <div w="sm:1/2">
@@ -73,6 +79,11 @@
                                 </div>
                             </HeadlessListbox>
                         </div>
+                    </div>
+
+                    <div flex="~ col" w="80% sm:md">
+                        <h4 m="t-0 b-2">العنوان</h4>
+                        <UiInput v-model="resourcesStore.title" bg="focus:s-hover" text="pw lg focus:white" mx-auto max-w="full sm:md" min-w="full sm:md" />
                     </div>
 
                     <div flex="~ col" w="80% sm:md">
