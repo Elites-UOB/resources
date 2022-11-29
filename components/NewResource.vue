@@ -82,12 +82,18 @@
                     </div>
 
                     <div flex="~ col" w="80% sm:md">
-                        <h4 m="t-0 b-2">العنوان</h4>
+                        <div flex justify-between items-center>
+                            <h4 m="t-0 b-2">العنوان</h4>
+                            <span text="pw">{{ resourcesStore.title?.length ?? '0' }}/10</span>
+                        </div>
                         <UiInput v-model="resourcesStore.title" bg="focus:s-hover" text="pw lg focus:white" mx-auto max-w="full sm:md" min-w="full sm:md" />
                     </div>
 
                     <div flex="~ col" w="80% sm:md">
-                        <h4 m="t-0 b-2">الوصف</h4>
+                        <div flex justify-between items-center>
+                            <h4 m="t-0 b-2">الوصف</h4>
+                            <span text="pw">{{ resourcesStore.description?.length ?? '0' }}/50</span>
+                        </div>
                         <textarea v-model="resourcesStore.description" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" max-h="250px" />
                     </div>
 
