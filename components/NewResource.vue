@@ -105,7 +105,7 @@
                         <div v-for="(link, index) in links" :key="link" flex="~ gap-4" my-2 justify-between items-start sm:items-center>
                             <span w="6">{{ index + 1 }}</span>
                             <div flex="~ col sm:row gap-1 sm:gap-4">
-                                <UiInput v-model="link.name" placeholder="أسم الرابط" sm="~" />
+                                <UiInput v-model="link.title" placeholder="أسم الرابط" sm="~" />
                                 <UiInput v-model="link.url" flex="grow" placeholder="عنوان الرابط" sm="~" />
                             </div>
                             <div>
@@ -142,17 +142,17 @@ const user = useSupabaseUser()
 await resourcesStore.fetchCategories()
 
 
-
-const description = ref('')
-
 const links = ref([])
 
 const newLink = () => {
     links.value.push({
-        name: '',
+        title: '',
         url: ''
     })
 }
+
+resourcesStore.links = links.value
+
 
 const removeLink = (index) => {
     links.value.splice(index, 1)

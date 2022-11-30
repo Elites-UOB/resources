@@ -5,6 +5,7 @@ export const useResources = defineStore("resourcesStore", {
     resources: [],
     categories: [],
     subCategories: [],
+    links: [],
     createError: null as string | null,
 
     filters: {
@@ -175,6 +176,7 @@ export const useResources = defineStore("resourcesStore", {
     // INSERT
     async insertResource() {
       if (!this.validation(true)) return false;
+
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
       const { data, error } = await supabase
@@ -188,6 +190,19 @@ export const useResources = defineStore("resourcesStore", {
           sub_category_id: this.filters.subCategory.id,
         })
         .select("*");
+      if (this.links.length > 0 && data) {
+        this.links.forEach(async (link: any) => {
+          console.log(link);
+          await supabase
+            .from("links")
+            .insert({
+              resource_id: data[0].id,
+              title: link.title,
+              url: link.url,
+            })
+            .select("*");
+        });
+      }
       if (error) throw error;
 
       this.fetch();
