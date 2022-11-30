@@ -1,6 +1,7 @@
 <template>
-    <div flex="~ col gap-8" overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset">
-
+    <div flex="~ col gap-8" my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset">
+        <!-- my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl -->
+        
         <div id="modals" order="2">
             <NewResource />
         </div>
@@ -24,7 +25,7 @@ const route = useRoute()
 useHead({
     title: 'Resources - مصادر',
     bodyAttrs: {
-        class: 'bg-p text-pw my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl',
+        class: 'bg-p text-pw',
     },
     htmlAttrs: {
         lang: 'ar',
