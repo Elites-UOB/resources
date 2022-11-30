@@ -84,7 +84,7 @@
                     <div flex="~ col" w="80% sm:md">
                         <div flex justify-between items-center>
                             <h4 m="t-0 b-2">العنوان</h4>
-                            <span text="pw">{{ resourcesStore.title?.length ?? '0' }}/10</span>
+                            <span :class="!resourcesStore.title?.length ? 'text-red' : resourcesStore.title?.length >= 10 ? 'text-green' : 'text-red'">{{ resourcesStore.title?.length ?? '0' }}/10</span>
                         </div>
                         <UiInput icon="ic:twotone-subtitles" v-model="resourcesStore.title" bg="focus:s-hover" text="pw lg focus:white" mx-auto max-w="full sm:md" min-w="full sm:md" />
                     </div>
@@ -92,7 +92,7 @@
                     <div flex="~ col" w="80% sm:md">
                         <div flex justify-between items-center>
                             <h4 m="t-0 b-2">الوصف</h4>
-                            <span text="pw">{{ resourcesStore.description?.length ?? '0' }}/50</span>
+                            <span :class="!resourcesStore.description?.length ? 'text-red' : resourcesStore.description?.length >= 50 ? 'text-green' : 'text-red'">{{ resourcesStore.description?.length ?? '0' }}/50</span>
                         </div>
                         <textarea v-model="resourcesStore.description" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" max-h="250px" />
                     </div>
@@ -114,7 +114,7 @@
                         </div>
                     </div>
 
-                    <div flex="~ col gap-2" w="80% sm:md">
+                    <!-- <div flex="~ col gap-2" w="80% sm:md">
                         <div flex justify-between items-center>
                             <h4 m="t-0 b-2" text-right w-full>الملفات</h4>
                             <icon @click="newFile()" cursor="pointer" text="hover:white" name="ic:round-add" w="8" h="8" />
@@ -124,10 +124,11 @@
                             <span text="right" flex="grow">FILE NAME</span>
                             <icon @click="removeFile(index)" cursor="pointer" text="red-400 hover:red-500" name="ic:round-delete" w="24px" h="24px" />
                         </div>
-                    </div>
+                    </div> -->
 
-                    <UiButton @click="resourcesStore.insertResource()" w="150px" mt="6">
-                        إضافة
+                    <UiButton :disabled="resourcesStore.getLodeing ? true : false" @click="resourcesStore.addResource()" w="150px" mt="6">
+                        <span v-if="resourcesStore.getLodeing" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
+                        <span v-else>إضافة</span>
                     </UiButton>
                 </div>
             </div>

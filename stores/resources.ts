@@ -6,6 +6,7 @@ export const useResources = defineStore("resourcesStore", {
     categories: [],
     subCategories: [],
     links: [],
+    isLoding: false,
     createError: null as string | null,
 
     filters: {
@@ -34,6 +35,7 @@ export const useResources = defineStore("resourcesStore", {
     isFavourites: (state) => state.filters.favourites,
     isOwnered: (state) => state.filters.ownered,
     getCreateError: (state) => state.createError,
+    getLodeing: (state) => state.isLoding,
     getFilteredResources: (state) => {
       let resources = state.resources;
 
@@ -176,9 +178,9 @@ export const useResources = defineStore("resourcesStore", {
     },
 
     // INSERT
-    async insertResource() {
+    async addResource() {
       if (!this.validation(true)) return false;
-
+      this.isLoding = true;
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
       const { data, error } = await supabase
@@ -206,7 +208,12 @@ export const useResources = defineStore("resourcesStore", {
       }
       if (error) throw error;
 
+      this.title = "";
+      this.description = "";
+
       this.fetch();
+
+      this.isLoding = false;
     },
 
     async removeResource(resource: any) {
@@ -218,8 +225,9 @@ export const useResources = defineStore("resourcesStore", {
         .delete()
         .eq("id", resource.id);
       if (error) throw error;
-      
+
       this.resources = this.resources.filter((r: any) => r.id !== resource.id);
+      this.fetch();
     },
 
     async addCategory() {
