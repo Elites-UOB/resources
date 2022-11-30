@@ -58,13 +58,15 @@ export const useResources = defineStore("resourcesStore", {
           (resource) => resource.user_id === user.value?.id
         );
       }
-      // if (state.filters.category) {
-      //   resources = resources.filter((resource) => resource.category === state.filters.category);
-      // }
+      if (state.filters.category) {
+        if (state.filters.category?.name !== "الكل")
+          resources = resources.filter((resource) => resource.categories?.name === state.filters.category?.name);
+      }
 
-      // if (state.filters.subCategory) {
-      //   resources = resources.filter((resource) => resource.subCategory === state.filters.subCategory);
-      // }
+      if (state.filters.subCategory) {
+        if (state.filters.category?.name !== "الكل")
+          resources = resources.filter((resource) => resource.sub_categories?.name === state.filters.subCategory?.name);
+      }
 
       return resources;
     },

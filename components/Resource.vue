@@ -2,8 +2,9 @@
     <div :class="[
         opened ? 'bg-s border-s-stroke' : 'border-transparent'
     ]" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px">
-        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" rounded="15px" p="3" :class="{
-            'border border-s-stroke rounded-15px': !opened,
+
+        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103 rounded="15px" p="3" border border-s-stroke rounded-15px :class="{
+            'scale-103 text-white bg-s-hover': opened
         }">
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-2 sm:gap-4>
