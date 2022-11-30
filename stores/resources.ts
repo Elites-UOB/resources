@@ -104,7 +104,7 @@ export const useResources = defineStore("resourcesStore", {
 
     async fetchCategories() {
       const supabase = useSupabaseClient();
-      const { data, error } = await supabase.from("categories").select();
+      const { data, error } = await supabase.from("categories").select("*, sub_categories(id,name)");
       this.categories = data;
     },
 
@@ -303,6 +303,15 @@ export const useResources = defineStore("resourcesStore", {
       alert("Delete Succssfully");
       this.fetchSubCategories();
     },
+
+    async toggleVerification(resource: any) {
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("resources")
+        .update({ verified: !resource.verified })
+        .eq("id", resource.id);
+      if (error) throw error;
+    }
   },
 });
 

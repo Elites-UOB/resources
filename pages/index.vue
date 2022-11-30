@@ -1,20 +1,20 @@
 <template>
-    <Suspense>
-        <div flex="~ col gap-8" my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset">
-    
-            <div id="modals" order="2">
-                <NewResource />
-            </div>
-    
-            <Header order="1" />
-    
-            <div flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]" order="3">
-                <Filter />
-                <Resources />
-            </div>
-    
-            <Footer order="4" />
+    <div flex="~ col gap-8" my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset">
+
+        <div id="modals" order="2">
+            <NewResource />
         </div>
+
+        <Header order="1" />
+
+        <div flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]" order="3">
+            <Filter />
+            <Resources />
+        </div>
+
+        <Footer order="4" />
+    </div>
+    <!-- <Suspense>
 
         <template #fallback>
             <div animate-pulse w="screen" h="screen" fixed flex flex-col gap-12 justify-center items-center>
@@ -26,7 +26,7 @@
                 </span>
             </div>
         </template>
-    </Suspense>
+    </Suspense> -->
 </template>
 
 <script setup>
@@ -59,10 +59,10 @@ useHead({
 })
 
 const resourceStore = useResources();
-await resourceStore.fetch();
+resourceStore.fetch();
 
 const authStore = useAuth()
-await authStore.get_my_claim()
+authStore.get_my_claim()
 
 
 
