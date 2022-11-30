@@ -19,6 +19,11 @@ export const useResources = defineStore("resourcesStore", {
       subCategory: null,
     },
 
+    current: {
+      category: null,
+      subCategory: null,
+    },
+
     modals: {
       add: false,
     },
@@ -192,8 +197,8 @@ export const useResources = defineStore("resourcesStore", {
           author: user.value?.user_metadata.first_name,
           title: this.title,
           description: this.description,
-          category_id: this.filters.category.id,
-          sub_category_id: this.filters.subCategory.id,
+          category_id: this.current.category.id,
+          sub_category_id: this.current.subCategory.id,
         })
         .select("*");
       if (this.links.length > 0 && data) {
@@ -212,6 +217,8 @@ export const useResources = defineStore("resourcesStore", {
 
       this.title = "";
       this.description = "";
+      this.current.category = null;
+      this.current.subCategory = null;
 
       this.fetch();
 
