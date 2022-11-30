@@ -168,7 +168,7 @@ const removeFile = (index) => {
     files.value.splice(index, 1)
 }
 
-const categories = computed(() => [{ name: 'الكل' }, ...resourcesStore.categories])
+const categories = computed(() => resourcesStore.categories.filter(category => category.sub_categories?.length > 0))
 resourcesStore.filters.category = categories.value[0]
 const selectedPerson = ref(0)
 
