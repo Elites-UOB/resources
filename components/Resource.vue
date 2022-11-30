@@ -15,8 +15,14 @@
             <div flex justify-between items-center gap-2 sm:gap-4>
                 <!-- USER OWNED -->
                 <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="() => { }" name="material-symbols:edit-rounded" text="b" w="18px sm:32px" h="18px sm:32px" />
+
                 <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="resourcesStore.removeResource(resource)" name="ic:round-delete" text="red-500 hover:red-400" w="18px sm:32px" h="18px sm:32px" />
 
+                <icon v-if="(resource.verified && authStore.isAdmin)" @click.stop="resourcesStore.toggleVerification(resource)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" text="green-400" />
+
+
+
+                
                 <!-- USER NOT OWNED -->
                 <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="18px sm:32px" h="18px sm:32px" />
 
