@@ -13,7 +13,7 @@
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw']" alt="إضافة مصدر" @click="resourcesStore.modals.add = !resourcesStore.modals.add" square>
+                <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw']" alt="إضافة مصدر" @click="() => {resourcesStore.modals.add = !resourcesStore.modals.add, resourcesStore.editResource = null}" square>
                     <icon name="ic:round-add" w="8" h="8" />
                 </UiButton>
 
