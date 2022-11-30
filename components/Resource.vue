@@ -2,8 +2,9 @@
     <div :class="[
         opened ? 'bg-s border-s-stroke' : 'border-transparent'
     ]" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px">
-        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" rounded="15px" p="3" :class="{
-            'border border-s-stroke rounded-15px': !opened,
+
+        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103 rounded="15px" p="3" border border-s-stroke rounded-15px :class="{
+            'scale-103 text-white bg-s-hover': opened
         }">
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-2 sm:gap-4>
@@ -15,11 +16,18 @@
             <div flex justify-between items-center gap-2 sm:gap-4>
                 <!-- USER OWNED -->
                 <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="() => { }" name="material-symbols:edit-rounded" text="b" w="18px sm:32px" h="18px sm:32px" />
+
                 <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="resourcesStore.removeResource(resource)" name="ic:round-delete" text="red-500 hover:red-400" w="18px sm:32px" h="18px sm:32px" />
+
+                <icon v-if="authStore.isAdmin" @click.stop="resourcesStore.toggleVerification(resource)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" :text="resource.verified ? 'green-400' : 'pw'" />
+
+
+
 
                 <!-- USER NOT OWNED -->
                 <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="18px sm:32px" h="18px sm:32px" />
-                <icon v-if="resource.verified" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" text="green-400" />
+
+                <icon v-if="(resource.verified && !authStore.isAdmin)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" text="green-400" />
 
                 <!-- COPIED -->
                 <icon v-if="copied" name="line-md:clipboard-check-twotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
@@ -32,7 +40,7 @@
                 <div flex="~ col gap-2 sm:gap-4" w="sm:2/3">
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الوصف</span>
-                        <p m-0 text="sm sm:base">{{ resource.description }}</p>
+                        <p m-0 text="sm sm:base" ml-3 break-all>{{ resource.description }}</p>
                     </div>
                     <div v-if="(resource.links.length > 0)" flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الروابط</span>

@@ -72,8 +72,8 @@
 
 
             <!-- SUB CATEGORIES -->
-            <div flex justify-between items-center gap-1 v-if="subCategories?.length > 0">
-                <HeadlessListbox v-model="resourcesStore.filters.subCategory" grow>
+            <div flex justify-between items-center gap-1 v-if="(subCategories?.length > 0 || authStore.isAdmin)">
+                <HeadlessListbox v-model="resourcesStore.filters.subCategory" grow v-if="subCategories?.length > 0">
                     <div class="relative mt-1">
                         <!-- Button -->
                         <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw sm:sm" border="0">
@@ -102,6 +102,10 @@
                         </transition>
                     </div>
                 </HeadlessListbox>
+
+                <div v-else text="sm">
+                    لايوجد فئات ثانوية
+                </div>
 
 
                 <HeadlessMenu v-if="authStore.isAdmin" as="div" class="relative inline-block text-right" z="20">
