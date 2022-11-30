@@ -78,7 +78,7 @@ export const useResources = defineStore("resourcesStore", {
           let { data, error } = await supabase
             .from("resources")
             .select(
-              "*, favourites(*), categories(id,name), sub_categories(id,name),links(id,title,url)"
+              "*, favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
             )
             .order("created_at", { ascending: false })
             .eq("favourites.user_id", user.value?.id);
@@ -88,7 +88,7 @@ export const useResources = defineStore("resourcesStore", {
           let { data, error } = await supabase
             .from("resources")
             .select(
-              "*, categories(id,name), sub_categories(id,name),links(id,title,url)"
+              "*, categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
             );
           if (error) throw error;
           this.resources = data;
@@ -148,10 +148,12 @@ export const useResources = defineStore("resourcesStore", {
 
     // FILTERS
     toggleFilterFavourite() {
+      this.filters.ownered = false;
       this.filters.favourites = !this.filters.favourites;
     },
 
     toggleFilterOwnered() {
+      this.filters.favourites = false;
       this.filters.ownered = !this.filters.ownered;
     },
 
@@ -192,7 +194,6 @@ export const useResources = defineStore("resourcesStore", {
         .select("*");
       if (this.links.length > 0 && data) {
         this.links.forEach(async (link: any) => {
-          console.log(link);
           await supabase
             .from("links")
             .insert({
