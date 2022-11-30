@@ -14,7 +14,7 @@
                     <div flex="~ col sm:row gap-8" w="80% sm:md">
                         <div w="sm:1/2">
                             <h4 m="t-0 b-2">الفئة الرئيسية</h4>
-                            <HeadlessListbox v-model="resourcesStore.filters.category">
+                            <HeadlessListbox v-model="resourcesStore.filters.category" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
                                     <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
@@ -49,7 +49,7 @@
                         <!-- Sub Category -->
                         <div w="sm:1/2">
                             <h4 m="t-0 b-2">الفئة الثانوية</h4>
-                            <HeadlessListbox :disabled="subCategories?.length > 0 ? false : true" v-model="resourcesStore.filters.subCategory">
+                            <HeadlessListbox :disabled="subCategories?.length > 0 ? false : true" v-model="resourcesStore.filters.subCategory" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
                                     <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
