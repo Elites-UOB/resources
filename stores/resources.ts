@@ -210,35 +210,78 @@ export const useResources = defineStore("resourcesStore", {
     },
 
     async addCategory() {
+      const supabase = useSupabaseClient();
       let categoryName = prompt("أسم الفئة", "");
+      let iconName = prompt("أسم الايقونة", "");
 
       if (categoryName !== null && categoryName.trim() !== "") {
-        // alert("nice")
+        const { data, error } = await supabase
+          .from("categories")
+          .insert({
+            name: categoryName,
+            icon: iconName,
+          })
+          .select("*");
+        if (error) throw error;
+        this.fetchCategories();
+        alert("Create Succssfully");
       }
     },
 
-    async removeCategory(){
-      const category = this.categories.find(c => c.name === this.filters.category.name);
+    async removeCategory() {
+      const category = this.categories.find(
+        (c) => c.name === this.filters.category.name
+      );
       const categoryId = category?.id;
       // REMOVE CATEGORY
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("categories")
+        .delete()
+        .eq("id", categoryId);
+      if (error) throw error;
+      this.fetchCategories();
+      alert("Delete Succssfully");
     },
 
     async addSubCategory() {
-      const category = this.categories.find(c => c.name === this.filters.category.name);
+      const supabase = useSupabaseClient();
+      const category = this.categories.find(
+        (c) => c.name === this.filters.category.name
+      );
       const categoryId = category?.id;
 
       let categoryName = prompt("أسم الفئة الفرعية", "");
 
       if (categoryName !== null && categoryName.trim() !== "") {
-        // alert("nice")
+        const { data, error } = await supabase
+          .from("sub_categories")
+          .insert({
+            name: categoryName,
+            category_id: categoryId,
+          })
+          .select("*");
+        if (error) throw error;
+        this.fetchSubCategories();
+        alert("Create Succssfully");
       }
     },
 
-    async removeSubCategory(){
-      const subCategory = this.subCategories.find(c => c.name === this.filters.subCategory.name);
+    async removeSubCategory() {
+      const supabase = useSupabaseClient();
+      const subCategory = this.subCategories.find(
+        (c) => c.name === this.filters.subCategory.name
+      );
       const subCategoryId = subCategory?.id;
       // REMOVE SUB CATEGORY
-    }
+      const { data, error } = await supabase
+        .from("sub_categories")
+        .delete()
+        .eq("id", subCategoryId);
+      if (error) throw error;
+      alert("Delete Succssfully");
+      this.fetchSubCategories();
+    },
   },
 });
 
