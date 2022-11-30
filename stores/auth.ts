@@ -35,6 +35,7 @@ export const useAuth = defineStore("authStore", {
     async register() {
       if (!this.validation(true)) return false;
 
+      const supabase = useSupabaseClient();
       const client = useSupabaseAuthClient();
       const { data, error } = await client.auth.signUp({
         email: String(this.email),
@@ -45,11 +46,15 @@ export const useAuth = defineStore("authStore", {
           },
         },
       });
-      console.log(data, error);
+      console.log(data.user?.id, error);
+
       if (error) {
         this.createError = "هذا البريد الالكتروني مستخدم من قبل.";
         return false;
       }
+      // if (data) {
+      //   await this.addProfile();
+      // }
 
       this.login();
     },
@@ -81,6 +86,20 @@ export const useAuth = defineStore("authStore", {
           first_name: name,
         },
       });
+      if (error) throw error;
+    },
+
+    //update Profile
+    async addProfile() {
+      const user = useSupabaseUser();
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("profiles")
+        .insert({ id: user.value?.id, name: this.name as string })
+        .select("*");
+
+      console.log(data, error);
+
       if (error) throw error;
     },
 

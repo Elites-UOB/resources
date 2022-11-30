@@ -60,12 +60,18 @@ export const useResources = defineStore("resourcesStore", {
       }
       if (state.filters.category) {
         if (state.filters.category?.name !== "الكل")
-          resources = resources.filter((resource) => resource.categories?.name === state.filters.category?.name);
+          resources = resources.filter(
+            (resource) =>
+              resource.categories?.name === state.filters.category?.name
+          );
       }
 
       if (state.filters.subCategory) {
         if (state.filters.category?.name !== "الكل")
-          resources = resources.filter((resource) => resource.sub_categories?.name === state.filters.subCategory?.name);
+          resources = resources.filter(
+            (resource) =>
+              resource.sub_categories?.name === state.filters.subCategory?.name
+          );
       }
 
       return resources;
@@ -106,7 +112,9 @@ export const useResources = defineStore("resourcesStore", {
 
     async fetchCategories() {
       const supabase = useSupabaseClient();
-      const { data, error } = await supabase.from("categories").select("*, sub_categories(id,name)");
+      const { data, error } = await supabase
+        .from("categories")
+        .select("*, sub_categories(id,name)");
       this.categories = data;
     },
 
@@ -189,7 +197,8 @@ export const useResources = defineStore("resourcesStore", {
         .from("resources")
         .insert({
           user_id: user.value?.id,
-          author: user.value?.user_metadata.first_name,
+          profile_id: user.value?.id,
+          // author: user.value?.user_metadata.first_name,
           title: this.title,
           description: this.description,
           category_id: this.filters.category.id,
@@ -313,7 +322,7 @@ export const useResources = defineStore("resourcesStore", {
         .update({ verified: !resource.verified })
         .eq("id", resource.id);
       if (error) throw error;
-    }
+    },
   },
 });
 
