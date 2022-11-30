@@ -356,6 +356,7 @@ export const useResources = defineStore("resourcesStore", {
         .from("resources")
         .update({ verified: !resource.verified })
         .eq("id", resource.id);
+      this.fetch();
       if (error) throw error;
     },
   },
