@@ -1,9 +1,13 @@
 <template>
-    <div v-if="user">
+    <div v-if="user" id="new-resource">
         <Transition name="add-transition">
             <div v-if="resourcesStore.modals.add" flex="~">
                 <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="sm:x-4 y-8" mx="lg:0" bg="p" w="full" border="2 s-stroke rounded-15px">
-                    <h1 m="b-4 t-0" text-white>إضافة مصدر</h1>
+                    <h1 m="b-4 t-0" text-white>
+                        <span v-if="editMode">تعديل</span>
+                        <span v-else>إضافة</span>
+                        مصدر
+                    </h1>
 
                     <h4 v-if="resourcesStore.getCreateError" text-red-500 my-0 flex gap-2>
                         <icon name="ic:twotone-error" w="6" h="6" />
@@ -14,14 +18,14 @@
                     <div flex="~ col sm:row gap-8" w="80% sm:md">
                         <div w="sm:1/2">
                             <h4 m="t-0 b-2">الفئة الرئيسية</h4>
-                            <HeadlessListbox v-model="resourcesStore.filters.category" z="20">
+                            <HeadlessListbox v-model="resourcesStore.current.category" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
                                     <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
-                                        <span class="block truncate">{{ resourcesStore.filters.category?.name }}</span>
+                                        <span class="block truncate">{{ resourcesStore.current.category?.name }}</span>
                                     </HeadlessListboxButton>
                                     <!-- List Options -->
                                     <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100" leave-to-class="opacity-0">
@@ -49,14 +53,14 @@
                         <!-- Sub Category -->
                         <div w="sm:1/2">
                             <h4 m="t-0 b-2">الفئة الثانوية</h4>
-                            <HeadlessListbox :disabled="subCategories?.length > 0 ? false : true" v-model="resourcesStore.filters.subCategory" z="20">
+                            <HeadlessListbox :disabled="subCategories?.length > 0 ? false : true" v-model="resourcesStore.current.subCategory" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
                                     <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
-                                        <span class="block truncate">{{ resourcesStore.filters.subCategory?.name ?? 'اختر الفئة الرئيسية' }}</span>
+                                        <span class="block truncate">{{ resourcesStore.current.subCategory?.name ?? 'اختر الفئة الرئيسية' }}</span>
                                     </HeadlessListboxButton>
                                     <!-- List Options -->
                                     <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100" leave-to-class="opacity-0">
@@ -128,7 +132,10 @@
 
                     <UiButton :disabled="resourcesStore.getLodeing ? true : false" @click="resourcesStore.addResource()" w="150px" mt="6">
                         <span v-if="resourcesStore.getLodeing" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
-                        <span v-else>إضافة</span>
+                        <div v-else>
+                            <span v-if="editMode">تعديل</span>
+                            <span v-else>إضافة</span>
+                        </div>
                     </UiButton>
                 </div>
             </div>
@@ -170,14 +177,35 @@ const removeFile = (index) => {
 }
 
 const categories = computed(() => resourcesStore.categories.filter(category => category.sub_categories?.length > 0))
-resourcesStore.filters.category = categories.value[0]
-const selectedPerson = ref(0)
+// resourcesStore.current.category = categories.value[0]
 
 const subCategories = ref([])
-watchEffect(() => {
-    subCategories.value = resourcesStore.subCategories.filter((subCategory) => subCategory.category_id === resourcesStore.filters.category.id)
-    resourcesStore.filters.subCategory = subCategories.value[0]
+watch(() => resourcesStore.current.category, (category) => {
+    subCategories.value = resourcesStore.subCategories.filter((subCategory) => subCategory.category_id === resourcesStore.current.category.id)
+    resourcesStore.current.subCategory = subCategories.value[0]
 })
+
+
+// EDIT
+const editMode = ref(false)
+watch (() => resourcesStore.getEditResource, (value) => {
+    if (value) {
+        resourcesStore.current.category = categories.value.find(category => category.id === value.category_id)
+        resourcesStore.current.subCategory = subCategories.value.find(subCategory => subCategory.id === value.sub_category_id)
+        resourcesStore.title = value.title
+        resourcesStore.description = value.description
+        links.value = value.links
+        // files.value = value.files
+        editMode.value = true
+    } else {
+        resourcesStore.current.category = categories.value[0]
+        resourcesStore.current.subCategory = subCategories.value[0]
+        resourcesStore.title = ''
+        resourcesStore.description = ''
+        links.value = []
+        editMode.value = false
+    }
+}, { immediate: true })
 </script>
 
 <style scoped>

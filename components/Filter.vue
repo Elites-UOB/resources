@@ -124,7 +124,7 @@
                                         إضافة
                                     </button>
                                 </HeadlessMenuItem>
-                                <HeadlessMenuItem v-if="resourcesStore.getFilters.subCategory?.name !== 'الكل'" @click="() => {}" v-slot="{ active }">
+                                <HeadlessMenuItem v-if="(resourcesStore.getFilters.subCategory?.name !== 'الكل' && subCategories?.length > 0)" @click="() => {}" v-slot="{ active }">
                                     <button @click="resourcesStore.removeSubCategory()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                         <icon name="ic:round-delete" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                         حذف 
@@ -149,7 +149,7 @@ const categories = computed(() => [{ name: 'الكل' }, ...resourcesStore.categ
 resourcesStore.filters.category = categories.value[0]
 const subCategories = ref([])
 watchEffect(() => {
-    subCategories.value = resourcesStore.subCategories.filter((subCategory) => subCategory.category_id === resourcesStore.filters.category.id)
+    subCategories.value = [{ name: 'الكل' }, ...resourcesStore.subCategories.filter((subCategory) => subCategory.category_id === resourcesStore.filters.category.id)]
     resourcesStore.filters.subCategory = subCategories.value[0]
 })
 </script>

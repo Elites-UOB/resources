@@ -19,6 +19,13 @@ export const useResources = defineStore("resourcesStore", {
       subCategory: null,
     },
 
+    current: {
+      category: null,
+      subCategory: null,
+    },
+
+    editResource: null,
+
     modals: {
       add: false,
     },
@@ -36,6 +43,7 @@ export const useResources = defineStore("resourcesStore", {
     isOwnered: (state) => state.filters.ownered,
     getCreateError: (state) => state.createError,
     getLodeing: (state) => state.isLoding,
+    getEditResource: (state) => state.editResource,
     getFilteredResources: (state) => {
       let resources = state.resources;
 
@@ -67,7 +75,10 @@ export const useResources = defineStore("resourcesStore", {
       }
 
       if (state.filters.subCategory) {
-        if (state.filters.category?.name !== "الكل")
+        if (
+          state.filters.category?.name !== "الكل" &&
+          state.filters.subCategory?.name !== "الكل"
+        )
           resources = resources.filter(
             (resource) =>
               resource.sub_categories?.name === state.filters.subCategory?.name
@@ -175,9 +186,9 @@ export const useResources = defineStore("resourcesStore", {
         this.createError = "العنوان يجب ان يكون اكثر من 10 احرف.";
       } else if (String(this.description).length < 50) {
         this.createError = "الوصف قصير جداً.";
-      } else if (!this.filters.category.id) {
+      } else if (!this.current.category.id) {
         this.createError = "الرجاء اختيار الفئة الرئسية.";
-      } else if (!this.filters.subCategory.id) {
+      } else if (!this.current.subCategory.id) {
         this.createError = "الرجاء اختيار الفئة الفرعية.";
       } else {
         this.createError = null;
@@ -193,18 +204,40 @@ export const useResources = defineStore("resourcesStore", {
       this.isLoding = true;
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
-      const { data, error } = await supabase
-        .from("resources")
-        .insert({
-          user_id: user.value?.id,
-          profile_id: user.value?.id,
-          // author: user.value?.user_metadata.first_name,
-          title: this.title,
-          description: this.description,
-          category_id: this.filters.category.id,
-          sub_category_id: this.filters.subCategory.id,
-        })
-        .select("*");
+      let data = null as any,
+        error = null as any;
+
+      if (this.editResource) {
+        const { data: d, error: e } = await supabase
+          .from("resources")
+          .update({
+            title: this.title,
+            description: this.description,
+            category_id: this.current.category.id,
+            sub_category_id: this.current.subCategory.id,
+          })
+          .eq("id", this.editResource.id);
+        data = d;
+        error = e;
+        if (error) throw error;
+        this.editResource = null;
+        this.modals.add = false;
+      } else {
+        const { data: d, error: e } = await supabase
+          .from("resources")
+          .insert({
+            user_id: user.value?.id,
+            author: user.value?.user_metadata.first_name,
+            title: this.title,
+            description: this.description,
+            category_id: this.current.category.id,
+            sub_category_id: this.current.subCategory.id,
+          })
+          .select("*");
+
+        data = d;
+        error = e;
+      }
       if (this.links.length > 0 && data) {
         this.links.forEach(async (link: any) => {
           await supabase
@@ -221,6 +254,8 @@ export const useResources = defineStore("resourcesStore", {
 
       this.title = "";
       this.description = "";
+      this.current.category = null;
+      this.current.subCategory = null;
 
       this.fetch();
 
