@@ -29,8 +29,8 @@
                     </div>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1>الروابط</span>
-                        <ol v-for="item in resource.links" :key="item.id" pr-4 m="0" text="sm sm:base">
-                            <li><a target="_blank" un-text="pw" href="{{item.url}}">{{ item.title }}</a></li>
+                        <ol pr-4 m="0" text="sm sm:base">
+                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw" :href="item.url">{{ item.title }}</a></li>
                         </ol>
                     </div>
                 </div>

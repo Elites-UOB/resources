@@ -207,6 +207,37 @@ export const useResources = defineStore("resourcesStore", {
 
       this.fetch();
     },
+
+    async addCategory() {
+      let categoryName = prompt("أسم الفئة", "");
+
+      if (categoryName !== null && categoryName.trim() !== "") {
+        // alert("nice")
+      }
+    },
+
+    async removeCategory(){
+      const category = this.categories.find(c => c.name === this.filters.category.name);
+      const categoryId = category?.id;
+      // REMOVE CATEGORY
+    },
+
+    async addSubCategory() {
+      const category = this.categories.find(c => c.name === this.filters.category.name);
+      const categoryId = category?.id;
+
+      let categoryName = prompt("أسم الفئة الفرعية", "");
+
+      if (categoryName !== null && categoryName.trim() !== "") {
+        // alert("nice")
+      }
+    },
+
+    async removeSubCategory(){
+      const subCategory = this.subCategories.find(c => c.name === this.filters.subCategory.name);
+      const subCategoryId = subCategory?.id;
+      // REMOVE SUB CATEGORY
+    }
   },
 });
 
