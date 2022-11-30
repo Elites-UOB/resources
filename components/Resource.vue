@@ -101,7 +101,7 @@ https://resources.csitelites.tech
 const { text, copy: startShare, copied, isSupported } = useClipboard({ source, copiedDuring: 5000 })
 
 
-await new Promise(resolve => setTimeout(resolve, 2500));
+// await new Promise(resolve => setTimeout(resolve, 2500));
 
 
 </script>
