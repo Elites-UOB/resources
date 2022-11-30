@@ -7,13 +7,13 @@
         </div>
 
         <!-- Left -->
-        <div flex="~" justify-center gap-2 sm:gap-8>
+        <div flex="~" justify-between gap-2 sm:gap-8>
             <div flex gap-3>
                 <UiButton alt="فلتر" @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden :text="resourcesStore.filters.state ? 'b' : 'pw hover:white'">
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton v-if="user" alt="إضافة مصدر" @click="resourcesStore.modals.add = !resourcesStore.modals.add" square>
+                <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw']" alt="إضافة مصدر" @click="resourcesStore.modals.add = !resourcesStore.modals.add" square>
                     <icon name="ic:round-add" w="8" h="8" />
                 </UiButton>
 
