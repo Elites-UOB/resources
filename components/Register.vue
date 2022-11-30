@@ -8,7 +8,7 @@
 
         <Teleport to="body">
             <Transition>
-                <div v-if="opened" @click="opened = false" flex="~" items-center justify-center class="fixed inset-0 bg-p bg-opacity-80" backdrop-blur="sm" z="20">
+                <div v-if="opened" @click="opened = false" flex="~" items-center justify-center class="fixed inset-0 bg-p bg-opacity-80" backdrop-blur="sm" z="100">
                     <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="4" bg="p" w="xs sm:md" h="lg" border="2 s-stroke rounded-15px">
                         <span m="b-4 t-8" text-white font-bold text="3xl sm:4xl">
                             <span v-if="isLogin">تسجيل الدخول</span>

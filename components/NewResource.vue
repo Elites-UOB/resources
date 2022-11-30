@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user">
+    <div v-if="user" id="new-resource">
         <Transition name="add-transition">
             <div v-if="resourcesStore.modals.add" flex="~">
                 <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="sm:x-4 y-8" mx="lg:0" bg="p" w="full" border="2 s-stroke rounded-15px">

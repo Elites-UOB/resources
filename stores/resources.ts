@@ -72,7 +72,7 @@ export const useResources = defineStore("resourcesStore", {
       }
 
       if (state.filters.subCategory) {
-        if (state.filters.category?.name !== "الكل")
+        if (state.filters.category?.name !== "الكل" && state.filters.subCategory?.name !== "الكل")
           resources = resources.filter((resource) => resource.sub_categories?.name === state.filters.subCategory?.name);
       }
 
