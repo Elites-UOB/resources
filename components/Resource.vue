@@ -7,17 +7,23 @@
         }">
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-2 sm:gap-4>
-                <icon :name="resource?.categories?.icon" w="25px sm:40px" h="25px sm:40px" />
-                <span font-medium truncate="~" select-none text="sm sm:base" w="180px sm:sm lg:xl">{{ resource.title }}</span>
+                <icon :name="resource?.categories?.icon" w="22px sm:40px" h="22px sm:40px" />
+                <span font-medium truncate="~" select-none text="xs sm:base" w="180px sm:sm lg:xl">{{ resource.title }}</span>
             </div>
 
             <!-- Actions -->
             <div flex justify-between items-center gap-2 sm:gap-4>
-                <icon v-if="user && userOwned" @click.stop="() => { }" name="material-symbols:edit-rounded" text="b" w="24px sm:32px" h="24px sm:32px" />
-                <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="24px sm:32px" h="24px sm:32px" />
-                <icon v-if="resource.verified" name="ph:check-circle-duotone" w="24px sm:32px" h="24px sm:32px" text="green-400" />
-                <icon v-if="copied" name="line-md:clipboard-check-twotone" w="24px sm:32px" h="24px sm:32px" duration="200" text="pw hover:white" />
-                <icon v-else @click.stop="startShare()" name="ph:share-network-duotone" w="24px sm:32px" h="24px sm:32px" duration="200" text="pw hover:white" />
+                <!-- USER OWNED -->
+                <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="() => { }" name="material-symbols:edit-rounded" text="b" w="18px sm:32px" h="18px sm:32px" />
+                <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="resourcesStore.removeResource(resource)" name="ic:round-delete" text="red-500 hover:red-400" w="18px sm:32px" h="18px sm:32px" />
+
+                <!-- USER NOT OWNED -->
+                <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="18px sm:32px" h="18px sm:32px" />
+                <icon v-if="resource.verified" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" text="green-400" />
+
+                <!-- COPIED -->
+                <icon v-if="copied" name="line-md:clipboard-check-twotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
+                <icon v-else @click.stop="startShare()" name="ph:share-network-duotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
             </div>
         </div>
 
@@ -53,6 +59,7 @@
 
 <script setup>
 const resourcesStore = useResources()
+const authStore = useAuth()
 const user = useSupabaseUser()
 const opened = ref(false)
 
@@ -92,6 +99,9 @@ https://resources.csitelites.tech
 `)
 
 const { text, copy: startShare, copied, isSupported } = useClipboard({ source, copiedDuring: 5000 })
+
+
+await new Promise(resolve => setTimeout(resolve, 2500));
 
 
 </script>

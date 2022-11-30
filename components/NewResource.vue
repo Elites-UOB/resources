@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="user">
         <Transition name="add-transition">
             <div v-if="resourcesStore.modals.add" flex="~">
                 <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="sm:x-4 y-8" mx="lg:0" bg="p" w="full" border="2 s-stroke rounded-15px">
@@ -86,7 +86,7 @@
                             <h4 m="t-0 b-2">العنوان</h4>
                             <span text="pw">{{ resourcesStore.title?.length ?? '0' }}/10</span>
                         </div>
-                        <UiInput v-model="resourcesStore.title" bg="focus:s-hover" text="pw lg focus:white" mx-auto max-w="full sm:md" min-w="full sm:md" />
+                        <UiInput icon="ic:twotone-subtitles" v-model="resourcesStore.title" bg="focus:s-hover" text="pw lg focus:white" mx-auto max-w="full sm:md" min-w="full sm:md" />
                     </div>
 
                     <div flex="~ col" w="80% sm:md">
