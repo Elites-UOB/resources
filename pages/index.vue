@@ -1,22 +1,32 @@
 <template>
-    <div flex="~ col gap-8" my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset">
-        <!-- my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl -->
-        
-        <div id="modals" order="2">
-            <NewResource />
+    <Suspense>
+        <div flex="~ col gap-8" my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset">
+    
+            <div id="modals" order="2">
+                <NewResource />
+            </div>
+    
+            <Header order="1" />
+    
+            <div flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]" order="3">
+                <Filter />
+                <Resources />
+            </div>
+    
+            <Footer order="4" />
         </div>
 
-        <!-- HEADER -->
-        <Header order="1" />
-
-        <!-- CONTENT -->
-        <div flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]" order="3">
-            <Filter />
-            <Resources />
-        </div>
-
-        <Footer order="4" />
-    </div>
+        <template #fallback>
+            <div animate-pulse w="screen" h="screen" fixed flex flex-col gap-12 justify-center items-center>
+                <svg w="20px sm:200px" class="self-center" viewBox="0 0 156 189" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="pw" transition="all duration-200" class="group-hover:fill-white" d="M76.8455 31.8079L0 0V31.8079L0.000216272 31.8079V63.6157V95.4235V124.874V156.436V156.682L76.8457 189L155.063 156.682V124.874L76.8457 156.682L27.445 136.234V106.783L76.8457 127.231L155.063 95.4235V63.6157L76.8457 95.4235L27.445 74.9756V43.1679L76.8455 63.6157L155.063 31.8079V0L76.8455 31.8079Z" />
+                </svg>
+                <span text-2xl font-bold select-none>
+                    جاري التحميل...
+                </span>
+            </div>
+        </template>
+    </Suspense>
 </template>
 
 <script setup>
@@ -53,4 +63,8 @@ await resourceStore.fetch();
 
 const authStore = useAuth()
 await authStore.get_my_claim()
+
+
+
+
 </script>

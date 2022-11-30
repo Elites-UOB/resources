@@ -209,6 +209,19 @@ export const useResources = defineStore("resourcesStore", {
       this.fetch();
     },
 
+    async removeResource(resource: any) {
+      if (!confirm("هل أنت متأكد؟")) return false;
+
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("resources")
+        .delete()
+        .eq("id", resource.id);
+      if (error) throw error;
+      
+      this.resources = this.resources.filter((r: any) => r.id !== resource.id);
+    },
+
     async addCategory() {
       let categoryName = prompt("أسم الفئة", "");
 
