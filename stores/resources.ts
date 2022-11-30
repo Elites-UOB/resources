@@ -99,7 +99,7 @@ export const useResources = defineStore("resourcesStore", {
           let { data, error } = await supabase
             .from("resources")
             .select(
-              "*, favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
+              "*,profiles(id,first_name), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
             )
             .order("created_at", { ascending: false })
             .eq("favourites.user_id", user.value?.id);
@@ -227,7 +227,7 @@ export const useResources = defineStore("resourcesStore", {
           .from("resources")
           .insert({
             user_id: user.value?.id,
-            author: user.value?.user_metadata.first_name,
+            profile_id: user.value?.id,
             title: this.title,
             description: this.description,
             category_id: this.current.category.id,

@@ -16,7 +16,7 @@
             <div flex justify-between items-center gap-2 sm:gap-4>
                 <!-- USER OWNED -->
                 <a href="#new-resource">
-                    <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="() => {resourcesStore.editResource = resource, resourcesStore.modals.add = true }" name="material-symbols:edit-rounded" text="b" w="18px sm:32px" h="18px sm:32px" />
+                    <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="() => { resourcesStore.editResource = resource, resourcesStore.modals.add = true }" name="material-symbols:edit-rounded" text="b" w="18px sm:32px" h="18px sm:32px" />
                 </a>
 
                 <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="resourcesStore.removeResource(resource)" name="ic:round-delete" text="red-500 hover:red-400" w="18px sm:32px" h="18px sm:32px" />
@@ -54,7 +54,7 @@
                 <div flex="~ sm:col gap-2 sm:gap-4" justify-between sm:justify-start w="sm:1/3" ml-4>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الإضافة</span>
-                        <span> {{ resource.author }} </span>
+                        <span> {{ resource.profiles?.first_name }} </span>
                         <span text="sm sm:base" select-none>{{ new Date(resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' }) }}</span>
                     </div>
                     <div flex="~ col">
