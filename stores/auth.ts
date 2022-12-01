@@ -1,20 +1,18 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { AuthError } from "@supabase/supabase-js";
-interface Data {
-  name: string;
-  email: string;
-  password: string;
-  createError: string;
-}
+
 export const useAuth = defineStore("authStore", {
   state: () => ({
     name: null as string | null,
     email: null as string | null,
     password: null as string | null,
     createError: null as string | AuthError | null,
+
+    admin: false,
   }),
   getters: {
     getCreateError: (state) => state.createError,
+    isAdmin: (state) => state.admin,
   },
 
   actions: {
@@ -37,6 +35,7 @@ export const useAuth = defineStore("authStore", {
     async register() {
       if (!this.validation(true)) return false;
 
+      const supabase = useSupabaseClient();
       const client = useSupabaseAuthClient();
       const { data, error } = await client.auth.signUp({
         email: String(this.email),
@@ -47,12 +46,12 @@ export const useAuth = defineStore("authStore", {
           },
         },
       });
-      console.log(data, error);
+      console.log(data.user?.id, error);
+
       if (error) {
         this.createError = "هذا البريد الالكتروني مستخدم من قبل.";
         return false;
       }
-
       this.login();
     },
 
@@ -71,17 +70,39 @@ export const useAuth = defineStore("authStore", {
         return false;
       }
 
-      const resourcesStore = useResources()
+      const resourcesStore = useResources();
       resourcesStore.fetch();
     },
 
-    //get user
-    // async getUser() {
-    //   const user: any = useSupabaseUser();
-    //   if (user) {
-    //     this.user = user;
-    //   }
-    // },
+    //UPDATE USER DATA
+    async updateUser(name: string) {
+      const client = useSupabaseAuthClient();
+      const user = useSupabaseUser();
+      const supabase = useSupabaseClient();
+      const { data, error } = await client.auth.updateUser({
+        data: {
+          first_name: name,
+        },
+      });
+      if (error) throw error;
+      //update profiles
+      this.updateProfile(name);
+      const resourcesStore = useResources();
+      resourcesStore.fetch();
+    },
+
+    //update Profile
+    async updateProfile(name: any) {
+      const user = useSupabaseUser();
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("profiles")
+        .update({ first_name: name })
+        .eq("id", user.value?.id);
+
+      console.log(data, error);
+      if (error) throw error;
+    },
 
     // LogOut
     async logout() {
@@ -92,6 +113,15 @@ export const useAuth = defineStore("authStore", {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async get_my_claim() {
+      const supabase = useSupabaseClient();
+
+      const { data, error } = await supabase.rpc("get_my_claims");
+
+      if (data) this.admin = data?.userlevel == 100;
+      return { data, error };
     },
   },
 });
