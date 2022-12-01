@@ -11,3 +11,8 @@
 <script setup>
 defineProps(['icon', 'sm', 'placeholder', 'modelValue', 'type'])
 </script>
+<style>
+::-ms-reveal {
+  filter: invert(100%);
+}
+</style>
