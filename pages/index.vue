@@ -61,9 +61,8 @@ useHead({
 const resourceStore = useResources();
 resourceStore.fetch();
 
-const authStore = useAuth()
-authStore.get_my_claim()
-
+// const authStore = useAuth()
+// authStore.get_my_claim()
 
 
 

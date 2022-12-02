@@ -12,7 +12,7 @@ export const useAuth = defineStore("authStore", {
   }),
   getters: {
     getCreateError: (state) => state.createError,
-    isAdmin: (state) => state.admin,
+    isAdmin: () => useSupabaseUser().value?.app_metadata?.userlevel === 100,
   },
 
   actions: {
@@ -115,14 +115,14 @@ export const useAuth = defineStore("authStore", {
       }
     },
 
-    async get_my_claim() {
-      const supabase = useSupabaseClient();
+    // async get_my_claim() {
+    //   const supabase = useSupabaseClient();
 
-      const { data, error } = await supabase.rpc("get_my_claims");
+    //   const { data, error } = await supabase.rpc("get_my_claims");
 
-      if (data) this.admin = data?.userlevel == 100;
-      return { data, error };
-    },
+    //   if (data) this.admin = data?.userlevel == 100;
+    //   return { data, error };
+    // },
   },
 });
 

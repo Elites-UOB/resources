@@ -42,7 +42,7 @@
                 <div flex="~ col gap-2 sm:gap-4" w="sm:2/3">
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الوصف</span>
-                        <p m-0 text="sm sm:base" ml-3 break-all>{{ resource.description }}</p>
+                        <p m-0 text="sm sm:base" ml-3 break-word text-justify>{{ resource.description }}</p>
                     </div>
                     <div v-if="(resource.links.length > 0)" flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الروابط</span>
