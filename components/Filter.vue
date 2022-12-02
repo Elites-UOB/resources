@@ -10,7 +10,7 @@
 
 
             <div flex justify-between items-center gap-1 v-if="categories?.length > 0">
-                <HeadlessListbox v-model="resourcesStore.filters.category" min-w="200px" grow z="20">
+                <HeadlessListbox v-model="resourcesStore.filters.category" min-w="200px" grow z="40">
                     <div class="relative mt-1">
                         <!-- Button -->
                         <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
@@ -41,7 +41,7 @@
                 </HeadlessListbox>
 
 
-                <HeadlessMenu v-if="authStore.isAdmin" as="div" class="relative inline-block text-right" z="30">
+                <HeadlessMenu v-if="authStore.isAdmin" as="div" class="relative inline-block text-right" z="50">
                     <div>
                         <HeadlessMenuButton bg="transparent" border="0">
                             <icon cursor="pointer" text="pw" name="fe:elipsis-v" w="8" h="8" />
@@ -73,7 +73,7 @@
 
             <!-- SUB CATEGORIES -->
             <div flex justify-between items-center gap-1 v-if="(subCategories?.length > 0 || authStore.isAdmin)">
-                <HeadlessListbox v-model="resourcesStore.filters.subCategory" grow v-if="subCategories?.length > 0">
+                <HeadlessListbox v-model="resourcesStore.filters.subCategory" grow v-if="subCategories?.length > 0" z="20">
                     <div class="relative mt-1">
                         <!-- Button -->
                         <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw sm:sm" border="0">
@@ -108,7 +108,7 @@
                 </div>
 
 
-                <HeadlessMenu v-if="authStore.isAdmin" as="div" class="relative inline-block text-right" z="20">
+                <HeadlessMenu v-if="authStore.isAdmin" as="div" class="relative inline-block text-right" z="30">
                     <div>
                         <HeadlessMenuButton bg="transparent" border="0">
                             <icon cursor="pointer" text="pw" name="fe:elipsis-v" w="8" h="8" />
