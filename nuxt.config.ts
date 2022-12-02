@@ -33,8 +33,29 @@ export default defineNuxtConfig({
       orientation: "portrait",
       display: "standalone",
     },
+    meta: {
+      author: "فريق النخبة البرمجي",
+      description: "مصادر هو موقع يقدم لك كل ما تحتاجه من مصادر تعليمية مجانية ومفيدة",
+      theme_color: "#0C0C0D",
+      ogHost: "https://resources.csitelites.tech",
+      ogImage: "/cover.jpg",
+      ogTitle: "مصادر",
+      ogDescription: "مصادر هو موقع يقدم لك كل ما تحتاجه من مصادر تعليمية مجانية ومفيدة",
+      ogSiteName: "مصادر",
+      ogType: "website",
+      twitterCard: "summary_large_image",
+      twitterSite: "@csitelites",
+      twitterCreator: "@csitelites",
+      favicon: true,
+      lang: "ar",
+      mobileApp: true,
+      mobileAppIOS: true,
+      name: "مصادر",
+      ogUrl: "https://resources.csitelites.tech",
+      title: "مصادر",
+    },
     workbox: {
-      enabled: true
+      // enabled: true
     }
   }
 });

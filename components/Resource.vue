@@ -47,7 +47,7 @@
                     <div v-if="(resource.links.length > 0)" flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الروابط</span>
                         <ol pr-4 m="0" text="sm sm:base">
-                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw" :href="item.url">{{ item.title }}</a></li>
+                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw hover:white lg" decoration="none" :href="item.url">{{ item.title }}</a></li>
                         </ol>
                     </div>
                 </div>
