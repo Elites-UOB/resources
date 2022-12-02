@@ -59,7 +59,7 @@
                     </div>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الفئة</span>
-                        <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? ''}}</span>
+                        <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@ const subCategory = computed(() => resourcesStore.getSubCategories.find(item => 
 //     text: 'Hello my friend!',
 //   })
 // }
-console.log(props.resource)
+
 const source = ref(`${props.resource.title}
 
 ${props.resource.description}

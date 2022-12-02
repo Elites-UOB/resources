@@ -232,8 +232,11 @@ export const useResources = defineStore("resourcesStore", {
           })
           .eq("id", this.editResource.id)
           .select("*");
+
         data = d;
         error = e;
+
+        console.log("daddddddddta", this.editResource);
         if (error) throw error;
         this.editResource = null;
         this.modals.add = false;
@@ -274,6 +277,23 @@ export const useResources = defineStore("resourcesStore", {
       this.current.subCategory = null;
 
       this.isLoding = false;
+    },
+
+    async removeLink(link: any) {
+      if (!confirm("هل أنت متأكد؟")) return false;
+
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("links")
+        .delete()
+        .eq("id", link);
+
+      console.log("daddddddddta", link);
+      console.log("daddddddddta", data);
+      console.log("daddddddddta", error);
+      if (error) throw error;
+
+      await this.fetch();
     },
 
     async removeResource(resource: any) {
