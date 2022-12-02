@@ -309,7 +309,7 @@ export const useResources = defineStore("resourcesStore", {
           })
           .select("*");
         if (error) throw error;
-        this.fetchCategories();
+        await this.fetchCategories();
         alert("Create Succssfully");
       }
     },
@@ -326,7 +326,7 @@ export const useResources = defineStore("resourcesStore", {
         .delete()
         .eq("id", categoryId);
       if (error) throw error;
-      this.fetchCategories();
+      await this.fetchCategories();
       alert("Delete Succssfully");
     },
 
@@ -348,7 +348,7 @@ export const useResources = defineStore("resourcesStore", {
           })
           .select("*");
         if (error) throw error;
-        this.fetchSubCategories();
+        await this.fetchSubCategories();
         alert("Create Succssfully");
       }
     },
