@@ -94,7 +94,7 @@ export const useResources = defineStore("resourcesStore", {
     async fetch() {
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
-      const auth = useAuth()
+      const auth = useAuth();
       try {
         if (user.value) {
           if (auth.isAdmin) {
@@ -114,7 +114,7 @@ export const useResources = defineStore("resourcesStore", {
               )
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
-              .eq("verified", true)
+              .eq("verified", true);
 
             this.resources = data;
           }
@@ -124,8 +124,7 @@ export const useResources = defineStore("resourcesStore", {
             .select(
               "*, categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
             )
-            .eq("verified", true)
-            ;
+            .eq("verified", true);
           if (error) throw error;
           this.resources = data;
         }
@@ -231,7 +230,8 @@ export const useResources = defineStore("resourcesStore", {
             category_id: this.current.category.id,
             sub_category_id: this.current.subCategory.id,
           })
-          .eq("id", this.editResource.id).select("*");
+          .eq("id", this.editResource.id)
+          .select("*");
         data = d;
         error = e;
         if (error) throw error;
@@ -253,8 +253,6 @@ export const useResources = defineStore("resourcesStore", {
         data = d;
         error = e;
       }
-      console.log(this.links)
-      console.log(data)
       if (this.links.length > 0 && data) {
         this.links.forEach(async (link: any) => {
           await supabase
@@ -269,12 +267,11 @@ export const useResources = defineStore("resourcesStore", {
       }
       if (error) throw error;
 
+      await this.fetch();
       this.title = "";
       this.description = "";
       this.current.category = this.getCategories?.[0];
       this.current.subCategory = null;
-
-      this.fetch();
 
       this.isLoding = false;
     },
@@ -290,7 +287,7 @@ export const useResources = defineStore("resourcesStore", {
       if (error) throw error;
 
       this.resources = this.resources.filter((r: any) => r.id !== resource.id);
-      this.fetch();
+      await this.fetch();
     },
 
     async addCategory() {
@@ -298,7 +295,12 @@ export const useResources = defineStore("resourcesStore", {
       let categoryName = prompt("أسم الفئة", "");
       let iconName = prompt("أسم الايقونة", "");
 
-      if (categoryName !== null && categoryName.trim() !== "" && iconName !== null && iconName.trim() !== "") {
+      if (
+        categoryName !== null &&
+        categoryName.trim() !== "" &&
+        iconName !== null &&
+        iconName.trim() !== ""
+      ) {
         const { data, error } = await supabase
           .from("categories")
           .insert({
@@ -373,7 +375,7 @@ export const useResources = defineStore("resourcesStore", {
         .from("resources")
         .update({ verified: !resource.verified })
         .eq("id", resource.id);
-      this.fetch();
+      await this.fetch();
       if (error) throw error;
     },
   },
