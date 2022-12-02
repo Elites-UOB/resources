@@ -25,6 +25,9 @@ export default defineNuxtConfig({
   },
 
   pwa: {
+    icon: {
+      maskablePadding: 0,
+    },
     manifest: {
       name: "مصادر",
       lang: "ar",
@@ -55,7 +58,7 @@ export default defineNuxtConfig({
       title: "مصادر",
     },
     workbox: {
-      // enabled: true
+      enabled: true
     }
   }
 });
