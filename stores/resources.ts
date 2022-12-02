@@ -281,7 +281,7 @@ export const useResources = defineStore("resourcesStore", {
       let categoryName = prompt("أسم الفئة", "");
       let iconName = prompt("أسم الايقونة", "");
 
-      if (categoryName !== null && categoryName.trim() !== "") {
+      if (categoryName !== null && categoryName.trim() !== "" && iconName !== null && iconName.trim() !== "") {
         const { data, error } = await supabase
           .from("categories")
           .insert({
