@@ -9,19 +9,19 @@
 
 
             <!-- Icon and Title -->
-            <div flex justify-between items-center gap-2 sm:gap-4>
+            <div :class="options ? 'hidden sm:flex' : 'flex'" justify-between items-center gap-2 sm:gap-4>
                 <icon :name="resource?.categories ? resource?.categories?.icon : 'ant-design:file-unknown-filled'" w="22px sm:40px" h="22px sm:40px" />
                 <div flex flex-col>
-                    <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="130px sm:sm lg:xl" font="400">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
-                    <span font-medium truncate="~" select-none text="xs sm:base" w="130px sm:sm lg:xl">{{ resource.title }}</span>
+                    <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="220px sm:sm lg:xl" font="400">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
+                    <span font-medium truncate="~" select-none text="sm sm:base" w="220px sm:sm lg:xl">{{ resource.title }}</span>
                 </div>
             </div>
 
 
             <!-- Actions -->
-            <div flex justify-between items-center gap-2 sm:gap-4>
+            <div :class="!options ? 'hidden sm:flex' : 'flex'" justify-between items-center gap-6 sm:gap-4>
                 <!-- USER OWNED -->
-                <a href="#header">
+                <a href="#header" flex items-center>
                     <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="() => { resourcesStore.editResource = resource, resourcesStore.modals.add = true }" name="material-symbols:edit-rounded" text="b" w="18px sm:32px" h="18px sm:32px" />
                 </a>
 
@@ -41,6 +41,13 @@
                 <icon v-if="copied" name="line-md:clipboard-check-twotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
                 <icon v-else @click.stop="startShare()" name="ph:share-network-duotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
             </div>
+
+
+            <!-- Actions Mobile -->
+            <div block sm:hidden @click.stop="(options = !options)" bg="transparent" border="0" z="10">
+                <icon cursor="pointer" :text="options ? 'b' : 'pw'" name="humbleicons:bars" w="5" h="5" />
+            </div>
+
         </div>
 
         <Transition>
@@ -78,6 +85,7 @@ const resourcesStore = useResources()
 const authStore = useAuth()
 const user = useSupabaseUser()
 const opened = ref(false)
+const options = ref(false)
 
 const props = defineProps({
     resource: {
