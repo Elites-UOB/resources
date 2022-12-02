@@ -288,9 +288,6 @@ export const useResources = defineStore("resourcesStore", {
         .delete()
         .eq("id", link);
 
-      console.log("daddddddddta", link);
-      console.log("daddddddddta", data);
-      console.log("daddddddddta", error);
       if (error) throw error;
 
       await this.fetch();
