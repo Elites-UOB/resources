@@ -43,4 +43,5 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #2d3032;
 }
+
 </style>

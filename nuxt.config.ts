@@ -25,6 +25,9 @@ export default defineNuxtConfig({
   },
 
   pwa: {
+    icon: {
+      maskablePadding: 0,
+    },
     manifest: {
       name: "مصادر",
       lang: "ar",
@@ -32,6 +35,27 @@ export default defineNuxtConfig({
       categories: ["education", "books", 'resources'],
       orientation: "portrait",
       display: "standalone",
+    },
+    meta: {
+      author: "فريق النخبة البرمجي",
+      description: "مصادر هو موقع يقدم لك كل ما تحتاجه من مصادر تعليمية مجانية ومفيدة",
+      theme_color: "#0C0C0D",
+      ogHost: "https://resources.csitelites.tech",
+      ogImage: "/cover.jpg",
+      ogTitle: "مصادر",
+      ogDescription: "مصادر هو موقع يقدم لك كل ما تحتاجه من مصادر تعليمية مجانية ومفيدة",
+      ogSiteName: "مصادر",
+      ogType: "website",
+      twitterCard: "summary_large_image",
+      twitterSite: "@csitelites",
+      twitterCreator: "@csitelites",
+      favicon: true,
+      lang: "ar",
+      mobileApp: true,
+      mobileAppIOS: true,
+      name: "مصادر",
+      ogUrl: "https://resources.csitelites.tech",
+      title: "مصادر",
     },
     workbox: {
       enabled: true

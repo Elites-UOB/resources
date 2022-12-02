@@ -6,11 +6,17 @@
         <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103 rounded="15px" p="3" border border-s-stroke rounded-15px :class="{
             'scale-103 text-white bg-s-hover': opened
         }">
+
+
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-2 sm:gap-4>
                 <icon :name="resource?.categories ? resource?.categories?.icon : 'ant-design:file-unknown-filled'" w="22px sm:40px" h="22px sm:40px" />
-                <span font-medium truncate="~" select-none text="xs sm:base" w="180px sm:sm lg:xl">{{ resource.title }}</span>
+                <div flex flex-col>
+                    <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="130px sm:sm lg:xl" font="400">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
+                    <span font-medium truncate="~" select-none text="xs sm:base" w="130px sm:sm lg:xl">{{ resource.title }}</span>
+                </div>
             </div>
+
 
             <!-- Actions -->
             <div flex justify-between items-center gap-2 sm:gap-4>
@@ -47,7 +53,7 @@
                     <div v-if="(resource.links.length > 0)" flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الروابط</span>
                         <ol pr-4 m="0" text="sm sm:base">
-                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw" :href="item.url">{{ item.title }}</a></li>
+                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw hover:white lg" decoration="none" :href="item.url">{{ item.title }}</a></li>
                         </ol>
                     </div>
                 </div>
