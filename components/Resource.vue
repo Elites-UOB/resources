@@ -29,7 +29,7 @@
                 <!-- USER NOT OWNED -->
                 <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="18px sm:32px" h="18px sm:32px" />
 
-                <icon v-if="(resource.verified && !authStore.isAdmin)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" text="green-400" />
+                <!-- <icon v-if="(resource.verified && !authStore.isAdmin)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" text="green-400" /> -->
 
                 <!-- COPIED -->
                 <icon v-if="copied" name="line-md:clipboard-check-twotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />

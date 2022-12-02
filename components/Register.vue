@@ -45,6 +45,7 @@
 
 <script setup>
 const authStore = useAuth();
+const resourcesStore = useResources();
 const opened = ref(false)
 
 const isLogin = ref(true)

@@ -61,9 +61,10 @@ useHead({
 const resourceStore = useResources();
 resourceStore.fetch();
 
-// const authStore = useAuth()
+const authStore = useAuth()
 // authStore.get_my_claim()
 
+watch(() => authStore.isAdmin, (val) => resourceStore.fetch())
 
 
 </script>

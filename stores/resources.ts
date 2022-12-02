@@ -94,23 +94,38 @@ export const useResources = defineStore("resourcesStore", {
     async fetch() {
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
+      const auth = useAuth()
       try {
         if (user.value) {
-          let { data, error } = await supabase
-            .from("resources")
-            .select(
-              "*,profiles(id,first_name), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
-            )
-            .order("created_at", { ascending: false })
-            .eq("favourites.user_id", user.value?.id);
-          if (error) throw error;
-          this.resources = data;
+          if (auth.isAdmin) {
+            let { data, error } = await supabase
+              .from("resources")
+              .select(
+                "*,profiles(id,first_name), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
+              )
+              .order("created_at", { ascending: false })
+              .eq("favourites.user_id", user.value?.id);
+            this.resources = data;
+          } else {
+            let { data, error } = await supabase
+              .from("resources")
+              .select(
+                "*,profiles(id,first_name), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
+              )
+              .order("created_at", { ascending: false })
+              .eq("favourites.user_id", user.value?.id)
+              .eq("verified", true)
+
+            this.resources = data;
+          }
         } else {
           let { data, error } = await supabase
             .from("resources")
             .select(
               "*, categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
-            );
+            )
+            .eq("verified", true)
+            ;
           if (error) throw error;
           this.resources = data;
         }
@@ -238,6 +253,7 @@ export const useResources = defineStore("resourcesStore", {
         data = d;
         error = e;
       }
+      console.log(this.links)
       console.log(data)
       if (this.links.length > 0 && data) {
         this.links.forEach(async (link: any) => {
@@ -255,7 +271,7 @@ export const useResources = defineStore("resourcesStore", {
 
       this.title = "";
       this.description = "";
-      this.current.category = null;
+      this.current.category = this.getCategories?.[0];
       this.current.subCategory = null;
 
       this.fetch();
