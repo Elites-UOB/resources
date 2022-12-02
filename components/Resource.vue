@@ -106,7 +106,7 @@ const subCategory = computed(() => resourcesStore.getSubCategories.find(item => 
 //     text: 'Hello my friend!',
 //   })
 // }
-console.log(props.resource)
+
 const source = ref(`${props.resource.title}
 
 ${props.resource.description}

@@ -46,7 +46,6 @@ export const useAuth = defineStore("authStore", {
           },
         },
       });
-      console.log(data.user?.id, error);
 
       if (error) {
         this.createError = "هذا البريد الالكتروني مستخدم من قبل.";

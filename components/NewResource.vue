@@ -113,7 +113,7 @@
                                 <UiInput v-model="link.url" flex="grow" placeholder="عنوان الرابط" sm="~" />
                             </div>
                             <div>
-                                <icon @click="removeLink(index)" cursor="pointer" text="red-400 hover:red-500" name="ic:round-delete" w="24px" h="24px" />
+                                <icon @click="editMode ? resourcesStore.removeLink(link.id) : removeLink(index)" cursor="pointer" text="red-400 hover:red-500" name="ic:round-delete" w="24px" h="24px" />
                             </div>
                         </div>
                     </div>
@@ -209,7 +209,7 @@ const flushing = (value = null) => {
     }
 }
 
-watch (() => resourcesStore.getEditResource, (value) => flushing(value), { immediate: true })
+watch(() => resourcesStore.getEditResource, (value) => flushing(value), { immediate: true })
 
 
 // onMounted(() => flushing())
