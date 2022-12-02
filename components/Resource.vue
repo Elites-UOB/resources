@@ -8,7 +8,7 @@
         }">
             <!-- Icon and Title -->
             <div flex justify-between items-center gap-2 sm:gap-4>
-                <icon :name="resource?.categories?.icon" w="22px sm:40px" h="22px sm:40px" />
+                <icon :name="resource?.categories ? resource?.categories?.icon : 'ant-design:file-unknown-filled'" w="22px sm:40px" h="22px sm:40px" />
                 <span font-medium truncate="~" select-none text="xs sm:base" w="180px sm:sm lg:xl">{{ resource.title }}</span>
             </div>
 
@@ -59,7 +59,7 @@
                     </div>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الفئة</span>
-                        <span text="sm sm:base">{{ resource.categories?.name }} - {{ resource.sub_categories?.name }}</span>
+                        <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ resource.sub_categories?.name ?? ''}}</span>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@ const source = ref(`${props.resource.title}
 ${props.resource.description}
 ${props.resource.links.map(link => link.title + ' - ' + link.url).join('\n')}
 
-${props.resource.categories.name} - ${props.resource.sub_categories.name}
+${props.resource.categories?.name ?? 'غير مصنف'} - ${props.resource.sub_categories?.name ?? ''}
 ${props.resource.author}
 ${new Date(props.resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' })}
 

@@ -10,7 +10,7 @@
 
 
             <div flex justify-between items-center gap-1 v-if="categories?.length > 0">
-                <HeadlessListbox v-model="resourcesStore.filters.category"  min-w="200px" grow z="20">
+                <HeadlessListbox v-model="resourcesStore.filters.category" min-w="200px" grow z="20">
                     <div class="relative mt-1">
                         <!-- Button -->
                         <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
