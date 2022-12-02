@@ -58,7 +58,7 @@ export default defineNuxtConfig({
       title: "مصادر",
     },
     workbox: {
-      enabled: true
+      // enabled: true
     }
   }
 });
