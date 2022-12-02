@@ -15,7 +15,7 @@
             <!-- Actions -->
             <div flex justify-between items-center gap-2 sm:gap-4>
                 <!-- USER OWNED -->
-                <a href="#new-resource">
+                <a href="#header">
                     <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="() => { resourcesStore.editResource = resource, resourcesStore.modals.add = true }" name="material-symbols:edit-rounded" text="b" w="18px sm:32px" h="18px sm:32px" />
                 </a>
 

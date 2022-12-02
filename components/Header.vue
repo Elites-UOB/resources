@@ -1,5 +1,5 @@
 <template>
-    <div flex="~ col sm:row" gap-4 sm:items-center justify-between>
+    <div id="header" flex="~ col sm:row" gap-4 sm:items-center justify-between>
         <!-- Right -->
         <a href="/" decoration="none" flex items-center gap-3 bg="hover:s-hover" py-4 px-6 rounded-15px cursor="pointer" un-text="pw hover:white" transition="all duration-200">
             <icon name="fluent:channel-share-24-filled" w="8 sm:12" h="8 sm:12" text="b" />
@@ -13,8 +13,8 @@
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
-                <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw']" alt="إضافة مصدر" @click="() => {resourcesStore.modals.add = !resourcesStore.modals.add, resourcesStore.editResource = null}" square>
-                    <icon name="ic:round-add" w="8" h="8" />
+                <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw']" :alt="resourcesStore.getEditResource ? 'تعديل مصدر' : 'إضافة مصدر'" @click="() => {resourcesStore.modals.add = !resourcesStore.modals.add, resourcesStore.editResource = null}" square>
+                    <icon :name="resourcesStore.getEditResource ? 'material-symbols:edit-rounded' : 'ic:round-add'" w="8" h="8" />
                 </UiButton>
 
                 <UiButton v-if="user" alt="مفضلاتي" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw hover:white'">

@@ -216,7 +216,7 @@ export const useResources = defineStore("resourcesStore", {
             category_id: this.current.category.id,
             sub_category_id: this.current.subCategory.id,
           })
-          .eq("id", this.editResource.id);
+          .eq("id", this.editResource.id).select("*");
         data = d;
         error = e;
         if (error) throw error;
@@ -238,6 +238,7 @@ export const useResources = defineStore("resourcesStore", {
         data = d;
         error = e;
       }
+      console.log(data)
       if (this.links.length > 0 && data) {
         this.links.forEach(async (link: any) => {
           await supabase

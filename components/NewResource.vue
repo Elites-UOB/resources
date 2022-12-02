@@ -106,8 +106,8 @@
                             <h4 m="t-0 b-2" text-right w-full>الروابط</h4>
                             <icon @click="newLink()" cursor="pointer" text="hover:white" name="ic:round-add" w="8" h="8" />
                         </div>
-                        <div v-for="(link, index) in links" :key="link" flex="~ gap-4" my-2 justify-between items-start sm:items-center>
-                            <span w="6">{{ index + 1 }}</span>
+                        <div v-for="(link, index) in resourcesStore.links" :key="link" flex="~ gap-4" my-2 justify-between items-start sm:items-center>
+                            <span w="6" select-none>{{ index + 1 }}</span>
                             <div flex="~ col sm:row gap-1 sm:gap-4">
                                 <UiInput v-model="link.title" placeholder="أسم الرابط" sm="~" />
                                 <UiInput v-model="link.url" flex="grow" placeholder="عنوان الرابط" sm="~" />
@@ -150,20 +150,17 @@ const user = useSupabaseUser()
 await resourcesStore.fetchCategories()
 
 
-const links = ref([])
 
 const newLink = () => {
-    links.value.push({
+    resourcesStore.links.push({
         title: '',
         url: ''
     })
 }
 
-resourcesStore.links = links.value
-
 
 const removeLink = (index) => {
-    links.value.splice(index, 1)
+    resourcesStore.links.splice(index, 1)
 }
 
 const files = ref([])
@@ -176,36 +173,46 @@ const removeFile = (index) => {
     files.value.splice(index, 1)
 }
 
-const categories = computed(() => resourcesStore.categories.filter(category => category.sub_categories?.length > 0))
-// resourcesStore.current.category = categories.value[0]
+
+const categories = ref([])
+
+watch(() => resourcesStore.getCategories, (val) => {
+    categories.value = val.filter(category => category.sub_categories?.length > 0)
+}, { immediate: true })
 
 const subCategories = ref([])
-watch(() => resourcesStore.current.category, (category) => {
-    subCategories.value = resourcesStore.subCategories.filter((subCategory) => subCategory.category_id === resourcesStore.current.category.id)
-    resourcesStore.current.subCategory = subCategories.value[0]
-})
 
+watch(() => resourcesStore.current.category, (val) => {
+    subCategories.value = resourcesStore.getCategories.find(c => c?.id === val?.id)?.sub_categories
+    resourcesStore.current.subCategory = subCategories.value?.[0]
+})
 
 // EDIT
 const editMode = ref(false)
-watch (() => resourcesStore.getEditResource, (value) => {
+
+const flushing = (value = null) => {
     if (value) {
         resourcesStore.current.category = categories.value.find(category => category.id === value.category_id)
         resourcesStore.current.subCategory = subCategories.value.find(subCategory => subCategory.id === value.sub_category_id)
         resourcesStore.title = value.title
         resourcesStore.description = value.description
-        links.value = value.links
+        resourcesStore.links = value.links
         // files.value = value.files
         editMode.value = true
     } else {
-        resourcesStore.current.category = categories.value[0]
-        resourcesStore.current.subCategory = subCategories.value[0]
+        resourcesStore.current.category = categories.value?.[0]
+        resourcesStore.current.subCategory = subCategories.value?.[0]
         resourcesStore.title = ''
         resourcesStore.description = ''
-        links.value = []
+        resourcesStore.links = []
         editMode.value = false
     }
-}, { immediate: true })
+}
+
+watch (() => resourcesStore.getEditResource, (value) => flushing(value), { immediate: true })
+
+
+// onMounted(() => flushing())
 </script>
 
 <style scoped>
