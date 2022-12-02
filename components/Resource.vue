@@ -59,7 +59,7 @@
                     </div>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الفئة</span>
-                        <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ resource.sub_categories?.name ?? ''}}</span>
+                        <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? ''}}</span>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@ const props = defineProps({
 const isFavourited = computed(() => props.resource?.favourites?.length > 0)
 const userOwned = computed(() => props.resource?.user_id == user.value?.id)
 
-
+const subCategory = computed(() => resourcesStore.getSubCategories.find(item => item.id == props.resource.sub_category_id) ?? '')
 // const { share, isSupported } = useShare()
 
 // console.log(isSupported)
@@ -92,13 +92,13 @@ const userOwned = computed(() => props.resource?.user_id == user.value?.id)
 //     text: 'Hello my friend!',
 //   })
 // }
-
+console.log(props.resource)
 const source = ref(`${props.resource.title}
 
 ${props.resource.description}
 ${props.resource.links.map(link => link.title + ' - ' + link.url).join('\n')}
 
-${props.resource.categories?.name ?? 'غير مصنف'} - ${props.resource.sub_categories?.name ?? ''}
+${props.resource.categories?.name ?? 'غير مصنف'} - ${subCategory.value?.name ?? ''}
 ${props.resource.author}
 ${new Date(props.resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' })}
 
