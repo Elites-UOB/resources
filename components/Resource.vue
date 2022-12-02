@@ -68,8 +68,8 @@
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الإضافة</span>
                         <div flex="~ gap-1 items-center">
-                            <span> {{ resource.profiles?.first_name }} </span>
-                            <svg text="b" v-if="authStore.isAdmin" mt-1 xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                            <span> {{ resource.profiles?.first_name }}</span>
+                            <svg text="b" v-if="resource.profiles?.verified" mt-1 xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                                 <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                                     <path d="M12 3c-1.2 0-2.4.6-3 1.7A3.6 3.6 0 0 0 4.6 9c-1 .6-1.7 1.8-1.7 3s.7 2.4 1.7 3c-.3 1.2 0 2.5 1 3.4c.8.8 2.1 1.2 3.3 1c.6 1 1.8 1.6 3 1.6s2.4-.6 3-1.7c1.2.3 2.5 0 3.4-1c.8-.8 1.2-2 1-3.3c1-.6 1.6-1.8 1.6-3s-.6-2.4-1.7-3c.3-1.2 0-2.5-1-3.4a3.7 3.7 0 0 0-3.3-1c-.6-1-1.8-1.6-3-1.6Z" />
                                     <path d="m9 12l2 2l4-4" />
