@@ -44,13 +44,4 @@
   background: #2d3032;
 }
 
-.slide-down-enter-active,
-.slide-down-leave-active {
-    transition: opacity 0.25s ease;
-}
-
-.slide-down-enter-from,
-.slide-down-leave-to {
-    opacity: 0;
-}
 </style>

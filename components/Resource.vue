@@ -12,9 +12,7 @@
             <div flex justify-between items-center gap-2 sm:gap-4>
                 <icon :name="resource?.categories ? resource?.categories?.icon : 'ant-design:file-unknown-filled'" w="22px sm:40px" h="22px sm:40px" />
                 <div flex flex-col>
-                    <Transition name="slide-down">
-                        <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-400" font="300">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
-                    </Transition>
+                    <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="130px sm:sm lg:xl" font="400">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
                     <span font-medium truncate="~" select-none text="xs sm:base" w="130px sm:sm lg:xl">{{ resource.title }}</span>
                 </div>
             </div>
