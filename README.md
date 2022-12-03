@@ -10,3 +10,8 @@ Feel free to open pull request.
 Using Nuxt 3 & Supabase.
 
 With ❤️.
+
+# Team
+1. Frontend (Hassan K. Alkhalidi, Hassan Mohammed).
+2. Backend (Hassan Kadhim).
+3. System Administrator (Fatima Nawfal, Hussein Najah).
