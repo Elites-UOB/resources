@@ -158,7 +158,6 @@ const newLink = () => {
     })
 }
 
-
 const removeLink = (index) => {
     resourcesStore.links.splice(index, 1)
 }

@@ -236,7 +236,6 @@ export const useResources = defineStore("resourcesStore", {
         data = d;
         error = e;
 
-        console.log("daddddddddta", this.editResource);
         if (error) throw error;
         this.editResource = null;
         this.modals.add = false;
@@ -267,6 +266,7 @@ export const useResources = defineStore("resourcesStore", {
             })
             .select("*");
         });
+        await this.fetch();
       }
       if (error) throw error;
 
