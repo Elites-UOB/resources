@@ -146,7 +146,7 @@ export const useResources = defineStore("resourcesStore", {
 
     async fetchSubCategories() {
       const supabase = useSupabaseClient();
-      const { data, error } = await supabase.from("sub_categories").select();
+      const { data, error } = await supabase.from("sub_categories").select("*");
       this.subCategories = data;
     },
 

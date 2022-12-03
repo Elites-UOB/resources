@@ -1,7 +1,7 @@
 <template>
-    <div :class="{'bg-s' : opened}" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px s-stroke">
+    <div :class="{ 'bg-s': opened }" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px s-stroke">
 
-        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103  class="border border-rounded-15px" p="3" :border="userOwned ? 'blue-800' : 's-stroke'" :class="{
+        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103 class="border border-rounded-15px" p="3" :border="userOwned ? 'blue-800' : 's-stroke'" :class="{
             'scale-103 text-white bg-s-hover': opened
         }">
 
@@ -10,7 +10,7 @@
             <div :class="options ? 'hidden sm:flex' : 'flex'" justify-between items-center gap-2 sm:gap-4>
                 <icon :name="resource?.categories ? resource?.categories?.icon : 'ant-design:file-unknown-filled'" w="22px sm:40px" h="22px sm:40px" />
                 <div flex flex-col>
-                    <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="220px sm:sm lg:xl" font="400">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
+                    <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="220px sm:sm lg:xl" font="400">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ resource.sub_categories?.name ?? '' }}</span>
                     <span font-medium truncate="~" select-none text="sm sm:base" w="220px sm:sm lg:xl">{{ resource.title }}</span>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     </div>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الفئة</span>
-                        <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
+                        <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ resource.sub_categories?.name ?? '' }}</span>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@ const props = defineProps({
 const isFavourited = computed(() => props.resource?.favourites?.length > 0)
 const userOwned = computed(() => props.resource?.user_id == user.value?.id)
 
-const subCategory = computed(() => resourcesStore.getSubCategories.find(item => item.id == props.resource.sub_category_id) ?? '')
+// const subCategory = computed(() => resourcesStore.getSubCategories.find(item => item.id == props.resource.sub_category_id) ?? '')
 // const { share, isSupported } = useShare()
 
 // console.log(isSupported)
@@ -118,7 +118,7 @@ const source = ref(`${props.resource.title}
 ${props.resource.description}
 ${props.resource.links.map(link => link.title + ' - ' + link.url).join('\n')}
 
-${props.resource.categories?.name ?? 'غير مصنف'} - ${subCategory.value?.name ?? ''}
+${props.resource.categories?.name ?? 'غير مصنف'} - ${props.resource.sub_categories?.name ?? ''}
 ${props.resource.author}
 ${new Date(props.resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' })}
 
