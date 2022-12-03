@@ -37,7 +37,7 @@
 
                 <!-- COPIED -->
                 <icon v-if="copied" name="line-md:clipboard-check-twotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
-                <icon v-else @click.stop="startShare()" name="ph:share-network-duotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
+                <icon v-else @click.stop="startShare(); resourcesStore.addShare(resource)" name="ph:share-network-duotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
             </div>
 
 

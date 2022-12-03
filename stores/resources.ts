@@ -280,6 +280,21 @@ export const useResources = defineStore("resourcesStore", {
       this.isLoding = false;
     },
 
+    //add share
+
+    async addShare(resource: any) {
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("resources")
+        .update({
+          share_count: (resource.share_count as number) + 1,
+        })
+        .eq("id", resource.id)
+        .select("*");
+      this.fetch();
+      if (error) throw error;
+    },
+
     async removeLink(link: any) {
       if (!confirm("هل أنت متأكد؟")) return false;
 
