@@ -255,7 +255,7 @@ export const useResources = defineStore("resourcesStore", {
         data = d;
         error = e;
       }
-      if (this.links.length > 0 && data) {
+      if (this.links.length > 0 && data && !this.editResource) {
         this.links.forEach(async (link: any) => {
           await supabase
             .from("links")

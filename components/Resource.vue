@@ -9,11 +9,10 @@
 
 
             <!-- Icon and Title -->
-
             <div :class="options ? 'hidden sm:flex' : 'flex'" justify-between items-center gap-2 sm:gap-4>
-                <icon :name="resource?.categories ? resource?.categories?.icon : 'material-symbols:code-blocks'" w="22px sm:40px" h="22px sm:40px" />
+                <icon :name="resource?.categories ? resource?.categories?.icon : 'ant-design:file-unknown-filled'" w="22px sm:40px" h="22px sm:40px" />
                 <div flex flex-col>
-                    <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="220px sm:sm lg:xl" font="400">{{ resource.categories?.name ?? 'ادوات برمجية' }} - {{ subCategory?.name ?? '' }}</span>
+                    <span :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="220px sm:sm lg:xl" font="400">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
                     <span font-medium truncate="~" select-none text="sm sm:base" w="220px sm:sm lg:xl">{{ resource.title }}</span>
                 </div>
             </div>
@@ -34,7 +33,7 @@
 
 
                 <!-- USER NOT OWNED -->
-                <icon v-if="user" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="18px sm:32px" h="18px sm:32px" />
+                <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="18px sm:32px" h="18px sm:32px" />
 
                 <!-- <icon v-if="(resource.verified && !authStore.isAdmin)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" text="green-400" /> -->
 
@@ -81,7 +80,7 @@
                     </div>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الفئة</span>
-                        <span text="sm sm:base">{{ resource.categories?.name ?? 'ادوات برمجية' }} - {{ subCategory?.name ?? '' }}</span>
+                        <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ subCategory?.name ?? '' }}</span>
                     </div>
                 </div>
             </div>
@@ -121,7 +120,7 @@ const source = ref(`${props.resource.title}
 ${props.resource.description}
 ${props.resource.links.map(link => link.title + ' - ' + link.url).join('\n')}
 
-${props.resource.categories?.name ?? 'ادوات برمجية'} - ${subCategory.value?.name ?? ''}
+${props.resource.categories?.name ?? 'غير مصنف'} - ${subCategory.value?.name ?? ''}
 ${props.resource.author}
 ${new Date(props.resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' })}
 
