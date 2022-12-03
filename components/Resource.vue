@@ -1,9 +1,7 @@
 <template>
-    <div :class="[
-        opened ? 'bg-s border-s-stroke' : 'border-transparent'
-    ]" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px">
+    <div :class="{'bg-s' : opened}" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px s-stroke">
 
-        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103 rounded="15px" p="3" border border-s-stroke rounded-15px :class="{
+        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103  class="border border-rounded-15px" p="3" :border="userOwned ? 'blue-800' : 's-stroke'" :class="{
             'scale-103 text-white bg-s-hover': opened
         }">
 
@@ -61,7 +59,7 @@
                     <div v-if="(resource.links.length > 0)" flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الروابط</span>
                         <ol pr-4 m="0" text="sm sm:base">
-                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw hover:white lg" decoration="none" :href="item.url">{{ item.title }}</a></li>
+                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw hover:white base sm:lg" decoration="none" :href="item.url">{{ item.title }}</a></li>
                         </ol>
                     </div>
                 </div>

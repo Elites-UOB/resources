@@ -124,6 +124,7 @@ export const useResources = defineStore("resourcesStore", {
             .select(
               "*, categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
             )
+            .order("created_at", { ascending: false })
             .eq("verified", true);
           if (error) throw error;
           this.resources = data;
