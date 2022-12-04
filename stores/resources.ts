@@ -150,7 +150,7 @@ export const useResources = defineStore("resourcesStore", {
 
     async fetchSubCategories() {
       const supabase = useSupabaseClient();
-      const { data, error } = await supabase.from("sub_categories").select();
+      const { data, error } = await supabase.from("sub_categories").select("*");
       this.subCategories = data;
     },
 
@@ -238,12 +238,37 @@ export const useResources = defineStore("resourcesStore", {
           .eq("id", this.editResource.id)
           .select("*");
 
+        // update links
+        if (this.links.length > 0) {
+          this.links.forEach(async (link: any) => {
+            if (link.id) {
+              const { data: d, error: e } = await supabase
+                .from("links")
+                .update({
+                  title: link.title,
+                  url: link.url,
+                })
+                .eq("id", link.id)
+                .select("*");
+              await this.fetch();
+            } else {
+              const { data: d, error: e } = await supabase
+                .from("links")
+                .insert({
+                  title: link.title,
+                  url: link.url,
+                  resource_id: this.editResource.id,
+                })
+                .select("*");
+              await this.fetch();
+            }
+          });
+        }
+
         data = d;
         error = e;
 
         if (error) throw error;
-        this.editResource = null;
-        this.modals.add = false;
       } else {
         const { data: d, error: e } = await supabase
           .from("resources")
@@ -260,7 +285,7 @@ export const useResources = defineStore("resourcesStore", {
         data = d;
         error = e;
       }
-      if (this.links.length > 0 && data) {
+      if (this.links.length > 0 && data && !this.editResource) {
         this.links.forEach(async (link: any) => {
           await supabase
             .from("links")
@@ -275,13 +300,31 @@ export const useResources = defineStore("resourcesStore", {
       }
       if (error) throw error;
 
-      await this.fetch();
       this.title = "";
       this.description = "";
       this.current.category = this.getCategories?.[0];
       this.current.subCategory = null;
+      this.links = [];
 
       this.isLoding = false;
+      this.editResource = null;
+      this.modals.add = false;
+      await this.fetch();
+    },
+
+    //add share
+
+    async addShare(resource: any) {
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("resources")
+        .update({
+          share_count: (resource.share_count as number) + 1,
+        })
+        .eq("id", resource.id)
+        .select("*");
+      this.fetch();
+      if (error) throw error;
     },
 
     async removeLink(link: any) {
@@ -292,6 +335,8 @@ export const useResources = defineStore("resourcesStore", {
         .from("links")
         .delete()
         .eq("id", link);
+
+      this.links = this.links.filter((l: any) => l.id !== link);
 
       if (error) throw error;
 
