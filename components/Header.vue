@@ -18,7 +18,7 @@
                     <icon :name="resourcesStore.getEditResource ? 'material-symbols:edit-rounded' : 'ic:round-add'" w="8" h="8" />
                 </UiButton>
 
-                <UiButton v-if="authStore.isAdmin" alt="غير موثقة" @click="resourcesStore.toggleFilterVerified" square :text="resourcesStore.isVerified ? 'b hover:b' : 'pw hover:white'">
+                <UiButton v-if="authStore.isAdmin" alt="غير موثقة" @click="resourcesStore.toggleFilterVerified" square :text="resourcesStore.isVerified ? 'yellow hover:yellow' : 'pw hover:white'">
                     <icon name="mdi:access-point-check" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
