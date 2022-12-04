@@ -103,4 +103,18 @@
 .markdown blockquote p {
   display: inline;
 }
+.markdown hr {
+  border-color: #1E1E22;
+}
+.markdown a {
+  color: #3F75FF;
+  text-decoration: none;
+}
+.markdown pre {
+  background-color: #1E1E22;
+  padding: 2.5px 10px;
+  border-radius: 5px;
+  text-align: left;
+  direction: ltr;
+}
 </style>
