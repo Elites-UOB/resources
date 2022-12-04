@@ -104,6 +104,7 @@ const props = defineProps({
 
 const isFavourited = computed(() => props.resource?.favourites?.length > 0)
 const userOwned = computed(() => props.resource?.user_id == user.value?.id)
+const isVerified = computed(() => props.resource?.verified == false)
 
 // const subCategory = computed(() => resourcesStore.getSubCategories.find(item => item.id == props.resource.sub_category_id) ?? '')
 // const { share, isSupported } = useShare()

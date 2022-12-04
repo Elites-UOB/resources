@@ -9,12 +9,17 @@
         <!-- Left -->
         <div flex="~" justify-between gap-2 sm:gap-8>
             <div flex gap-3>
+
                 <UiButton alt="فلتر" @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden :text="resourcesStore.filters.state ? 'b' : 'pw hover:white'">
                     <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
                 <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw']" :alt="resourcesStore.getEditResource ? 'تعديل مصدر' : 'إضافة مصدر'" @click="() => { resourcesStore.modals.add = !resourcesStore.modals.add, resourcesStore.editResource = null }" square>
                     <icon :name="resourcesStore.getEditResource ? 'material-symbols:edit-rounded' : 'ic:round-add'" w="8" h="8" />
+                </UiButton>
+
+                <UiButton v-if="authStore.isAdmin" alt="غير موثقة" @click="resourcesStore.toggleFilterVerified" square :text="resourcesStore.isVerified ? 'b hover:b' : 'pw hover:white'">
+                    <icon name="mdi:access-point-check" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
 
                 <UiButton v-if="user" :alt="`مفضلاتي <br /> [ ${userFavouritesCount} ]`" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw hover:white'">
@@ -24,6 +29,8 @@
                 <UiButton v-if="user" :alt="`مصادري <br /> [ ${userResourcesCount} ]`" @click="resourcesStore.toggleFilterOwnered" square :text="resourcesStore.isOwnered ? 'b hover:b' : 'pw hover:white'">
                     <icon block name="material-symbols:library-books-rounded" w="6 sm:8" h="6 sm:8" />
                 </UiButton>
+
+
             </div>
 
             <Register v-if="!user" />

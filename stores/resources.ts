@@ -14,6 +14,7 @@ export const useResources = defineStore("resourcesStore", {
     filters: {
       state: false,
       ownered: false,
+      verified: false,
 
       favourites: false,
       search: "",
@@ -42,6 +43,7 @@ export const useResources = defineStore("resourcesStore", {
     getCategories: (state) => state.categories,
     getSubCategories: (state) => state.subCategories,
     isFavourites: (state) => state.filters.favourites,
+    isVerified: (state) => state.filters.verified,
     isOwnered: (state) => state.filters.ownered,
     getCreateError: (state) => state.createError,
     getLodeing: (state) => state.isLoding,
@@ -68,6 +70,10 @@ export const useResources = defineStore("resourcesStore", {
         resources = resources.filter(
           (resource) => resource.user_id === user.value?.id
         );
+      }
+
+      if (state.filters.verified) {
+        resources = resources.filter((resource) => resource.verified === false);
       }
       if (state.filters.category) {
         if (state.filters.category?.name !== "الكل")
@@ -118,9 +124,6 @@ export const useResources = defineStore("resourcesStore", {
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
               .or(`verified.eq.true,or(verified.eq.false,user_id.eq.${user.value?.id})`)
-            // .match({ verified: true, name: 'Albania' })
-
-
 
             this.resources = data;
           }
@@ -194,12 +197,20 @@ export const useResources = defineStore("resourcesStore", {
     // FILTERS
     toggleFilterFavourite() {
       this.filters.ownered = false;
+      this.filters.verified = false;
       this.filters.favourites = !this.filters.favourites;
     },
 
     toggleFilterOwnered() {
       this.filters.favourites = false;
+      this.filters.verified = false;
       this.filters.ownered = !this.filters.ownered;
+    },
+
+    toggleFilterVerified() {
+      this.filters.favourites = false;
+      this.filters.ownered = false;
+      this.filters.verified = !this.filters.verified;
     },
 
     //validation
