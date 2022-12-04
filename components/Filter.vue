@@ -137,6 +137,21 @@
 
             </div>
         </Categories>
+
+        <Categories>
+            <span text="xl" font-bold>الأكثر نشراً</span>
+            <div v-for="(publisher, rank) in resourcesStore.getMostPublishers" :key="publisher.name" flex justify-between items-center>
+                <div flex gap-2 items-center>
+                    <icon v-if="(rank==0)" name="fluent-emoji-flat:1st-place-medal" w="8" h="8"></icon>
+                    <icon v-else-if="(rank==1)" name="fluent-emoji-flat:2nd-place-medal" w="8" h="8"></icon>
+                    <icon v-else-if="(rank==2)" name="fluent-emoji-flat:3rd-place-medal" w="8" h="8"></icon>
+                    <icon v-else name="fluent-emoji-flat:reminder-ribbon" saturate-0 brightness-50 w="8" h="8"></icon>
+                    <span text="base pw">{{publisher.name}}</span>
+                </div>
+                <span text="base pw">{{publisher.count}}</span>
+
+            </div>
+        </Categories>
     </div>
 </template>
 

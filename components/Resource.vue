@@ -1,7 +1,7 @@
 <template>
     <div :class="{ 'bg-s': opened }" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px s-stroke">
 
-        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103 class="border border-rounded-15px" p="3" :border="userOwned ? 'blue-800' : 's-stroke'" :class="{
+        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103 class="border border-rounded-15px" p="3" :border="userOwned ? (resource.verified ? 'blue-800' : 'yellow-800') : 's-stroke'" :class="{
             'scale-103 text-white bg-s-hover': opened
         }">
 
@@ -75,6 +75,9 @@
                             </svg>
                         </div>
                         <span text="sm sm:base" select-none>{{ new Date(resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' }) }}</span>
+                        
+                        <span v-if="(userOwned && verified)" text="blue-500">(أنت)</span>
+                        <span v-if="(userOwned && !verified)" text="yellow-500">(قيد المراجعة)</span>
                     </div>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الفئة</span>

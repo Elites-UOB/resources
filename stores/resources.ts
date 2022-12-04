@@ -9,6 +9,8 @@ export const useResources = defineStore("resourcesStore", {
     isLoding: false,
     createError: null as string | null,
 
+    mostPublishers: [],
+
     filters: {
       state: false,
       ownered: false,
@@ -44,6 +46,7 @@ export const useResources = defineStore("resourcesStore", {
     getCreateError: (state) => state.createError,
     getLodeing: (state) => state.isLoding,
     getEditResource: (state) => state.editResource,
+    getMostPublishers: (state) => state.mostPublishers,
     getFilteredResources: (state) => {
       let resources = state.resources;
 
@@ -114,9 +117,8 @@ export const useResources = defineStore("resourcesStore", {
               )
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
-              .eq("verified", true)
-              .or(`verified.eq.true,and(verified.eq.false,id.eq.${user.value?.id})`)
-              // .match({ verified: true, name: 'Albania' })
+              .or(`verified.eq.true,or(verified.eq.false,user_id.eq.${user.value?.id})`)
+            // .match({ verified: true, name: 'Albania' })
 
 
 
@@ -135,6 +137,7 @@ export const useResources = defineStore("resourcesStore", {
         }
         await this.fetchCategories();
         await this.fetchSubCategories();
+        this.fetchMostPublishers();
       } catch (error) {
         console.log("error", error);
       }
@@ -445,6 +448,26 @@ export const useResources = defineStore("resourcesStore", {
       await this.fetch();
       if (error) throw error;
     },
+
+    // async getUserCount() {
+    //   const supabase = useSupabaseClient();
+    //   const { count, error } = await supabase
+    //   .from('resources')
+    //   .select('*', { count: 'exact', head: true })
+    //   .eq('user_id', this.user.value?.id)
+    //   console.log(count)
+    // }
+    async fetchMostPublishers() {
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id, first_name, verified, resources(id, verified)')
+
+      const result = data?.map((d: any) => ({ name: d.first_name, count: d.resources.length }))
+
+      const objSorted = useSorted(result, (a, b) => b.count - a.count)
+      this.mostPublishers = objSorted.value.slice(0, 5)
+    }
   },
 });
 
