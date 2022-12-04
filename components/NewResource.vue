@@ -223,6 +223,7 @@ const flushing = (value = null) => {
         resourcesStore.current.subCategory = subCategories.value?.[0]
         resourcesStore.title = ''
         resourcesStore.description = ''
+        input.value = ''
         resourcesStore.links = []
         editMode.value = false
     }

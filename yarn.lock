@@ -3024,6 +3024,11 @@ make-dir@^3.1.0, make-dir@~3.1.0:
   dependencies:
     semver "^6.0.0"
 
+marked-plaintext@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/marked-plaintext/-/marked-plaintext-0.0.2.tgz#5d1a39311a2a91002f4715dcb519231c67adf097"
+  integrity sha512-6u/EfbyqTV8p9CqxFUOK3RUGo1KGULVUaiacKRjb+9VzXpGYYQlgff76xjlfxOGYpsDkzYg+l28CtGd86I6c0w==
+
 marked@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/marked/-/marked-4.2.3.tgz#bd76a5eb510ff1d8421bc6c3b2f0b93488c15bea"

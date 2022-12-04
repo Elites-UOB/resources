@@ -95,6 +95,8 @@
 
 <script setup>
 import { marked } from 'marked';
+import PlainTextRenderer from "marked-plaintext"
+
 
 const resourcesStore = useResources()
 const authStore = useAuth()
@@ -123,36 +125,16 @@ const isVerified = computed(() => props.resource?.verified == false)
 //   })
 // }
 
-const htmlEscapeToText = (text) => {
- return text.replace(/\&\#[0-9]*;|&amp;/g, function (escapeCode) {
-     if (escapeCode.match(/amp/)) {
-         return '&';
-     }
-     return String.fromCharCode(escapeCode.match(/[0-9]+/));
- });
-}
-
-const markdownPlain = () => {
-    var render = new marked.Renderer();
-    // render just the text of a link
-    render.link = function (href, title, text) {
-        return text;
-    };
-    render.paragraph = function (text) {
-        return htmlEscapeToText(text) + '\r\n';
-    };
-    render.heading = function (text, level) {
-        return level + ' ) ' + text;
-    };
-    render.image = function (href, title, text) {
-        return '';
-    };
-    return render;
+const convertToPlainText = (markdownText) => {
+  const renderer = new PlainTextRenderer()
+  renderer.checkbox = (text) => text
+  marked.setOptions({sanitize: false})
+  return marked(markdownText, { renderer })
 }
 
 const source = ref(`${props.resource.title}
 
-${props.resource.description ? marked(props.resource.description, { renderer: markdownPlain() }) : ''}
+${convertToPlainText(props.resource.description)}
 ${props.resource.links.map(link => link.title + ' - ' + link.url).join('\n')}
 
 ${props.resource.categories?.name ?? 'غير مصنف'} - ${props.resource.sub_categories?.name ?? ''}
