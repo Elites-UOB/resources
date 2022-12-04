@@ -105,7 +105,7 @@
                             <span :class="!resourcesStore.description?.length ? 'text-red' : resourcesStore.description?.length >= 50 ? 'text-green' : 'text-red'">{{ resourcesStore.description?.length ?? '0' }}/50</span>
                             
                         </div>
-                        <div v-if="preview" v-html="markedDescription" border="~ rounded-10px s-stroke" px-2 class="markdown"></div>
+                        <div v-if="preview" v-html="markedDescription" border="~ rounded-10px s-stroke" px-2 pb-2 class="markdown"></div>
                         <textarea v-else v-model="input" class="resize-none" ref="textarea" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" />
 
                         <div text="left">
