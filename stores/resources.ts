@@ -238,8 +238,6 @@ export const useResources = defineStore("resourcesStore", {
         error = e;
 
         if (error) throw error;
-        this.editResource = null;
-        this.modals.add = false;
       } else {
         const { data: d, error: e } = await supabase
           .from("resources")
@@ -271,13 +269,16 @@ export const useResources = defineStore("resourcesStore", {
       }
       if (error) throw error;
 
-      await this.fetch();
       this.title = "";
       this.description = "";
       this.current.category = this.getCategories?.[0];
       this.current.subCategory = null;
+      this.links = [];
 
       this.isLoding = false;
+      this.editResource = null;
+      this.modals.add = false;
+      await this.fetch();
     },
 
     //add share
