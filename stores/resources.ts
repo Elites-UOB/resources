@@ -131,7 +131,7 @@ export const useResources = defineStore("resourcesStore", {
           let { data, error } = await supabase
             .from("resources")
             .select(
-              "*, categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
+              "*,profiles(id,first_name,verified), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
             )
             .order("created_at", { ascending: false })
             .eq("verified", true);
