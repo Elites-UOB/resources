@@ -114,7 +114,11 @@ export const useResources = defineStore("resourcesStore", {
               )
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
-              .eq("verified", true);
+              .eq("verified", true)
+              .or(`verified.eq.true,and(verified.eq.false,id.eq.${user.value?.id})`)
+              // .match({ verified: true, name: 'Albania' })
+
+
 
             this.resources = data;
           }
