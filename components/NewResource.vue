@@ -198,6 +198,13 @@ const subCategories = ref([])
 
 
 
+// Markdown and Text Area
+const { textarea, input } = useTextareaAutosize()
+watch(() => input.value, (value) => resourcesStore.description = value, { immediate: true })
+const preview = ref(false)
+const markedDescription = computed(() => marked.parse(input.value.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,"")))
+
+
 // EDIT
 const editMode = ref(false)
 
@@ -207,6 +214,7 @@ const flushing = (value = null) => {
         resourcesStore.current.subCategory = resourcesStore.current.category?.sub_categories.find(subCategory => subCategory.id == value.sub_category_id)
         resourcesStore.title = value.title
         resourcesStore.description = value.description
+        input.value = value.description
         resourcesStore.links = value.links
         // files.value = value.files
         editMode.value = true
@@ -230,14 +238,6 @@ watch(() => resourcesStore.getEditResource, (value) => flushing(value), { immedi
 
 
 
-const { textarea, input } = useTextareaAutosize()
-
-
-watch(() => input.value, (value) => resourcesStore.description = value, { immediate: true })
-
-const preview = ref(false)
-
-const markedDescription = computed(() => marked.parse(input.value.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,"")))
 
 // onMounted(() => flushing())
 </script>
