@@ -76,8 +76,8 @@
                         </div>
                         <span text="sm sm:base" select-none>{{ new Date(resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' }) }}</span>
                         
-                        <span v-if="(userOwned && verified)" text="blue-500">(أنت)</span>
-                        <span v-if="(userOwned && !verified)" text="yellow-500">(قيد المراجعة)</span>
+                        <span v-if="(userOwned && resource.verified)" text="blue-500">(أنت)</span>
+                        <span v-if="(userOwned && !resource.verified)" text="yellow-500">(قيد المراجعة)</span>
                     </div>
                     <div flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الفئة</span>
