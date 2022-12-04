@@ -1,10 +1,10 @@
 <template>
     <div id="header" flex="~ col sm:row" gap-4 sm:items-center justify-between>
         <!-- Right -->
-        <a href="/" decoration="none" flex items-center gap-3 bg="hover:s-hover" py-4 px-6 rounded-15px cursor="pointer" un-text="pw hover:white" transition="all duration-200">
+        <div @click="reset()" decoration="none" flex items-center gap-3 bg="hover:s-hover" py-4 px-6 rounded-15px cursor="pointer" un-text="pw hover:white" transition="all duration-200">
             <icon name="fluent:channel-share-24-filled" w="8 sm:12" h="8 sm:12" text="b" />
             <span text="2xl lg:4xl" font-bold>مصادر</span>
-        </a>
+        </div>
 
         <!-- Left -->
         <div flex="~" justify-between gap-2 sm:gap-8>
@@ -94,4 +94,19 @@ const userResourcesCount = computed(() => {
 const userFavouritesCount = computed(() => {
     return resourcesStore.getFilteredResources?.filter(resource => resource.favourites?.length > 0).length;
 });
+
+const reset = () => {
+    resourcesStore.modals.add = false;
+    resourcesStore.filters.category = {name: "الكل"};
+    resourcesStore.filters.subCategory = {name: "الكل"};
+    resourcesStore.filters.verified = false;
+    resourcesStore.filters.favourites = false;
+    resourcesStore.filters.ownered = false;
+    resourcesStore.filters.search = "";
+    resourcesStore.filters.state = false;
+    resourcesStore.title = "";
+    resourcesStore.description = "";
+    resourcesStore.editResource = null;
+    resourcesStore.links = [];
+}
 </script>
