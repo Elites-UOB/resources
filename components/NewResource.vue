@@ -95,10 +95,23 @@
 
                     <div flex="~ col" w="80% sm:md">
                         <div flex justify-between items-center>
-                            <h4 m="t-0 b-2">الوصف</h4>
+                            <h4 m="t-0 b-2" flex gap-2>
+                                <span>الوصف</span>
+                                <div @click="(preview = !preview)" text="blue-500 hover:blue-600" cursor="pointer">
+                                    <icon v-if="preview" name="ic:baseline-remove-red-eye"></icon>
+                                    <icon v-else name="ic:outline-remove-red-eye"></icon>
+                                </div>
+                            </h4>
                             <span :class="!resourcesStore.description?.length ? 'text-red' : resourcesStore.description?.length >= 50 ? 'text-green' : 'text-red'">{{ resourcesStore.description?.length ?? '0' }}/50</span>
+                            
                         </div>
-                        <textarea v-model="resourcesStore.description" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" max-h="250px" />
+                        <div v-if="preview" v-html="markedDescription" border="~ rounded-10px s-stroke" px-2 class="markdown"></div>
+                        <textarea v-else v-model="input" class="resize-none" ref="textarea" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" />
+
+                        <div text="left">
+                            <a @click="resourcesStore.filters.search = 'أساسيات لغة ماركداون Markdown'" href="#resources" w-fit decoration-none un-text="xs blue-500 hover:blue-600" cursor="pointer">شرح الكتابة بإستخدام ماركداون</a>
+                        </div>
+
                     </div>
 
                     <div flex="~ col gap-2" w="80% sm:md">
@@ -144,6 +157,8 @@
 </template>
 
 <script setup>
+import { marked } from 'marked';
+
 const resourcesStore = useResources()
 const user = useSupabaseUser()
 
@@ -181,10 +196,7 @@ watch(() => resourcesStore.getCategories, (val) => {
 
 const subCategories = ref([])
 
-watch(() => resourcesStore.current.category, (val) => {
-    subCategories.value = resourcesStore.getCategories.find(c => c?.id === val?.id)?.sub_categories
-    resourcesStore.current.subCategory = subCategories.value?.[0]
-})
+
 
 // EDIT
 const editMode = ref(false)
@@ -192,7 +204,7 @@ const editMode = ref(false)
 const flushing = (value = null) => {
     if (value) {
         resourcesStore.current.category = categories.value.find(category => category.id === value.category_id)
-        resourcesStore.current.subCategory = subCategories.value.find(subCategory => subCategory.id === value.sub_category_id)
+        resourcesStore.current.subCategory = resourcesStore.current.category?.sub_categories.find(subCategory => subCategory.id == value.sub_category_id)
         resourcesStore.title = value.title
         resourcesStore.description = value.description
         resourcesStore.links = value.links
@@ -208,8 +220,24 @@ const flushing = (value = null) => {
     }
 }
 
+watch(() => resourcesStore.current.category, (val) => {
+    subCategories.value = resourcesStore.getCategories.find(c => c?.id === val?.id)?.sub_categories
+    if (!editMode.value) resourcesStore.current.subCategory = subCategories.value?.[0]
+})
+
+
 watch(() => resourcesStore.getEditResource, (value) => flushing(value), { immediate: true })
 
+
+
+const { textarea, input } = useTextareaAutosize()
+
+
+watch(() => input.value, (value) => resourcesStore.description = value, { immediate: true })
+
+const preview = ref(false)
+
+const markedDescription = computed(() => marked.parse(input.value.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,"")))
 
 // onMounted(() => flushing())
 </script>

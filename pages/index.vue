@@ -7,7 +7,7 @@
 
         <Header order="1" />
 
-        <div flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]" order="3">
+        <div id="resources" flex="~ col sm:row" gap-16 min-h="[calc(100vh-25rem)]" order="3">
             <Filter />
             <Resources />
         </div>

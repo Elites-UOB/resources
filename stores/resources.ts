@@ -472,13 +472,14 @@ export const useResources = defineStore("resourcesStore", {
       const supabase = useSupabaseClient();
       const { data, error } = await supabase
         .from('profiles')
-        .select('id, first_name, verified, resources(id, verified)')
+        .select('id, first_name, verified, resources(id)')
+        .eq('resources.verified', true)
 
       const result = data?.map((d: any) => ({ name: d.first_name, count: d.resources.length }))
 
       const objSorted = useSorted(result, (a, b) => b.count - a.count)
       this.mostPublishers = objSorted.value.slice(0, 5)
-    }
+    },
   },
 });
 
