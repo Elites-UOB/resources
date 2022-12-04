@@ -106,7 +106,7 @@
                             
                         </div>
                         <div v-if="preview" v-html="markedDescription" border="~ rounded-10px s-stroke" px-2 pb-2 class="markdown"></div>
-                        <textarea v-else v-model="input" class="resize-none" ref="textarea" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" p-4 mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" />
+                        <textarea v-else v-model="input" class="resize-none" ref="textarea" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" p-2 mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" />
 
                         <div text="left">
                             <a @click="resourcesStore.filters.search = 'أساسيات لغة ماركداون Markdown'" href="#resources" w-fit decoration-none un-text="xs blue-500 hover:blue-600" cursor="pointer">شرح الكتابة بإستخدام ماركداون</a>
