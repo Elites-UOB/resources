@@ -11,23 +11,23 @@
             <div flex gap-3>
 
                 <UiButton alt="فلتر" @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden :text="resourcesStore.filters.state ? 'b' : 'pw hover:white'">
-                    <icon name="ic:twotone-filter-alt" w="6 sm:8" h="6 sm:8" />
+                    <icon name="ic:twotone-filter-alt" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
 
                 <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw']" :alt="resourcesStore.getEditResource ? 'تعديل مصدر' : 'إضافة مصدر'" @click="() => { resourcesStore.modals.add = !resourcesStore.modals.add, resourcesStore.editResource = null }" square>
-                    <icon :name="resourcesStore.getEditResource ? 'material-symbols:edit-rounded' : 'ic:round-add'" w="8" h="8" />
+                    <icon :name="resourcesStore.getEditResource ? 'material-symbols:edit-rounded' : 'ic:round-add'" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
 
                 <UiButton v-if="authStore.isAdmin" alt="غير موثقة" @click="resourcesStore.toggleFilterVerified" square :text="resourcesStore.isVerified ? 'yellow hover:yellow' : 'pw hover:white'">
-                    <icon name="mdi:access-point-check" w="6 sm:8" h="6 sm:8" />
+                    <icon name="mdi:access-point-check" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
 
                 <UiButton v-if="user" :alt="`مفضلاتي <br /> [ ${userFavouritesCount} ]`" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw hover:white'">
-                    <icon name="ph:heart-duotone" w="6 sm:8" h="6 sm:8" />
+                    <icon name="ph:heart-duotone" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
                 
                 <UiButton v-if="user" :alt="`مصادري <br /> [ ${userResourcesCount} ]`" @click="resourcesStore.toggleFilterOwnered" square :text="resourcesStore.isOwnered ? 'b hover:b' : 'pw hover:white'">
-                    <icon block name="material-symbols:library-books-rounded" w="6 sm:8" h="6 sm:8" />
+                    <icon block name="material-symbols:library-books-rounded" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
 
 
@@ -44,7 +44,7 @@
                 <div>
                     <HeadlessMenuButton bg="transparent" border="0">
                         <UiButton v-if="user" px="lg:6" h="14 sm:auto" w="14 sm:auto">
-                            <icon name="ph:user-duotone" w="6 sm:8" h="6 sm:8" />
+                            <icon name="ph:user-duotone" w="4 sm:8" h="4 sm:8" />
                             <span hidden sm:block>{{ user.user_metadata.first_name }}</span>
                         </UiButton>
                     </HeadlessMenuButton>
