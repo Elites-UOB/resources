@@ -12,7 +12,7 @@
                 <div flex flex-col>
                     <div :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="220px sm:sm lg:xl" font="400">
                         <span>{{ resource.categories?.name ?? 'غير مصنف' }} - {{ resource.sub_categories?.name ?? '' }}</span>
-                        
+
                         <icon v-if="(resource.share_count > 10)" mr-1 name="fluent-emoji-flat:fire" />
                     </div>
                     <span font-medium truncate="~" select-none text="sm sm:base" w="220px sm:sm lg:xl">{{ resource.title }}</span>
@@ -79,7 +79,7 @@
                             </svg>
                         </div>
                         <span text="sm sm:base" select-none>{{ new Date(resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' }) }}</span>
-                        
+
                         <span v-if="(userOwned && resource.verified)" text="blue-500">(أنت)</span>
                         <span v-if="(userOwned && !resource.verified)" text="yellow-500">(قيد المراجعة)</span>
                     </div>
@@ -123,13 +123,40 @@ const isVerified = computed(() => props.resource?.verified == false)
 //   })
 // }
 
+const htmlEscapeToText = (text) => {
+ return text.replace(/\&\#[0-9]*;|&amp;/g, function (escapeCode) {
+     if (escapeCode.match(/amp/)) {
+         return '&';
+     }
+     return String.fromCharCode(escapeCode.match(/[0-9]+/));
+ });
+}
+
+const markdownPlain = () => {
+    var render = new marked.Renderer();
+    // render just the text of a link
+    render.link = function (href, title, text) {
+        return text;
+    };
+    render.paragraph = function (text) {
+        return htmlEscapeToText(text) + '\r\n';
+    };
+    render.heading = function (text, level) {
+        return level + ' ) ' + text;
+    };
+    render.image = function (href, title, text) {
+        return '';
+    };
+    return render;
+}
+
 const source = ref(`${props.resource.title}
 
-${props.resource.description}
+${props.resource.description ? marked(props.resource.description, { renderer: markdownPlain() }) : ''}
 ${props.resource.links.map(link => link.title + ' - ' + link.url).join('\n')}
 
 ${props.resource.categories?.name ?? 'غير مصنف'} - ${props.resource.sub_categories?.name ?? ''}
-${props.resource.author}
+${props.resource.profiles?.first_name}
 ${new Date(props.resource.created_at).toLocaleString('ar-IQ', { timeZone: 'Asia/Baghdad' })}
 
 https://resources.csitelites.tech
@@ -143,7 +170,9 @@ const { text, copy: startShare, copied, isSupported } = useClipboard({ source, c
 
 // await new Promise(resolve => setTimeout(resolve, 2500));
 
-const markedDescription = computed(() => marked.parse(props.resource.description.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,"")))
+const markedDescription = computed(() => marked.parse(props.resource.description.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "")))
+
+
 
 </script>
 
