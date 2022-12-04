@@ -234,6 +234,33 @@ export const useResources = defineStore("resourcesStore", {
           .eq("id", this.editResource.id)
           .select("*");
 
+        // update links
+        if (this.links.length > 0) {
+          this.links.forEach(async (link: any) => {
+            if (link.id) {
+              const { data: d, error: e } = await supabase
+                .from("links")
+                .update({
+                  title: link.title,
+                  url: link.url,
+                })
+                .eq("id", link.id)
+                .select("*");
+              await this.fetch();
+            } else {
+              const { data: d, error: e } = await supabase
+                .from("links")
+                .insert({
+                  title: link.title,
+                  url: link.url,
+                  resource_id: this.editResource.id,
+                })
+                .select("*");
+              await this.fetch();
+            }
+          });
+        }
+
         data = d;
         error = e;
 
@@ -304,6 +331,8 @@ export const useResources = defineStore("resourcesStore", {
         .from("links")
         .delete()
         .eq("id", link);
+
+      this.links = this.links.filter((l: any) => l.id !== link);
 
       if (error) throw error;
 
