@@ -110,7 +110,7 @@
   color: #3F75FF;
   text-decoration: none;
 }
-.markdown pre {
+.markdown pre, .markdown pre code {
   background-color: #1E1E22;
   padding: 2.5px 10px;
   border-radius: 5px;
@@ -120,5 +120,13 @@
   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
   white-space: -pre-wrap;      /* Opera 4-6 */
   white-space: -o-pre-wrap;    /* Opera 7 */
-  word-wrap: break-word;       /* Internet Explorer 5.5+ */}
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.markdown code {
+  background-color: #1E1E22;
+  padding: 0px 5px;
+  border-radius: 5px;
+  direction: ltr;
+}
 </style>
