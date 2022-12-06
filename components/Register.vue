@@ -20,10 +20,12 @@
                             {{ authStore.getCreateError }}
                         </h4>
 
-                        <div flex="~ col gap-4" w="250px sm:xs">
+                        <div flex="~ col gap-4" w="250px sm:xs" relative>
                             <UiInput v-if="!isLogin" v-model="authStore.name" icon="ph:user-duotone" placeholder="الأسم الثنائي" />
                             <UiInput v-model="authStore.email" icon="ic:twotone-email" placeholder="البريد الالكتروني" type="email" />
-                            <UiInput v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="password" />
+                            <UiInput v-if="!showPassword" v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="password" />
+                            <UiInput v-if="showPassword"  v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="text" />
+                            <Icon @click=" () => togglePassword()" name="ic:twotone-remove-red-eye" class="eye-icon" />
                         </div>
 
                         <UiButton @click="isLogin ? authStore.login() : authStore.register()" w="150px" mt="0 sm:6">
@@ -52,7 +54,11 @@ const isLogin = ref(true)
 
 const user = useSupabaseUser();
 
+const showPassword = ref(true)
 
+function togglePassword() {
+    showPassword.value = !showPassword.value
+}
 
 </script>
 
@@ -65,5 +71,13 @@ const user = useSupabaseUser();
 .v-enter-from,
 .v-leave-to {
     opacity: 0;
+}
+
+.eye-icon {
+    position: absolute;
+    top: 50%;
+    right: 90%;
+    transform: translateY(165%);
+    cursor: pointer;
 }
 </style>
