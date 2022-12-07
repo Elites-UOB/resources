@@ -10,8 +10,8 @@
             <div :class="options ? 'hidden sm:flex' : 'flex'" justify-between items-center gap-2 sm:gap-4 isolation="isolate" overflow="hidden">
                 <icon :name="resource?.categories ? resource?.categories?.icon : 'ant-design:file-unknown-filled'" w="22px sm:40px" h="22px sm:40px" />
                 <div flex flex-col>
-                    <div :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="160px sm:sm lg:xl" font="400">
-                        <span>{{ resource.categories?.name ?? 'غير مصنف' }} - {{ resource.sub_categories?.name ?? '' }}</span>
+                    <div :class="opened ? 'hidden' : 'block'" text="xs sm:sm gray-500" w="full sm:sm lg:xl" font="400">
+                        <span w="full">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ resource.sub_categories?.name ?? '' }}</span>
 
                         <icon v-if="(resource.share_count > 10)" mr-1 name="fluent-emoji-flat:fire" />
                     </div>
