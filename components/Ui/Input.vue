@@ -1,5 +1,5 @@
 <template>
-    <div relative flex="~" v-if="sm">
+    <div relative flex="~" v-if="sm" >
         <input :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" :placeholder="placeholder" bg="p focus:s" p="x-2 sm:x-4" focus:outline-none text="pw focus:white sm" font-medium border="2 s-stroke focus:pw rounded-10px" />
     </div>
     <div relative flex="~" v-else>

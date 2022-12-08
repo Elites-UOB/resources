@@ -23,9 +23,9 @@
                         <div flex="~ col gap-4" w="250px sm:xs" relative>
                             <UiInput v-if="!isLogin" v-model="authStore.name" icon="ph:user-duotone" placeholder="الأسم الثنائي" />
                             <UiInput v-model="authStore.email" icon="ic:twotone-email" placeholder="البريد الالكتروني" type="email" />
-                            <UiInput v-if="!showPassword" v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="password" />
-                            <UiInput v-if="showPassword"  v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="text" />
-                            <Icon @click=" () => togglePassword()" name="ic:twotone-remove-red-eye" class="eye-icon" />
+                            <UiInput v-if="!showPassword" v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="password"/>
+                            <UiInput v-if="showPassword"  v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="text"/>
+                            <Icon @click=" () => togglePassword()" name="ic:twotone-remove-red-eye" class="eye-icon" :top="isLogin ? '16' : '35' " />
                         </div>
 
                         <UiButton @click="isLogin ? authStore.login() : authStore.register()" w="150px" mt="0 sm:6">
@@ -35,7 +35,7 @@
 
                         <div @click="() => { isLogin = !isLogin, authStore.createError = null }" text="hover:white" cursor="pointer" mt="0 sm:4">
                             <span v-if="isLogin">ليس لديك حساب؟</span>
-                            <span v-if="!isLogin">تسجيل الدخول</span>
+                            <span v-if="!isLogin">هل تملك حساب</span>
                         </div>
 
                     </div>
@@ -75,7 +75,6 @@ function togglePassword() {
 
 .eye-icon {
     position: absolute;
-    top: 50%;
     right: 90%;
     transform: translateY(165%);
     cursor: pointer;

@@ -1,6 +1,6 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { AuthError } from "@supabase/supabase-js";
-
+import { useToastr } from "../components/toastr";
 export const useAuth = defineStore("authStore", {
   state: () => ({
     name: null as string | null,
@@ -52,6 +52,8 @@ export const useAuth = defineStore("authStore", {
         return false;
       }
       this.login();
+      const toast = useToastr();
+      toast.success("تم التسجيل بنجاح");
     },
 
     //login
@@ -71,6 +73,9 @@ export const useAuth = defineStore("authStore", {
 
       const resourcesStore = useResources();
       resourcesStore.fetch();
+      // toast will pop up
+      const toast = useToastr();
+      toast.success("تم التسجيل بنجاح");
     },
 
     //UPDATE USER DATA
@@ -88,6 +93,9 @@ export const useAuth = defineStore("authStore", {
       this.updateProfile(name);
       const resourcesStore = useResources();
       resourcesStore.fetch();
+      // toast will pop up
+      const toast = useToastr();
+      toast.success("تم التسجيل بنجاح");
     },
 
     //update Profile
@@ -108,7 +116,9 @@ export const useAuth = defineStore("authStore", {
       const client = useSupabaseAuthClient();
       try {
         const { error } = await client.auth.signOut();
-        alert("You have been logged out");
+        // toast will pop up
+        const toast = useToastr();
+        toast.success("تم التسجيل الخروج بنجاح");
       } catch (error) {
         console.log(error);
       }

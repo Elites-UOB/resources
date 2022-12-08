@@ -1,5 +1,5 @@
 <template>
-    <div id="header" flex="~ col sm:row" gap-4 sm:items-center justify-between>
+    <header  flex="~ col sm:row" gap-4 sm:items-center justify-between>
         <!-- Right -->
         <div @click="reset()" decoration="none" flex items-center gap-3 bg="hover:s-hover" py-4 px-6 rounded-15px cursor="pointer" un-text="pw hover:white" transition="all duration-200">
             <icon name="fluent:channel-share-24-filled" w="8 sm:12" h="8 sm:12" text="b" />
@@ -39,7 +39,6 @@
 
 
 
-
             <HeadlessMenu v-if="user" as="div" class="relative inline-block text-right" z="20">
                 <div>
                     <HeadlessMenuButton bg="transparent" border="0">
@@ -71,7 +70,7 @@
             </HeadlessMenu>
 
         </div>
-    </div>
+    </header>
 </template>
 
 <script setup>
@@ -87,6 +86,8 @@ function update() {
         authStore.updateUser(name);
     }
 }
+
+
 
 const userResourcesCount = computed(() => {
     return resourcesStore.getFilteredResources?.filter(resource => resource.user_id == user.value.id).length;
