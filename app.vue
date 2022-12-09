@@ -113,7 +113,7 @@
   padding: 2.5px 10px;
 }
 
-.markdown blockquote {
+.dark .markdown blockquote {
   background: rgba(63, 117, 255, 0.1);
   margin: 1.5em 10px;
   padding: 0.5em 10px;
@@ -121,8 +121,25 @@
   quotes: "\201C" "\201D" "\2018" "\2019";
 }
 
-.markdown blockquote:before {
+.markdown blockquote {
+  background: #0037c21a;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  border-radius: 5px;
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+.dark .markdown blockquote:before {
   color: #2E3239;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+.markdown blockquote:before {
+  color: #c6cad2;
   content: open-quote;
   font-size: 4em;
   line-height: 0.1em;
@@ -134,17 +151,26 @@
   display: inline;
 }
 
-.markdown hr {
+.dark .markdown hr {
   border-color: #1E1E22;
 }
 
-.markdown a {
+.markdown hr {
+  border-color: #dcdce0;
+}
+
+.dark .markdown a {
   color: #3F75FF;
   text-decoration: none;
 }
 
+.markdown a {
+  color: #0037c2;
+  text-decoration: none;
+}
+
 .markdown pre,
-.markdown pre code {
+.dark .markdown pre code {
   background-color: #1E1E22;
   padding: 2.5px 10px;
   border-radius: 5px;
@@ -162,8 +188,33 @@
   /* Internet Explorer 5.5+ */
 }
 
-.markdown code {
+.markdown pre code {
+  background-color: #dcdce0;
+  padding: 2.5px 10px;
+  border-radius: 5px;
+  text-align: left;
+  direction: ltr;
+  white-space: pre-wrap;
+  /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+}
+
+.dark .markdown code {
   background-color: #1E1E22;
+  padding: 0px 5px;
+  border-radius: 5px;
+  direction: ltr;
+}
+
+.markdown code {
+  background-color: #dcdce0;
   padding: 0px 5px;
   border-radius: 5px;
   direction: ltr;
