@@ -70,16 +70,16 @@
                 </div>
 
                 <transition enter-active-class="transition duration-100 ease-out" enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
-                    <HeadlessMenuItems left="0" min-w="200px" class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" p="1">
+                    <HeadlessMenuItems left="0" min-w="200px" class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s dark:bg-sdd text-base shadow-lg ring-1 ring-s-stroke dark:ring-sdd-stroke focus:outline-none sm:text-sm" p="1">
                         <div class="px-1 py-1">
                             <HeadlessMenuItem v-slot="{ active }">
-                                <button @click="update()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                <button @click="update()" bg="s dark:sdd hover:s-hover dark:hover:sdd-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                     <icon name="material-symbols:edit" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                     تعديل
                                 </button>
                             </HeadlessMenuItem>
                             <HeadlessMenuItem @click="authStore.logout()" v-slot="{ active }">
-                                <button bg="s hover:s-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                <button bg="s dark:sdd hover:s-hover dark:hover:sdd-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                     <icon name="material-symbols:lock-person" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                     تسجيل الخروج
                                 </button>

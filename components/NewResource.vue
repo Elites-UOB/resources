@@ -2,8 +2,8 @@
     <div v-if="user" id="new-resource">
         <Transition name="add-transition">
             <div v-if="resourcesStore.modals.add" flex="~">
-                <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="sm:x-4 y-8" mx="lg:0" bg="p" w="full" border="2 s-stroke rounded-15px">
-                    <h1 m="b-4 t-0" text-white>
+                <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="sm:x-4 y-8" mx="lg:0" bg="p dark:pd" w="full" border="2 s-stroke dark:sdd-stroke rounded-15px">
+                    <h1 m="b-4 t-0" text-black dark:text-white>
                         <span v-if="editMode">تعديل</span>
                         <span v-else>إضافة</span>
                         مصدر
@@ -21,7 +21,7 @@
                             <HeadlessListbox v-model="resourcesStore.current.category" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
-                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
+                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s dark:bg-sdd dark:hover:bg-sdd-hover hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
@@ -29,11 +29,11 @@
                                     </HeadlessListboxButton>
                                     <!-- List Options -->
                                     <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100" leave-to-class="opacity-0">
-                                        <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" p="2">
+                                        <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s dark:bg-sdd text-base shadow-lg ring-1 ring-s-stroke dark:ring-sdd-stroke focus:outline-none sm:text-sm" p="2">
                                             <HeadlessListboxOption v-for="category in categories" v-slot="{ active, selected }" :key="category.name" :value="category" as="template">
                                                 <li list="none" p="y-2 r-10 l-4" my="1" rounded="10px" cursor="pointer" :class="[
                                                     active ? 'relative cursor-default select-none' : 'relative cursor-default select-none',
-                                                    selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover '
+                                                    selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover dark:hover:bg-sdd-hover'
                                                 ]">
                                                     <span :class="[
                                                         selected ? 'font-normal' : 'block truncate',
@@ -56,7 +56,7 @@
                             <HeadlessListbox :disabled="subCategories?.length > 0 ? false : true" v-model="resourcesStore.current.subCategory" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
-                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
+                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s dark:bg-sdd dark:hover:bg-sdd-hover hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
@@ -64,11 +64,11 @@
                                     </HeadlessListboxButton>
                                     <!-- List Options -->
                                     <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100" leave-to-class="opacity-0">
-                                        <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" p="2">
+                                        <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s dark:bg-sdd text-base shadow-lg ring-1 ring-s-stroke dark:ring-sdd-stroke focus:outline-none sm:text-sm" p="2">
                                             <HeadlessListboxOption v-for="subCategory in subCategories" v-slot="{ active, selected }" :key="subCategory.name" :value="subCategory" as="template">
                                                 <li list="none" p="y-2 r-10 l-4" my="1" rounded="10px" cursor="pointer" :class="[
                                                     active ? 'relative cursor-default select-none' : 'relative cursor-default select-none',
-                                                    selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover '
+                                                    selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover dark:hover:bg-sdd-hover'
                                                 ]">
                                                     <span :class="[
                                                         selected ? 'font-normal' : 'block truncate',
@@ -103,10 +103,10 @@
                                 </div>
                             </h4>
                             <span :class="!resourcesStore.description?.length ? 'text-red' : resourcesStore.description?.length >= 50 ? 'text-green' : 'text-red'">{{ resourcesStore.description?.length ?? '0' }}/50</span>
-                            
+
                         </div>
-                        <div v-if="preview" v-html="markedDescription" border="~ rounded-10px s-stroke" px-2 pb-2 class="markdown"></div>
-                        <textarea v-else v-model="input" class="resize-none" ref="textarea" bg="s focus:s-hover" text="pw dark:pwd lg focus:white" border="~ s-stroke rounded-10px" p-2 mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" />
+                        <div v-if="preview" v-html="markedDescription" border="~ rounded-10px s-stroke dark:sdd-stroke" px-2 pb-2 class="markdown"></div>
+                        <textarea v-else v-model="input" class="resize-none" ref="textarea" bg="s dark:sdd dark:focus:sdd-hover focus:s-hover" text="pw dark:pwd lg focus:white" border="~ s-stroke dark:sdd-stroke rounded-10px" p-2 mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" />
 
                         <div text="left">
                             <a @click="resourcesStore.filters.search = 'أساسيات لغة ماركداون Markdown'" href="#resources" w-fit decoration-none un-text="xs blue-500 hover:blue-600" cursor="pointer">شرح الكتابة بإستخدام ماركداون</a>
@@ -202,7 +202,7 @@ const subCategories = ref([])
 const { textarea, input } = useTextareaAutosize()
 watch(() => input.value, (value) => resourcesStore.description = value, { immediate: true })
 const preview = ref(false)
-const markedDescription = computed(() => marked.parse(input.value.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/,"")))
+const markedDescription = computed(() => marked.parse(input.value.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "")))
 
 
 // EDIT
