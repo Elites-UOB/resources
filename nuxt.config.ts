@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    '@nuxtjs/color-mode',
     '@kevinmarrec/nuxt-pwa',
     "nuxt-icon",
     "@nuxtjs/supabase",
@@ -60,5 +61,12 @@ export default defineNuxtConfig({
     workbox: {
       // enabled: true
     }
+  },
+
+  colorMode: {
+    preference: 'light', // default value of $colorMode.preference
+    fallback: 'light', // fallback value if not system preference found
+    classPrefix: '',
+    classSuffix: ''
   }
 });

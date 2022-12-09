@@ -13,7 +13,7 @@
                 <HeadlessListbox v-model="resourcesStore.filters.category" min-w="200px" grow z="40">
                     <div class="relative mt-1">
                         <!-- Button -->
-                        <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
+                        <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s dark:bg-sdd hover:bg-s-hover dark:hover:bg-sdd-hover py-2 pr-3 pl-10 border border-s-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                             <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                 <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                             </span>
@@ -21,11 +21,11 @@
                         </HeadlessListboxButton>
                         <!-- List Options -->
                         <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100" leave-to-class="opacity-0">
-                            <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" p="2">
+                            <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s dark:bg-sdd text-base shadow-lg ring-1 ring-s-stroke dark:ring-sdd-stroke focus:outline-none sm:text-sm" p="2">
                                 <HeadlessListboxOption v-for="category in categories" v-slot="{ active, selected }" :key="category.name" :value="category" as="template">
                                     <li list="none" p="y-2 r-10 l-4" my="1" rounded="10px" cursor="pointer" :class="[
                                         active ? 'relative cursor-default select-none' : 'relative cursor-default select-none',
-                                        selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover '
+                                        selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover dark:hover:bg-sdd-hover'
                                     ]">
                                         <span :class="[
                                             selected ? 'font-normal' : 'block truncate',
@@ -44,21 +44,21 @@
                 <HeadlessMenu v-if="authStore.isAdmin" as="div" class="relative inline-block text-right" z="50">
                     <div>
                         <HeadlessMenuButton bg="transparent" border="0">
-                            <icon cursor="pointer" text="pw" name="fe:elipsis-v" w="8" h="8" />
+                            <icon cursor="pointer" text="pw dark:pwd" name="fe:elipsis-v" w="8" h="8" />
                         </HeadlessMenuButton>
                     </div>
 
                     <transition enter-active-class="transition duration-100 ease-out" enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
-                        <HeadlessMenuItems class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" min-w="150px" left="0" p="1">
+                        <HeadlessMenuItems class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s dark:bg-sdd text-base shadow-lg ring-1 ring-s-stroke  dark:ring-sdd-stroke focus:outline-none sm:text-sm" min-w="150px" left="0" p="1">
                             <div class="px-1 py-1">
                                 <HeadlessMenuItem v-slot="{ active }">
-                                    <button @click="resourcesStore.addCategory()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                    <button @click="resourcesStore.addCategory()" bg="s dark:sdd hover:s-hover dark:hover:sdd-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                         <icon name="ic:round-add" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                         إضافة
                                     </button>
                                 </HeadlessMenuItem>
                                 <HeadlessMenuItem v-if="resourcesStore.getFilters.category?.name !== 'الكل'" @click="() => {}" v-slot="{ active }">
-                                    <button @click="resourcesStore.removeCategory()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                    <button @click="resourcesStore.removeCategory()" bg="s dark:sdd hover:s-hover dark:hover:sdd-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                         <icon name="ic:round-delete" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                         حذف 
                                     </button>
@@ -76,7 +76,7 @@
                 <HeadlessListbox v-model="resourcesStore.filters.subCategory" grow v-if="subCategories?.length > 0" z="20">
                     <div class="relative mt-1">
                         <!-- Button -->
-                        <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw sm:sm" border="0">
+                        <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s dark:bg-sdd hover:bg-s-hover dark:hover:bg-sdd-hover py-2 pr-3 pl-10 border border-s-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                             <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                 <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                             </span>
@@ -84,11 +84,11 @@
                         </HeadlessListboxButton>
                         <!-- List Options -->
                         <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100" leave-to-class="opacity-0">
-                            <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" p="2">
+                            <HeadlessListboxOptions class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s dark:bg-sdd text-base shadow-lg ring-1 ring-s-stroke dark:ring-sdd-stroke focus:outline-none sm:text-sm" p="2">
                                 <HeadlessListboxOption v-for="subCategory in subCategories" v-slot="{ active, selected }" :key="subCategory.name" :value="subCategory" as="template">
                                     <li list="none" p="y-2 r-10 l-4" my="1" rounded="10px" cursor="pointer" :class="[
                                         active ? 'relative cursor-default select-none' : 'relative cursor-default select-none',
-                                        selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover '
+                                        selected ? 'bg-b bg-opacity-10' : 'hover:bg-s-hover dark:hover:bg-sdd-hover'
                                     ]">
                                         <span :class="[
                                             selected ? 'font-normal' : 'block truncate',
@@ -111,7 +111,7 @@
                 <HeadlessMenu v-if="authStore.isAdmin" as="div" class="relative inline-block text-right" z="30">
                     <div>
                         <HeadlessMenuButton bg="transparent" border="0">
-                            <icon cursor="pointer" text="pw" name="fe:elipsis-v" w="8" h="8" />
+                            <icon cursor="pointer" text="pw dark:pwd" name="fe:elipsis-v" w="8" h="8" />
                         </HeadlessMenuButton>
                     </div>
 
@@ -119,13 +119,13 @@
                         <HeadlessMenuItems class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" min-w="150px" left="0" p="1">
                             <div class="px-1 py-1">
                                 <HeadlessMenuItem v-slot="{ active }">
-                                    <button @click="resourcesStore.addSubCategory()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                    <button @click="resourcesStore.addSubCategory()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                         <icon name="ic:round-add" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                         إضافة
                                     </button>
                                 </HeadlessMenuItem>
                                 <HeadlessMenuItem v-if="(resourcesStore.getFilters.subCategory?.name !== 'الكل' && subCategories?.length > 0)" @click="() => {}" v-slot="{ active }">
-                                    <button @click="resourcesStore.removeSubCategory()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                    <button @click="resourcesStore.removeSubCategory()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                         <icon name="ic:round-delete" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                         حذف 
                                     </button>
@@ -145,10 +145,10 @@
                     <icon v-if="(rank==0)" name="fluent-emoji-flat:1st-place-medal" w="8" h="8"></icon>
                     <icon v-else-if="(rank==1)" name="fluent-emoji-flat:2nd-place-medal" w="8" h="8"></icon>
                     <icon v-else-if="(rank==2)" name="fluent-emoji-flat:3rd-place-medal" w="8" h="8"></icon>
-                    <icon v-else name="fluent-emoji-flat:reminder-ribbon" saturate-0 brightness-50 w="8" h="8"></icon>
-                    <span text="base pw">{{publisher.name}}</span>
+                    <icon v-else name="fluent-emoji-flat:reminder-ribbon" saturate-0 brightness-95 dark:brightness-40 w="8" h="8"></icon>
+                    <span text="base pw dark:pwd">{{publisher.name}}</span>
                 </div>
-                <span text="base pw">{{publisher.count}}</span>
+                <span text="base pw dark:pwd">{{publisher.count}}</span>
 
             </div>
         </Categories>

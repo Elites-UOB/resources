@@ -1,5 +1,6 @@
 import { UnocssNuxtOptions } from "@unocss/nuxt";
 import palettes from "./palettes.json";
+import transformerDirective from '@unocss/transformer-directives'
 
 export const config: UnocssNuxtOptions = {
   autoImport: true,
@@ -7,6 +8,10 @@ export const config: UnocssNuxtOptions = {
   icons: true,
   attributify: true,
   typography: true,
+  transformers: [
+    transformerDirective(),
+  ],
+  
 
   webFonts: {
     provider: "google",

@@ -1,19 +1,38 @@
 {
-    "p": {
+    "pd": {
         "DEFAULT": "#0C0C0D"
     },
-    "s": {
+    "sdd": {
         "DEFAULT": "#111113",
         "hover": "#1E1E22",
         "stroke": "#1F2123"
     },
-    "pw": {
+    "pwd": {
         "DEFAULT": "#9CA3AF"
     },
+    "bd": {
+        "DEFAULT": "#0263f2"
+    },
+    "darkd": {
+        "DEFAULT": "#c6cad2"
+    },
+
+    
+    "p": {
+        "DEFAULT": "#f2f2f3"
+    },
+    "s": {
+        "DEFAULT": "#ececee",
+        "hover": "#dcdce0",
+        "stroke": "#dcdee0"
+    },
+    "pw": {
+        "DEFAULT": "#4f5763"
+    },
     "b": {
-        "DEFAULT": "#3F74FF"
+        "DEFAULT": "#0d6efd"
     },
     "dark": {
-        "DEFAULT": "#2E3239"
+        "DEFAULT": "#c6cad2"
     }
 }

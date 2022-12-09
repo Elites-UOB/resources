@@ -1,8 +1,8 @@
 <template>
-    <div :class="{ 'bg-s': opened }" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px s-stroke">
+    <div :class="{ 'bg-s dark:bg-sdd': opened }" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px s-stroke dark:sdd-stroke">
 
-        <div @click="opened = !opened" transition="all duration-200" text="hover:white" cursor="pointer" flex justify-between items-center bg="s hover:s-hover" hover:scale-103 class="border border-rounded-15px" p="3" :border="userOwned ? (resource.verified ? 'blue-800' : 'yellow-800') : 's-stroke'" :class="{
-            'scale-103 text-white bg-s-hover': opened
+        <div @click="opened = !opened" transition="all duration-200" text="hover:black dark:hover:white" cursor="pointer" flex justify-between items-center bg="s dark:sdd hover:s-hover dark:hover:sdd-hover" hover:scale-103 class="border border-rounded-15px" p="3" :border="userOwned ? (resource.verified ? 'blue-800' : 'yellow-800') : 's-stroke dark:sdd-stroke'" :class="{
+            'scale-103 text-black dark:text-white bg-s-hover dark:bg-sdd-hover': opened
         }">
 
 
@@ -29,25 +29,25 @@
 
                 <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="resourcesStore.removeResource(resource)" name="ic:round-delete" text="red-500 hover:red-400" w="18px sm:32px" h="18px sm:32px" />
 
-                <icon v-if="authStore.isAdmin" @click.stop="resourcesStore.toggleVerification(resource)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" :text="resource.verified ? 'green-400' : 'pw hover:white'" />
+                <icon v-if="authStore.isAdmin" @click.stop="resourcesStore.toggleVerification(resource)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" :text="resource.verified ? 'green-400' : 'pw dark:pwd hover:black dark:hover:white'" />
 
 
 
 
                 <!-- USER NOT OWNED -->
-                <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw hover:white'" w="18px sm:32px" h="18px sm:32px" />
+                <icon v-if="user && !userOwned" @click.stop="resourcesStore.toggleFavourite(resource)" name="ph:heart-duotone" :text="isFavourited ? 'red-500 hover:red-400' : 'pw dark:pwd hover:black dark:hover:white'" w="18px sm:32px" h="18px sm:32px" />
 
                 <!-- <icon v-if="(resource.verified && !authStore.isAdmin)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" text="green-400" /> -->
 
                 <!-- COPIED -->
-                <icon v-if="copied" name="line-md:clipboard-check-twotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
-                <icon v-else @click.stop="startShare(); resourcesStore.addShare(resource)" name="ph:share-network-duotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw hover:white" />
+                <icon v-if="copied" name="line-md:clipboard-check-twotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw dark:pwd hover:black dark:hover:white" />
+                <icon v-else @click.stop="startShare(); resourcesStore.addShare(resource)" name="ph:share-network-duotone" w="18px sm:32px" h="18px sm:32px" duration="200" text="pw dark:pwd hover:black dark:hover:white" />
             </div>
 
 
             <!-- Actions Mobile -->
             <div block sm:hidden @click.stop="(options = !options)" bg="transparent" border="0" z="10">
-                <icon cursor="pointer" :text="options ? 'b' : 'pw'" name="humbleicons:bars" w="5" h="5" />
+                <icon cursor="pointer" :text="options ? 'b' : 'pw dark:pwd'" name="humbleicons:bars" w="5" h="5" />
             </div>
 
         </div>
@@ -62,7 +62,7 @@
                     <div v-if="(resource.links.length > 0)" flex="~ col">
                         <span font-bold text="base sm:xl dark" my-1 select-none>الروابط</span>
                         <ol pr-4 m="0" text="sm sm:base">
-                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw hover:white base sm:lg" decoration="none" :href="item.url">{{ item.title }}</a></li>
+                            <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw dark:pwd hover:black dark:hover:white base sm:lg" decoration="none" :href="item.url">{{ item.title }}</a></li>
                         </ol>
                     </div>
                 </div>

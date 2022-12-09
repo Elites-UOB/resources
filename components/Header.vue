@@ -1,32 +1,52 @@
 <template>
-    <header  flex="~ col sm:row" gap-4 sm:items-center justify-between>
+    <header flex="~ col sm:row" gap-4 sm:items-center justify-between>
         <!-- Right -->
-        <div @click="reset()" decoration="none" flex items-center gap-3 bg="hover:s-hover" py-4 px-6 rounded-15px cursor="pointer" un-text="pw hover:white" transition="all duration-200">
-            <icon name="fluent:channel-share-24-filled" w="8 sm:12" h="8 sm:12" text="b" />
-            <span text="2xl lg:4xl" font-bold>مصادر</span>
+        <div flex justify-between items-center>
+            <div @click="reset()" decoration="none" flex items-center gap-3 bg="hover:s-hover dark:hover:sdd-hover" py-4 px-6 rounded-15px cursor="pointer" un-text="pw dark:pwd hover:black dark:hover:white" transition="all duration-200">
+                <icon name="fluent:channel-share-24-filled" w="8 sm:12" h="8 sm:12" text="b" />
+                <span text="2xl lg:4xl" font-bold>مصادر</span>
+            </div>
+
+
+            <div alt="المظهر" @click="changeColorMode()" square py-4 px-6 block sm:hidden>
+                <icon v-if="$colorMode.preference == 'light'" name="line-md:sun-rising-twotone-loop"  w="8 sm:12" h="8 sm:12" />
+                <icon v-if="$colorMode.preference == 'dark'" name="line-md:moon-rising-twotone-loop"  w="8 sm:12" h="8 sm:12" />
+            </div>
         </div>
 
         <!-- Left -->
         <div flex="~" justify-between gap-2 sm:gap-8>
             <div flex gap-3>
+                <div hidden sm:block>
+                    <UiButton alt="المظهر" @click="changeColorMode()" square>
+                        <icon v-if="$colorMode.preference == 'light'" name="line-md:sun-rising-twotone-loop" w="4 sm:8" h="4 sm:8" />
+                        <icon v-if="$colorMode.preference == 'dark'" name="line-md:moon-rising-twotone-loop" w="4 sm:8" h="4 sm:8" />
+                    </UiButton>
+                </div>
+                <!-- <select v-model="$colorMode.preference">
+                    <option value="system">System</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="sepia">Sepia</option>
+                </select> -->
 
-                <UiButton alt="فلتر" @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden :text="resourcesStore.filters.state ? 'b' : 'pw hover:white'">
+                <UiButton alt="فلتر" @click="resourcesStore.filters.state = !resourcesStore.filters.state" square visible xl:hidden :text="resourcesStore.filters.state ? 'b' : 'pw dark:pwd hover:black dark:hover:white'">
                     <icon name="ic:twotone-filter-alt" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
 
-                <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw']" :alt="resourcesStore.getEditResource ? 'تعديل مصدر' : 'إضافة مصدر'" @click="() => { resourcesStore.modals.add = !resourcesStore.modals.add, resourcesStore.editResource = null }" square>
+                <UiButton v-if="user" :text="[resourcesStore.modals.add ? 'b' : 'pw dark:pwd']" :alt="resourcesStore.getEditResource ? 'تعديل مصدر' : 'إضافة مصدر'" @click="() => { resourcesStore.modals.add = !resourcesStore.modals.add, resourcesStore.editResource = null }" square>
                     <icon :name="resourcesStore.getEditResource ? 'material-symbols:edit-rounded' : 'ic:round-add'" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
 
-                <UiButton v-if="authStore.isAdmin" alt="غير موثقة" @click="resourcesStore.toggleFilterVerified" square :text="resourcesStore.isVerified ? 'yellow hover:yellow' : 'pw hover:white'">
+                <UiButton v-if="authStore.isAdmin" alt="غير موثقة" @click="resourcesStore.toggleFilterVerified" square :text="resourcesStore.isVerified ? 'yellow hover:yellow' : 'pw dark:pwd hover:black dark:hover:white'">
                     <icon name="mdi:access-point-check" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
 
-                <UiButton v-if="user" :alt="`مفضلاتي <br /> [ ${userFavouritesCount} ]`" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw hover:white'">
+                <UiButton v-if="user" :alt="`مفضلاتي <br /> [ ${userFavouritesCount} ]`" @click="resourcesStore.toggleFilterFavourite" square :text="resourcesStore.isFavourites ? 'red-500 hover:red-400' : 'pw dark:pwd hover:black dark:hover:white'">
                     <icon name="ph:heart-duotone" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
-                
-                <UiButton v-if="user" :alt="`مصادري <br /> [ ${userResourcesCount} ]`" @click="resourcesStore.toggleFilterOwnered" square :text="resourcesStore.isOwnered ? 'b hover:b' : 'pw hover:white'">
+
+                <UiButton v-if="user" :alt="`مصادري <br /> [ ${userResourcesCount} ]`" @click="resourcesStore.toggleFilterOwnered" square :text="resourcesStore.isOwnered ? 'b hover:b' : 'pw dark:pwd hover:black dark:hover:white'">
                     <icon block name="material-symbols:library-books-rounded" w="4 sm:8" h="4 sm:8" />
                 </UiButton>
 
@@ -53,13 +73,13 @@
                     <HeadlessMenuItems left="0" min-w="200px" class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" p="1">
                         <div class="px-1 py-1">
                             <HeadlessMenuItem v-slot="{ active }">
-                                <button @click="update()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                <button @click="update()" bg="s hover:s-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                     <icon name="material-symbols:edit" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                     تعديل
                                 </button>
                             </HeadlessMenuItem>
                             <HeadlessMenuItem @click="authStore.logout()" v-slot="{ active }">
-                                <button bg="s hover:s-hover" border="0" cursor="pointer" text="pw" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                <button bg="s hover:s-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
                                     <icon name="material-symbols:lock-person" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                     تسجيل الخروج
                                 </button>
@@ -77,6 +97,11 @@
 const authStore = useAuth();
 const resourcesStore = useResources();
 const user = useSupabaseUser();
+const colorMode = useColorMode()
+
+const changeColorMode = () => {
+    colorMode.preference = colorMode.preference == 'dark' ? 'light' : 'dark'
+}
 
 function update() {
     const name = prompt("ادخل الاسم الجديد:", `${user.value.user_metadata.first_name}`);
@@ -98,8 +123,8 @@ const userFavouritesCount = computed(() => {
 
 const reset = () => {
     resourcesStore.modals.add = false;
-    resourcesStore.filters.category = {name: "الكل"};
-    resourcesStore.filters.subCategory = {name: "الكل"};
+    resourcesStore.filters.category = { name: "الكل" };
+    resourcesStore.filters.subCategory = { name: "الكل" };
     resourcesStore.filters.verified = false;
     resourcesStore.filters.favourites = false;
     resourcesStore.filters.ownered = false;

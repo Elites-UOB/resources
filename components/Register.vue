@@ -8,9 +8,9 @@
 
         <Teleport to="body">
             <Transition>
-                <div v-if="opened" @click="opened = false" flex="~" items-center justify-center class="fixed inset-0 bg-p bg-opacity-80" backdrop-blur="sm" z="100">
-                    <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="4" bg="p" w="xs sm:md" h="lg" border="2 s-stroke rounded-15px">
-                        <span m="b-4 t-8" text-white font-bold text="3xl sm:4xl">
+                <div v-if="opened" @click="opened = false" flex="~" items-center justify-center class="fixed inset-0 bg-p dark:bg-pd bg-opacity-80" backdrop-blur="sm" z="100">
+                    <div @click.stop="() => { }" overflow-y="auto" flex="~ col gap-8" items-center p="4" bg="p dark:pd" w="xs sm:md" h="lg" border="2 s-stroke dark:sdd-stroke rounded-15px">
+                        <span m="b-4 t-8" text-black dark:text-white font-bold text="3xl sm:4xl">
                             <span v-if="isLogin">تسجيل الدخول</span>
                             <span v-if="!isLogin">تسجيل</span>
                         </span>
@@ -33,7 +33,7 @@
                             <span v-if="!isLogin">تسجيل</span>
                         </UiButton>
 
-                        <div @click="() => { isLogin = !isLogin, authStore.createError = null }" text="hover:white" cursor="pointer" mt="0 sm:4">
+                        <div @click="() => { isLogin = !isLogin, authStore.createError = null }" text="hover:black dark:hover:white" cursor="pointer" mt="0 sm:4">
                             <span v-if="isLogin">ليس لديك حساب؟</span>
                             <span v-if="!isLogin">هل تملك حساب</span>
                         </div>

@@ -21,7 +21,7 @@
                             <HeadlessListbox v-model="resourcesStore.current.category" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
-                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
+                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
@@ -56,7 +56,7 @@
                             <HeadlessListbox :disabled="subCategories?.length > 0 ? false : true" v-model="resourcesStore.current.subCategory" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
-                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw hover:white sm:sm" border="0">
+                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
@@ -90,7 +90,7 @@
                             <h4 m="t-0 b-2">العنوان</h4>
                             <span :class="!resourcesStore.title?.length ? 'text-red' : resourcesStore.title?.length >= 10 ? 'text-green' : 'text-red'">{{ resourcesStore.title?.length ?? '0' }}/10</span>
                         </div>
-                        <UiInput icon="ic:twotone-subtitles" v-model="resourcesStore.title" bg="focus:s-hover" text="pw lg focus:white" mx-auto max-w="full sm:md" min-w="full sm:md" />
+                        <UiInput icon="ic:twotone-subtitles" v-model="resourcesStore.title" bg="focus:s-hover" text="pw dark:pwd lg focus:white" mx-auto max-w="full sm:md" min-w="full sm:md" />
                     </div>
 
                     <div flex="~ col" w="80% sm:md">
@@ -106,7 +106,7 @@
                             
                         </div>
                         <div v-if="preview" v-html="markedDescription" border="~ rounded-10px s-stroke" px-2 pb-2 class="markdown"></div>
-                        <textarea v-else v-model="input" class="resize-none" ref="textarea" bg="s focus:s-hover" text="pw lg focus:white" border="~ s-stroke rounded-10px" p-2 mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" />
+                        <textarea v-else v-model="input" class="resize-none" ref="textarea" bg="s focus:s-hover" text="pw dark:pwd lg focus:white" border="~ s-stroke rounded-10px" p-2 mx-auto max-w="full sm:md" min-w="full sm:md" min-h="100px" />
 
                         <div text="left">
                             <a @click="resourcesStore.filters.search = 'أساسيات لغة ماركداون Markdown'" href="#resources" w-fit decoration-none un-text="xs blue-500 hover:blue-600" cursor="pointer">شرح الكتابة بإستخدام ماركداون</a>
