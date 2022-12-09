@@ -21,7 +21,7 @@
                             <HeadlessListbox v-model="resourcesStore.current.category" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
-                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
+                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
@@ -56,7 +56,7 @@
                             <HeadlessListbox :disabled="subCategories?.length > 0 ? false : true" v-model="resourcesStore.current.subCategory" z="20">
                                 <div class="relative mt-1">
                                     <!-- Button -->
-                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
+                                    <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s hover:bg-s-hover py-2 pr-3 pl-10 border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
