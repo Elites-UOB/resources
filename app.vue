@@ -169,7 +169,7 @@
   text-decoration: none;
 }
 
-.markdown pre,
+.dark .markdown pre,
 .dark .markdown pre code {
   background-color: #1E1E22;
   padding: 2.5px 10px;
@@ -188,6 +188,7 @@
   /* Internet Explorer 5.5+ */
 }
 
+.markdown pre,
 .markdown pre code {
   background-color: #dcdce0;
   padding: 2.5px 10px;
