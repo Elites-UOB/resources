@@ -14,4 +14,4 @@ With ❤️.
 # Team
 1. Frontend (Hassan K. Alkhalidi, Hassan Mohammed).
 2. Backend (Hassan Kadhim).
-3. System Administrator (Fatima Nawfal, Hussein Najah).
+3. System Administrator (Hussein Najah).
