@@ -22,7 +22,6 @@
     "marked-plaintext": "^0.0.2",
     "nuxt-headlessui": "^1.0.4",
     "nuxt-icon": "^0.1.7",
-    "toastr": "^2.1.4",
-    "vue-toast-notification": "^0.6.3"
+    "toastr": "^2.1.4"
   }
 }

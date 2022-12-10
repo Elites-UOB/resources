@@ -8,6 +8,7 @@ export const useResources = defineStore("resourcesStore", {
     links: [],
     isLoding: false,
     createError: null as string | null,
+    lastResource: null as any,
 
     mostPublishers: [],
 
@@ -113,8 +114,12 @@ export const useResources = defineStore("resourcesStore", {
                 "*,profiles(id,first_name,verified), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
               )
               .order("created_at", { ascending: false })
-              .eq("favourites.user_id", user.value?.id);
+              .eq("favourites.user_id", user.value?.id)
+              .limit(15)
+
             this.resources = data;
+            this.lastResource = data[data.length - 1];
+
           } else {
             let { data, error } = await supabase
               .from("resources")
@@ -124,8 +129,11 @@ export const useResources = defineStore("resourcesStore", {
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
               .or(`verified.eq.true,or(verified.eq.false,user_id.eq.${user.value?.id})`)
+              .limit(15)
 
             this.resources = data;
+            this.lastResource = data[data.length - 1];
+
           }
         } else {
           let { data, error } = await supabase
@@ -134,9 +142,13 @@ export const useResources = defineStore("resourcesStore", {
               "*,profiles(id,first_name,verified), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
             )
             .order("created_at", { ascending: false })
-            .eq("verified", true);
+            .eq("verified", true)
+            .limit(15)
+
           if (error) throw error;
           this.resources = data;
+          this.lastResource = data[data.length - 1];
+
         }
         await this.fetchCategories();
         await this.fetchSubCategories();
@@ -145,6 +157,29 @@ export const useResources = defineStore("resourcesStore", {
         console.log("error", error);
       }
     },
+
+    async fetchMore() {
+      const supabase = useSupabaseClient();
+      const user = useSupabaseUser();
+      try {
+        if (this.lastResource) {
+            let { data, error } = await supabase
+              .from("resources")
+              .select(
+                "*,profiles(id,first_name,verified), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
+              )
+              .order("created_at", { ascending: false })
+              .eq("favourites.user_id", user.value?.id)
+              .limit(15)
+
+            this.resources.push(...<[]>data);
+            }
+          } catch (error) {
+            console.log("error", error);
+          }
+        },
+
+
 
     async fetchCategories() {
       const supabase = useSupabaseClient();
