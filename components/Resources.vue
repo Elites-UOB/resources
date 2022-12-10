@@ -14,7 +14,7 @@ const resourcesContainerRef = ref(null)
 const fetchMore = resourceStore.fetchMore
 
 useInfiniteScroll(resourcesContainerRef, () => {
-   resourceStore.fetchMore()
+   fetchMore()
 }, { distance: 15})
 
 </script>
