@@ -148,7 +148,6 @@ export const useResources = defineStore("resourcesStore", {
           if (error) throw error;
           this.resources = data;
           this.lastResource = data[data.length - 1];
-
         }
         await this.fetchCategories();
         await this.fetchSubCategories();

@@ -62,9 +62,7 @@ function togglePassword() {
 }
 
 function Login(e) {
-    if (e.key === 'Enter') { 
-        isLogin ? authStore.login() : authStore.register()
-    }   
+    isLogin ? authStore.login() : authStore.register()
 }
 
 onKeyStroke('Enter', Login)
