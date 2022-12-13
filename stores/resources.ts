@@ -9,7 +9,7 @@ export const useResources = defineStore("resourcesStore", {
     isLoding: false,
     createError: null as string | null,
     lastResource: null as any,
-
+    fetchPagination: 1,
     mostPublishers: [],
 
     filters: {
@@ -115,9 +115,9 @@ export const useResources = defineStore("resourcesStore", {
               )
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
-              .limit(15)
-
-            this.resources = data;
+              .range((this.fetchPagination - 1) * 15, (this.fetchPagination * 15) - 1)
+              
+            this.resources.push(...<[]>data)
             this.lastResource = data[data.length - 1];
 
           } else {
@@ -129,9 +129,9 @@ export const useResources = defineStore("resourcesStore", {
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
               .or(`verified.eq.true,or(verified.eq.false,user_id.eq.${user.value?.id})`)
-              .limit(15)
+              .range((this.fetchPagination - 1) * 15, this.fetchPagination * 15)
 
-            this.resources = data;
+              this.resources.push(...<[]>data)
             this.lastResource = data[data.length - 1];
 
           }
@@ -143,10 +143,10 @@ export const useResources = defineStore("resourcesStore", {
             )
             .order("created_at", { ascending: false })
             .eq("verified", true)
-            .limit(15)
+            .range((this.fetchPagination - 1) * 15, this.fetchPagination * 15)
 
           if (error) throw error;
-          this.resources = data;
+          this.resources.push(...<[]>data)
           this.lastResource = data[data.length - 1];
         }
         await this.fetchCategories();
@@ -158,24 +158,8 @@ export const useResources = defineStore("resourcesStore", {
     },
 
     async fetchMore() {
-      const supabase = useSupabaseClient();
-      const user = useSupabaseUser();
-      try {
-        if (this.lastResource) {
-            let { data, error } = await supabase
-              .from("resources")
-              .select(
-                "*,profiles(id,first_name,verified), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
-              )
-              .order("created_at", { ascending: false })
-              .eq("favourites.user_id", user.value?.id)
-              .limit(15)
-
-            this.resources.push(...<[]>data);
-            }
-          } catch (error) {
-            console.log("error", error);
-          }
+      this.fetchPagination++
+        this.fetch()
         },
 
 

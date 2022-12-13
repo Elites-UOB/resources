@@ -76,7 +76,7 @@
                 <HeadlessListbox v-model="resourcesStore.filters.subCategory" grow v-if="subCategories?.length > 0" z="20">
                     <div class="relative mt-1">
                         <!-- Button -->
-                        <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s dark:bg-sdd hover:bg-s-hover dark:hover:bg-sdd-hover py-2 pr-3 pl-10 border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
+                        <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s dark:bg-sdd hover:bg-s-hover dark:hover:bg-sdd-hover py-2 pr-3 pl-10 border border-s-stroke border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                             <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                 <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                             </span>
@@ -116,10 +116,10 @@
                     </div>
 
                     <transition enter-active-class="transition duration-100 ease-out" enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100" leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100" leave-to-class="transform scale-95 opacity-0">
-                        <HeadlessMenuItems class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s dark:bg-sdd text-base shadow-lg ring-1 ring-s-stroke focus:outline-none sm:text-sm" min-w="150px" left="0"  p="1">
+                        <HeadlessMenuItems class="absolute mt-1 max-h-60 w-full overflow-auto rounded-15px bg-s dark:bg-sdd text-base shadow-lg ring-1 ring-s-stroke  dark:ring-sdd-stroke focus:outline-none sm:text-sm" min-w="150px" left="0" p="1">
                             <div class="px-1 py-1">
                                 <HeadlessMenuItem v-slot="{ active }">
-                                    <button @click="resourcesStore.addSubCategory()"  bg="s dark:sdd hover:s-hover dark:hover:sdd-hover" border="0" cursor="pointer" text="pw dark:pwd" :class="['group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm']">
+                                    <button @click="resourcesStore.addSubCategory()"  bg="s dark:sdd hover:s-hover dark:hover:sdd-hover" border="0" cursor="pointer" text="pw dark:pwd" class='group flex w-full items-center rounded-10px px-2 my-1 py-3 text-sm'>
                                         <icon name="ic:round-add" :active="active" class="ml-2 h-5 w-5" aria-hidden="true" />
                                         إضافة
                                     </button>
