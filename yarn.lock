@@ -550,7 +550,7 @@
 
 "@nuxtjs/color-mode@^3.2.0":
   version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/color-mode/-/color-mode-3.2.0.tgz#b5b6a3931a6ddd9646c3aad121d357c635792eb7"
+  resolved "https://registry.npmjs.org/@nuxtjs/color-mode/-/color-mode-3.2.0.tgz"
   integrity sha512-isDR01yfadopiHQ/VEVUpyNSPrk5PCjUHS4t1qYRZwuRGefU4s9Iaxf6H9nmr1QFzoMgTm+3T0r/54jLwtpZbA==
   dependencies:
     "@nuxt/kit" "^3.0.0"
@@ -800,7 +800,7 @@
 
 "@unocss/core@0.47.5":
   version "0.47.5"
-  resolved "https://registry.yarnpkg.com/@unocss/core/-/core-0.47.5.tgz#91263ff30075a2f2d3c2abf06d5b3d78d534f12d"
+  resolved "https://registry.npmjs.org/@unocss/core/-/core-0.47.5.tgz"
   integrity sha512-KADysCd6JEIowGB6INGgZRuYhaaxrxiQXl9Xh/V+H4bgjtaNDxYyvZ2qKx5+u/kB4U9iSI0ULxBAY3oyqZ/Yjw==
 
 "@unocss/inspector@0.46.5":
@@ -926,7 +926,7 @@
 
 "@unocss/transformer-directives@^0.47.5":
   version "0.47.5"
-  resolved "https://registry.yarnpkg.com/@unocss/transformer-directives/-/transformer-directives-0.47.5.tgz#106f3d92e91f659b22362913acc4460dca641411"
+  resolved "https://registry.npmjs.org/@unocss/transformer-directives/-/transformer-directives-0.47.5.tgz"
   integrity sha512-kITp0L4w3iiULZsUXMS7u7oLBf+zyl71kuuBe1DsAWy/luDWrjnFpasug37Amh8++AFSxJYh2ThAfrF2m9XEng==
   dependencies:
     "@unocss/core" "0.47.5"
@@ -1111,6 +1111,15 @@
   version "3.2.45"
   resolved "https://registry.npmjs.org/@vue/shared/-/shared-3.2.45.tgz"
   integrity sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==
+
+"@vueuse/components@^9.6.0":
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/components/-/components-9.6.0.tgz#a58cdc2f6a5c461f039b65d8d6bef1a5fc1dbfd4"
+  integrity sha512-Jqv1g68PtBC8Nnp8u2rpf6qku8cslr381fvlY1uUZa75zI2imxPLglhOWA/dBtMjla4L3nmaf9S7PAzXJnwH9w==
+  dependencies:
+    "@vueuse/core" "9.6.0"
+    "@vueuse/shared" "9.6.0"
+    vue-demi "*"
 
 "@vueuse/core@9.6.0":
   version "9.6.0"
@@ -2401,6 +2410,11 @@ function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
+
+fuse.js@^6.6.2:
+  version "6.6.2"
+  resolved "https://registry.npmjs.org/fuse.js/-/fuse.js-6.6.2.tgz"
+  integrity sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==
 
 gauge@^3.0.0:
   version "3.0.2"
@@ -4935,11 +4949,6 @@ vue-router@^4.1.6:
   integrity sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==
   dependencies:
     "@vue/devtools-api" "^6.4.5"
-
-vue-toast-notification@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.npmjs.org/vue-toast-notification/-/vue-toast-notification-0.6.3.tgz"
-  integrity sha512-w4daYmEWsUsqDfON1snfhMUxxm+Blf9OISnoOeKrN3f7HqKvH4pQYwIcPOvIr9cX2EOsRReMWfv8Kha03n9nqw==
 
 vue@^3.2.45:
   version "3.2.45"

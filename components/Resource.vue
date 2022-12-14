@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'bg-s dark:bg-sdd': opened }" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px s-stroke dark:sdd-stroke">
+    <div :class="{ 'bg-s dark:bg-sdd': opened }" flex="~ col gap-2 sm:gap-3" py="0" border="~ rounded-15px s-stroke dark:sdd-stroke" w='full'>
 
         <div @click="opened = !opened" transition="all duration-200" text="hover:black dark:hover:white" cursor="pointer" flex justify-between items-center bg="s dark:sdd hover:s-hover dark:hover:sdd-hover" hover:scale-103 class="border border-rounded-15px" p="3" :border="userOwned ? (resource.verified ? 'blue-800' : 'yellow-800') : 's-stroke dark:sdd-stroke'" :class="{
             'scale-103 text-black dark:text-white bg-s-hover dark:bg-sdd-hover': opened

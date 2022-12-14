@@ -23,9 +23,10 @@
                         <div flex="~ col gap-4" w="250px sm:xs" relative>
                             <UiInput v-if="!isLogin" v-model="authStore.name" icon="ph:user-duotone" placeholder="الأسم الثنائي" />
                             <UiInput v-model="authStore.email" icon="ic:twotone-email" placeholder="البريد الالكتروني" type="email" />
-                            <UiInput v-if="!showPassword" v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="password"/>
                             <UiInput v-if="showPassword"  v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="text"/>
-                            <Icon @click=" () => togglePassword()" name="ic:twotone-remove-red-eye" class="eye-icon" :top="isLogin ? '16' : '35' " />
+                            <UiInput v-if="!showPassword" v-model="authStore.password" icon="fluent:password-16-filled" placeholder="كلمة المرور" type="password"/>
+                            <Icon v-if="showPassword" @click=" () => togglePassword()" name="ic:twotone-remove-red-eye" class="eye-icon" :top="isLogin ? '14.5' : '33' " />
+                            <Icon v-if="!showPassword" @click=" () => togglePassword()" name="clarity:eye-hide-line" class="eye-icon" :top="isLogin ? '14.5' : '35' " />
                         </div>
 
                         <UiButton @click="isLogin ? authStore.login() : authStore.register()" w="150px" mt="0 sm:6">
@@ -54,11 +55,17 @@ const isLogin = ref(true)
 
 const user = useSupabaseUser();
 
-const showPassword = ref(true)
+const showPassword = ref(false)
 
 function togglePassword() {
     showPassword.value = !showPassword.value
 }
+
+function Login(e) {
+    isLogin ? authStore.login() : authStore.register()
+}
+
+onKeyStroke('Enter', Login)
 
 </script>
 
@@ -75,8 +82,10 @@ function togglePassword() {
 
 .eye-icon {
     position: absolute;
-    right: 90%;
+    right: 88%;
     transform: translateY(165%);
     cursor: pointer;
+    width: 20px;
+    height: 20px;
 }
 </style>

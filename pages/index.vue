@@ -1,5 +1,5 @@
 <template>
-    <div flex="~ col gap-8" my-4 sm:my-12 mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset">
+    <div flex="~ col gap-2" my-4 sm:my-12 mx-auto sm:px-6 lg:px-2 px-4 max-w-7xl overflow-y="auto" lg:overflow-y="unset" overflow-x="hidden" lg:overflow-x="unset">
         
         <div id="modals" order="2">
             <NewResource />
