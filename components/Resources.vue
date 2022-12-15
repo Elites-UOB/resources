@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-2 h-full w-full justify-center items-center">
-        <section v-if="!resourcesStore.filters.search" @click="displayMethodologies()" select="none" ref="BannerContainer" h="auto" w="full" cursor="pointer" title="عرض المناهج" >
+        <section v-if="!resourcesStore.filters.search" @click="displayMethodologies()" select="none" h="auto" w="full" cursor="pointer" title="عرض المناهج" >
             <img :src="ResourcesBanner" border="rounded-15px" alt="Resources Banner" w="full" h="100%"/>
         </section>
         <section w="full" flex="~ col gap-3"  v-if="resourcesStore.getFilteredResources?.length > 0">
@@ -20,7 +20,6 @@ import ResourcesBanner from '../public/ResourcesBanner.png'
 const resourcesStore = useResources()
 const fetchMore = resourcesStore.fetchMore
 const loading = ref(false)
-const BannerContainer = ref(null)
 
 function displayMethodologies() {
     resourcesStore.filters.search = 'منهج المرحلة'
