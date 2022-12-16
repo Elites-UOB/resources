@@ -116,9 +116,8 @@ export const useResources = defineStore("resourcesStore", {
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
               .range((this.fetchPagination - 1) * 15, (this.fetchPagination * 15) - 1)
-              
+
             this.resources.push(...<[]>data)
-            this.lastResource = data[data.length - 1];
 
           } else {
             let { data, error } = await supabase
@@ -129,10 +128,9 @@ export const useResources = defineStore("resourcesStore", {
               .order("created_at", { ascending: false })
               .eq("favourites.user_id", user.value?.id)
               .or(`verified.eq.true,or(verified.eq.false,user_id.eq.${user.value?.id})`)
-              .range((this.fetchPagination - 1) * 15, this.fetchPagination * 15)
+              .range((this.fetchPagination - 1) * 15, (this.fetchPagination * 15) - 1)
 
               this.resources.push(...<[]>data)
-            this.lastResource = data[data.length - 1];
 
           }
         } else {
@@ -143,11 +141,10 @@ export const useResources = defineStore("resourcesStore", {
             )
             .order("created_at", { ascending: false })
             .eq("verified", true)
-            .range((this.fetchPagination - 1) * 15, this.fetchPagination * 15)
+            .range((this.fetchPagination - 1) * 15, (this.fetchPagination * 15) - 1)
 
           if (error) throw error;
           this.resources.push(...<[]>data)
-          this.lastResource = data[data.length - 1];
         }
         await this.fetchCategories();
         await this.fetchSubCategories();

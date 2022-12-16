@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-2 h-full w-full justify-center items-center">
-        <section v-if="!resourcesStore.filters.search" @click="displayMethodologies()" select="none" h="auto" w="full" cursor="pointer" title="عرض المناهج" >
+        <section @click="displayCurriculums()" v-if="resourcesStore.filters.category.name !== 'مواد منهجية'" select="none" h="auto" w="full" cursor="pointer" title="عرض المناهج" >
             <img :src="ResourcesBanner" border="rounded-15px" alt="Resources Banner" w="full" h="100%"/>
         </section>
         <section w="full" flex="~ col gap-3"  v-if="resourcesStore.getFilteredResources?.length > 0">
@@ -21,14 +21,18 @@ const resourcesStore = useResources()
 const fetchMore = resourcesStore.fetchMore
 const loading = ref(false)
 
-function displayMethodologies() {
-    resourcesStore.filters.search = 'منهج المرحلة'
+function displayCurriculums() {
+    resourcesStore.filters.category.name = 'مواد منهجية'
 }
 
 useInfiniteScroll(document, async () => {
+    // hide the loading indicator when all data is loaded
+    if (resourcesStore?.fetchPagination === 5) return
     loading.value = true
     await fetchMore()
-    loading.value = false
+    setTimeout(() => {
+        loading.value = false        
+    }, 500);
 }, { distance: 15 })
 
 </script>
