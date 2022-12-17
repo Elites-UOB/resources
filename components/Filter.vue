@@ -1,7 +1,7 @@
 <template>
     <div :class="[resourcesStore.filters.state ? 'flex' : 'hidden']" w="lg:1/4" xl:flex flex="col gap-3">
         <div flex items-center justify-center w="full">
-            <UiInput v-model="resourcesStore.filters.search" w="full" select="none" placeholder="بحث" icon="ic:sharp-search" type="search" />
+            <UiInput v-model.lazy="resourcesStore.filters.search" w="full" select="none" placeholder="بحث" icon="ic:sharp-search" type="search" />
         </div>
         <!-- <UiInput  /> -->
         <Categories>
@@ -76,7 +76,7 @@
                 <HeadlessListbox v-model="resourcesStore.filters.subCategory" grow v-if="subCategories?.length > 0" z="20">
                     <div class="relative mt-1">
                         <!-- Button -->
-                        <HeadlessListboxButton class="relative w-full cursor-pointer rounded-lg bg-s dark:bg-sdd hover:bg-s-hover dark:hover:bg-sdd-hover py-2 pr-3 pl-10 border border-s-stroke border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
+                        <HeadlessListboxButton transition="all duration-200" class="relative w-full cursor-pointer rounded-lg bg-s dark:bg-sdd hover:bg-s-hover dark:hover:bg-sdd-hover py-2 pr-3 pl-10 border border-s-stroke dark:border-sdd-stroke focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-s" text="right pw dark:pwd hover:black dark:hover:white sm:sm">
                             <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                 <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                             </span>
@@ -158,6 +158,7 @@
 
 
 <script setup>
+// import { useDebounceFn } from '@vueuse/core'
 const authStore = useAuth()
 const resourcesStore = useResources()
 const categories = computed(() => [{ name: 'الكل' }, ...resourcesStore.categories])
@@ -168,6 +169,7 @@ watchEffect(() => {
     resourcesStore.filters.subCategory = subCategories.value[0]
 })
 
+// watch(resourcesStore.filters.search, useDebounceFn( resourcesStore.fetch(), 500))
 // const { results } = useFuse(resourcesStore.filters.search, resourcesStore.getFilteredResources)
 
 </script>

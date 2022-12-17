@@ -8,8 +8,8 @@ export const useResources = defineStore("resourcesStore", {
     links: [],
     isLoding: false,
     createError: null as string | null,
-    lastResource: null as any,
     fetchPagination: 1,
+    AllResources: [],
     mostPublishers: [],
 
     filters: {
@@ -53,6 +53,24 @@ export const useResources = defineStore("resourcesStore", {
     getFilteredResources: (state) => {
       let resources = state.resources;
 
+      (async function fetchResourcesByPromise() {
+       const promise = new Promise( async (resolve, reject) => {
+        const supabase = useSupabaseClient();
+        const user = useSupabaseUser();
+        const { data, error } = await supabase
+        .from("resources")
+        .select(
+          "*,profiles(id,first_name,verified), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
+        )
+        .order("created_at", { ascending: false })
+        .eq("favourites.user_id", user.value?.id)
+        .or(`verified.eq.true,or(verified.eq.false,user_id.eq.${user.value?.id})`)
+        resolve(data);
+        });
+        const res = await promise;
+        state.AllResources = <[]>res;
+      })()
+
       if (state.filters.favourites) {
         resources = resources.filter(
           (resource) => resource.favourites?.length > 0
@@ -60,12 +78,13 @@ export const useResources = defineStore("resourcesStore", {
       }
 
       if (state.filters.search) {
-        resources = resources.filter((resource) =>
+        resources = state.AllResources.filter((resource) =>
           resource.title
             .toLowerCase()
             .includes(state.filters.search.toLowerCase())
         );
       }
+
       if (state.filters.ownered) {
         const user = useSupabaseUser();
         resources = resources.filter(
@@ -78,7 +97,7 @@ export const useResources = defineStore("resourcesStore", {
       }
       if (state.filters.category) {
         if (state.filters.category?.name !== "الكل")
-          resources = resources.filter(
+          resources = state.AllResources.filter(
             (resource) =>
               resource.categories?.name === state.filters.category?.name
           );
@@ -89,7 +108,7 @@ export const useResources = defineStore("resourcesStore", {
           state.filters.category?.name !== "الكل" &&
           state.filters.subCategory?.name !== "الكل"
         )
-          resources = resources.filter(
+          resources = state.AllResources.filter(
             (resource) =>
               resource.sub_categories?.name === state.filters.subCategory?.name
           );
