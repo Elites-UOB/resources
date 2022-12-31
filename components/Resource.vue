@@ -29,7 +29,7 @@
 
                 <icon v-if="user && (userOwned || authStore.isAdmin)" @click.stop="resourcesStore.removeResource(resource)" name="ic:round-delete" text="red-500 hover:red-400" w="18px sm:32px" h="18px sm:32px" />
 
-                <icon v-if="authStore.isAdmin" @click.stop="resourcesStore.toggleVerification(resource)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" :text="resource.verified ? 'green-400' : 'pw dark:pwd hover:black dark:hover:white'" />
+                <icon v-if="authStore.isAdmin" @click.stop="resourcesStore.toggleVerification(resource)" name="ph:check-circle-duotone" w="18px sm:32px" h="18px sm:32px" :text="resource.verified ? 'green-600' : 'pw dark:pwd hover:black dark:hover:white'" />
 
 
 
@@ -56,11 +56,11 @@
             <div flex="~ col sm:row" gap-2 sm:gap-12 mr="12px sm:64px" v-if="opened" pb="8">
                 <div flex="~ col gap-2 sm:gap-4" w="sm:2/3">
                     <div flex="~ col">
-                        <span font-bold text="base sm:xl dark" my-1 select-none>الوصف</span>
+                        <span font-bold text="base sm:xl dark:gray-600" my-1 select-none>الوصف</span>
                         <div class="markdown" m-0 text="sm sm:base" ml-3 break-word text-justify v-html="markedDescription"></div>
                     </div>
                     <div v-if="(resource.links.length > 0)" flex="~ col">
-                        <span font-bold text="base sm:xl dark" my-1 select-none>الروابط</span>
+                        <span font-bold text="base sm:xl dark:gray-600" my-1 select-none>الروابط</span>
                         <ol pr-4 m="0" text="sm sm:base">
                             <li v-for="item in resource.links" :key="item.id"><a target="_blank" un-text="pw dark:pwd hover:black dark:hover:white base sm:lg" decoration="none" :href="item.url">{{ item.title }}</a></li>
                         </ol>
@@ -68,7 +68,7 @@
                 </div>
                 <div flex="~ sm:col gap-2 sm:gap-4" justify-between sm:justify-start w="sm:1/3" ml-4>
                     <div flex="~ col">
-                        <span font-bold text="base sm:xl dark" my-1 select-none>الإضافة</span>
+                        <span font-bold text="base sm:xl dark:gray-600" my-1 select-none>الإضافة</span>
                         <div flex="~ gap-1 items-center">
                             <span> {{ resource.profiles?.first_name }}</span>
                             <svg text="b" v-if="resource.profiles?.verified" mt-1 xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
@@ -84,7 +84,7 @@
                         <span v-if="(userOwned && !resource.verified)" text="yellow-500">(قيد المراجعة)</span>
                     </div>
                     <div flex="~ col">
-                        <span font-bold text="base sm:xl dark" my-1 select-none>الفئة</span>
+                        <span font-bold text="base sm:xl dark:gray-600" my-1 select-none>الفئة</span>
                         <span text="sm sm:base">{{ resource.categories?.name ?? 'غير مصنف' }} - {{ resource.sub_categories?.name ?? '' }}</span>
                     </div>
                 </div>

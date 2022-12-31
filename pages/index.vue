@@ -31,6 +31,7 @@
 
 <script setup>
 const route = useRoute()
+const resourcesStore = useResources()
 
 useHead({
     title: 'Resources - مصادر',
@@ -63,7 +64,10 @@ resourceStore.fetch();
 
 const authStore = useAuth()
 // authStore.get_my_claim()
-
+// onMounted(() => {
+//     resourceStore.getCategories()
+//     resourceStore.getSubCategories()
+// })
 watch(() => authStore.isAdmin, (val) => resourceStore.fetch())
 
 

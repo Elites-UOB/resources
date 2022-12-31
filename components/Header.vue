@@ -1,5 +1,5 @@
 <template>
-    <header flex="~ col sm:row" gap-4 sm:items-center justify-between>
+    <header id="header" flex="~ col sm:row" gap-4 sm:items-center justify-between>
         <!-- Right -->
         <div flex justify-between items-center>
             <div @click="reset()" decoration="none" flex items-center gap-3 bg="hover:s-hover dark:hover:sdd-hover" py-4 px-6 rounded-15px cursor="pointer" un-text="pw dark:pwd hover:black dark:hover:white" transition="all duration-200">
@@ -8,14 +8,14 @@
             </div>
 
 
-            <div alt="المظهر" @click="changeColorMode()" square py-4 px-6 block sm:hidden>
+            <div alt="المظهر" @click="changeColorMode()" square py-4 px-6 block sm:hidden cursor="pointer">
                 <icon v-if="$colorMode.preference == 'light'" name="line-md:sun-rising-twotone-loop"  w="8 sm:12" h="8 sm:12" />
                 <icon v-if="$colorMode.preference == 'dark'" name="line-md:moon-rising-twotone-loop"  w="8 sm:12" h="8 sm:12" />
             </div>
         </div>
 
         <!-- Left -->
-        <div flex="~" justify-between gap-2 sm:gap-8>
+        <div flex="~" justify-between items-center gap-2 sm:gap-8>
             <div flex gap-3>
                 <div hidden sm:block>
                     <UiButton alt="المظهر" @click="changeColorMode()" square>
@@ -62,7 +62,7 @@
             <HeadlessMenu v-if="user" as="div" class="relative inline-block text-right" z="20">
                 <div>
                     <HeadlessMenuButton bg="transparent" border="0">
-                        <UiButton v-if="user" px="lg:6" h="14 sm:auto" w="14 sm:auto">
+                        <UiButton v-if="user" px="lg:6" h="11 sm:auto" w="11 sm:auto">
                             <icon name="ph:user-duotone" w="4 sm:8" h="4 sm:8" />
                             <span hidden sm:block>{{ user.user_metadata.first_name }}</span>
                         </UiButton>

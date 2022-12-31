@@ -9,8 +9,11 @@ export const useResources = defineStore("resourcesStore", {
     isLoding: false,
     createError: null as string | null,
     fetchPagination: 1,
-    AllResources: [],
     mostPublishers: [],
+    resourcesCategories: [],
+    resourcesSubCategories: [],
+    allResources: [],
+    displayBanner: true,
 
     filters: {
       state: false,
@@ -52,24 +55,7 @@ export const useResources = defineStore("resourcesStore", {
     getMostPublishers: (state) => state.mostPublishers,
     getFilteredResources: (state) => {
       let resources = state.resources;
-
-      (async function fetchResourcesByPromise() {
-       const promise = new Promise( async (resolve, reject) => {
-        const supabase = useSupabaseClient();
-        const user = useSupabaseUser();
-        const { data, error } = await supabase
-        .from("resources")
-        .select(
-          "*,profiles(id,first_name,verified), favourites(*), categories(id,name,icon), sub_categories(id,name),links(id,title,url)"
-        )
-        .order("created_at", { ascending: false })
-        .eq("favourites.user_id", user.value?.id)
-        .or(`verified.eq.true,or(verified.eq.false,user_id.eq.${user.value?.id})`)
-        resolve(data);
-        });
-        const res = await promise;
-        state.AllResources = <[]>res;
-      })()
+      let allResources = state.allResources;
 
       if (state.filters.favourites) {
         resources = resources.filter(
@@ -78,7 +64,7 @@ export const useResources = defineStore("resourcesStore", {
       }
 
       if (state.filters.search) {
-        resources = state.AllResources.filter((resource) =>
+        resources = resources.filter((resource) =>
           resource.title
             .toLowerCase()
             .includes(state.filters.search.toLowerCase())
@@ -95,23 +81,21 @@ export const useResources = defineStore("resourcesStore", {
       if (state.filters.verified) {
         resources = resources.filter((resource) => resource.verified === false);
       }
-      if (state.filters.category) {
-        if (state.filters.category?.name !== "الكل")
-          resources = state.AllResources.filter(
-            (resource) =>
-              resource.categories?.name === state.filters.category?.name
-          );
+      // filter by the primary category
+      if (state.filters.category?.name !== "الكل") {
+          resources = resources.filter((resource) =>
+            resource.categories?.name === state.filters.category?.name
+           )
       }
-
+      // filter by the primary subCategory
       if (state.filters.subCategory) {
         if (
           state.filters.category?.name !== "الكل" &&
           state.filters.subCategory?.name !== "الكل"
         )
-          resources = state.AllResources.filter(
-            (resource) =>
-              resource.sub_categories?.name === state.filters.subCategory?.name
-          );
+          resources = resources.filter((resource) => 
+            resource.sub_categories?.name === state.filters.subCategory?.name
+          )
       }
 
       return resources;
@@ -178,7 +162,35 @@ export const useResources = defineStore("resourcesStore", {
         this.fetch()
         },
 
+    // async getCategories() {
+    //   const supabase = useSupabaseClient();
+    //   try {
+    //     let { data, error } = await supabase
+    //       .from("resources")
+    //       .select("*")
+    //       .eq('category', this.filters.category)
 
+    //     this.resourcesCategories = data
+    //     console.log("data", data)
+    //   } catch (error) {
+    //     console.log("error", error);
+    //   }
+    // },
+
+    // async getSubCategories() {
+    //   const supabase = useSupabaseClient();
+    //   try {
+    //     let { data, error } = await supabase
+    //       .from("resources")  
+    //       .select("*")
+    //       .eq('sub_category', this.filters.subCategory)
+
+    //       this.resourcesSubCategories = data;
+    //     console.log("data", data)
+    //   } catch (error) {
+    //     console.log("error", error);
+    //   }
+    // },
 
     async fetchCategories() {
       const supabase = useSupabaseClient();
@@ -520,3 +532,7 @@ export const useResources = defineStore("resourcesStore", {
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useResources, import.meta.hot));
 }
+// function getAllResources() {
+//   throw new Error("Function not implemented.");
+// }
+
