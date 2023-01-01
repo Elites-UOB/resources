@@ -64,11 +64,6 @@ resourceStore.fetch();
 
 const authStore = useAuth()
 // authStore.get_my_claim()
-// onMounted(() => {
-//     resourceStore.getCategories()
-//     resourceStore.getSubCategories()
-// })
+
 watch(() => authStore.isAdmin, (val) => resourceStore.fetch())
-
-
 </script>

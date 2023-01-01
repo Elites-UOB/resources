@@ -26,7 +26,7 @@ function displayCurriculums() {
     resourcesStore.displayBanner = false
 }
 
-useInfiniteScroll(document, async () => {
+useInfiniteScroll( document , async () => {
     // hide the loading indicator when all data is loaded
     if (resourcesStore?.fetchPagination === 5) return
     loading.value = true

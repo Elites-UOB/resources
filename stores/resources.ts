@@ -10,9 +10,6 @@ export const useResources = defineStore("resourcesStore", {
     createError: null as string | null,
     fetchPagination: 1,
     mostPublishers: [],
-    resourcesCategories: [],
-    resourcesSubCategories: [],
-    allResources: [],
     displayBanner: true,
 
     filters: {
@@ -55,7 +52,6 @@ export const useResources = defineStore("resourcesStore", {
     getMostPublishers: (state) => state.mostPublishers,
     getFilteredResources: (state) => {
       let resources = state.resources;
-      let allResources = state.allResources;
 
       if (state.filters.favourites) {
         resources = resources.filter(
@@ -162,35 +158,6 @@ export const useResources = defineStore("resourcesStore", {
         this.fetch()
         },
 
-    // async getCategories() {
-    //   const supabase = useSupabaseClient();
-    //   try {
-    //     let { data, error } = await supabase
-    //       .from("resources")
-    //       .select("*")
-    //       .eq('category', this.filters.category)
-
-    //     this.resourcesCategories = data
-    //     console.log("data", data)
-    //   } catch (error) {
-    //     console.log("error", error);
-    //   }
-    // },
-
-    // async getSubCategories() {
-    //   const supabase = useSupabaseClient();
-    //   try {
-    //     let { data, error } = await supabase
-    //       .from("resources")  
-    //       .select("*")
-    //       .eq('sub_category', this.filters.subCategory)
-
-    //       this.resourcesSubCategories = data;
-    //     console.log("data", data)
-    //   } catch (error) {
-    //     console.log("error", error);
-    //   }
-    // },
 
     async fetchCategories() {
       const supabase = useSupabaseClient();

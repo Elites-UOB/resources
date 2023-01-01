@@ -60,7 +60,7 @@
                                         <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                                             <icon name="ic:round-arrow-drop-down" class="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>
-                                        <span class="block truncate">{{ resourcesStore.current.subCategory?.name ?? 'اختر الفئة الرئيسية' }}</span>
+                                        <span class="block truncate">{{ resourcesStore.current.subCategory?.name ?? 'اختر الفئة الثانوية' }}</span>
                                     </HeadlessListboxButton>
                                     <!-- List Options -->
                                     <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100" leave-to-class="opacity-0">
