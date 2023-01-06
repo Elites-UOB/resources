@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import ResourcesBanner from '../public/newBanner.png'
+import ResourcesBanner from '../public/newerBanner.png'
 // import ResourcesBanner from '../public/ResourcesBanner.png'
 const resourcesStore = useResources()
 const fetchMore = resourcesStore.fetchMore
